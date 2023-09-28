@@ -6,7 +6,7 @@
   <meta http-equiv="cache-control" content="no-cache">
   <meta http-equiv="expires" content="0">
   
-  <title>about | Stalk&#39;s Blog</title>
+  <title>Hexo搭建自己的博客笔记 | Stalk&#39;s Blog</title>
   <meta name="author" content="Stalk">
   
   <meta name="description" content="正在施工中...">
@@ -14,7 +14,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="about"/>
+  <meta property="og:title" content="Hexo搭建自己的博客笔记"/>
   <meta property="og:site_name" content="Stalk&#39;s Blog"/>
 
   
@@ -99,25 +99,40 @@
   <div class="container">
   	<div class="content">
     	 
+
+
 	
 		<div class="page-header">
-			<h1> about</h1>
+			<h1> Hexo搭建自己的博客笔记</h1>
 		</div>
 	
 
 
 
-<div class="row page">
+<div class="row post">
 	<!-- cols -->
 	
-	<div class="col-md-12"> 
+	<div id="top_meta"></div>
+	<div class="col-md-9">
 	
 
 	<!-- content -->
 	<div class="mypage">		
 	  		
 
-	  
+	  <h2 id="Hexo部署"><a href="#Hexo部署" class="headerlink" title="Hexo部署"></a>Hexo部署</h2><p>根据<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs">Hexo官方文档</a>,需要安装<a target="_blank" rel="noopener" href="https://nodejs.org"node.js"/">Node.js</a>(且版本不能低于10.13),还有<a target="_blank" rel="noopener" href="https://git-scm.com"git"/">Git</a>。</p>
+<h2 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h2><p>可以使用npm安装,终端输入</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">npm</span> <span class="token function">install</span> <span class="token parameter variable">-g</span> hexo-cli<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>或者</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">npm</span> <span class="token function">install</span> hexo<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>安装以后可以使用以下两种方式执行Hexo:</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">npx hexo <span class="token operator">&lt;</span>command<span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>或者</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">echo</span> <span class="token string">'PATH="$PATH:./node_modules/.bin"'</span> <span class="token operator">>></span> ~/.profile<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 	  <div class="article-footer-copyright">
 
     本博客采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议(CC BY-NC-SA 4.0) 发布.</a>
@@ -133,6 +148,17 @@
 	<div class="pagination">
 
     
+    
+    <a type="button" class="btn btn-default disabled"><i class="fa fa-arrow-circle-o-left"></i>上一页</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2023-09-28-hello-world.html" type="button" class="btn btn-default ">下一页<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
 </div>
 
 
@@ -141,6 +167,12 @@
 	
 	<!-- comment -->
 	<!--
+<section id="comment">
+    <h2 class="title">留言</h2>
+
+    
+</section>
+
 -->
 	
 	
@@ -148,6 +180,37 @@
 	</div> <!-- col-md-9/col-md-12 -->
 
 
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2023-09-28 
+	</div>
+	
+
+	<!-- categories -->
+    
+
+	<!-- tags -->
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+		
+
+	</div>
+	
 		
 
 </div><!-- row -->
