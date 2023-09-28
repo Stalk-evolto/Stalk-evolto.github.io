@@ -4,6 +4,19 @@
   
     
     <entry>
+      <title>Hexo搭建自己的博客笔记</title>
+      <link href="/2023-09-28-Hexo%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2%E7%AC%94%E8%AE%B0.html"/>
+      <url>/2023-09-28-Hexo%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2%E7%AC%94%E8%AE%B0.html</url>
+      
+        <content type="html"><![CDATA[<h2 id="Hexo部署"><a href="#Hexo部署" class="headerlink" title="Hexo部署"></a>Hexo部署</h2><p>根据<a href="https://hexo.io/zh-cn/docs%22Hexo%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3%E2%80%9C">Bing</a>,需要安装<a href="https://nodejs.org"node.js"/">Bing</a>(且版本不能低于10.13),还有<a href="https://git-scm.com"git"/">Bing</a>。</p><h2 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h2><p>可以使用npm安装,终端输入</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">npm</span> <span class="token function">install</span> <span class="token parameter variable">-g</span> hexo-cli<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>或者</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">npm</span> <span class="token function">install</span> hexo<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>安装以后可以使用以下两种方式执行Hexo:</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">npx hexo <span class="token operator">&lt;</span>command<span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>或者</p><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">echo</span> <span class="token string">'PATH="$PATH:./node_modules/.bin"'</span> <span class="token operator">>></span> ~/.profile<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Hello World</title>
       <link href="/2023-09-28-hello-world.html"/>
       <url>/2023-09-28-hello-world.html</url>
