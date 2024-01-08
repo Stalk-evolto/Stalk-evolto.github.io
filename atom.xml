@@ -6,7 +6,7 @@
   <link href="https://stalk-evolto.github.io/atom.xml" rel="self"/>
   
   <link href="https://stalk-evolto.github.io/"/>
-  <updated>2023-10-01T00:15:51.366Z</updated>
+  <updated>2023-11-23T08:29:23.040Z</updated>
   <id>https://stalk-evolto.github.io/</id>
   
   <author>
@@ -15,6 +15,25 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>GMTSAR使用笔记</title>
+    <link href="https://stalk-evolto.github.io/2023-11-23-GMTSAR%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0.html"/>
+    <id>https://stalk-evolto.github.io/2023-11-23-GMTSAR%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0.html</id>
+    <published>2023-11-23T03:05:42.000Z</published>
+    <updated>2023-11-23T08:29:23.040Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="GMTSAR"><a href="#GMTSAR" class="headerlink" title="GMTSAR"></a>GMTSAR</h1>]]></content>
+    
+    
+    <summary type="html">最新修改时间为2023-11-15 11:05:42，请注意时效性，本文为作者个人笔记，如有异议请以官方文档为准。</summary>
+    
+    
+    
+    
+    <category term="notes" scheme="https://stalk-evolto.github.io/tags/notes/"/>
+    
+  </entry>
   
   <entry>
     <title>Hexo搭建自己的博客笔记</title>
