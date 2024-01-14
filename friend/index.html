@@ -235,7 +235,12 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://stalk-evolto.github.io/friend/index.html" data-id="clrdmg8550000ixzw3pqa7ukc" data-title="友情链接" class="article-share-link">分享</a>
+      <a data-url="http://stalk-evolto.github.io/friend/index.html" data-id="clrdnsz3y0001jizwftucca1k" data-title="友情链接" class="article-share-link">分享</a>
+      
+        <a href="/friend/index.html#comments" class="article-comment-link">
+          <span class="post-comments-count valine-comment-count" data-xid="/friend/" itemprop="commentCount"></span>
+          留言
+        </a>
       
       
       
@@ -249,6 +254,8 @@
 
   
 </article>
+
+  <section id="comments" class="vcomment"></section>
 
 
 
@@ -468,6 +475,33 @@
 
 
 
+
+  
+<script src="https://npm.webcache.cn/valine@1.5.1/dist/Valine.min.js" data-pjax></script>
+
+  <script data-pjax>
+    var GUEST_INFO = ['nick', 'mail', 'link'];
+    var guest_info = 'nick,mail,link'.split(',').filter((item) => {
+      return GUEST_INFO.indexOf(item) > -1
+    });
+    var recordIP = JSON.parse('true');
+    var highlight = JSON.parse('true');
+    var visitor = JSON.parse('false');
+
+    new Valine({
+      el: '.vcomment',
+      appId: "zQbeM79MYe7RaELYTUTgbdIu-gzGzoHsz",
+      appKey: "TmweoAtdOQajPOY6n1x3vpIR",
+      placeholder: "Just go go",
+      pageSize: '10',
+      avatar: 'mp',
+      lang: 'zh-cn',
+      recordIP: recordIP,
+      highlight: highlight,
+      visitor: visitor,
+      path: window.location.pathname
+    });
+  </script>
 
 
 
