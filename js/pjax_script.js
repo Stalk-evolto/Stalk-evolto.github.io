@@ -36,7 +36,7 @@ var scrollIntoViewAndWait = (element) => {
 
 (function ($) {
   // anchor
-  $('.markdownIt-Anchor').each(function () {
+  $('.article-entry h1>a, .article-entry h2>a, .article-entry h3>a, .article-entry h4>a, .article-entry h5>a, .article-entry h6>a').each(function () {
     $(this)[0].innerHTML = "&#xf292;";
   });
 
@@ -205,8 +205,10 @@ var scrollIntoViewAndWait = (element) => {
   });
 
   (function () {
-    const navItems = getComputedStyle(document.getElementById('sidebar')).display === 'block' ? $('#sidebar .toc li') : $('#mobile-nav .toc li');
-    if (navItems.length === 0) return;
+    const navItems = getComputedStyle(document.getElementById('sidebar')).display === 'block' ?
+      $('#sidebar .sidebar-toc-wrapper li') :
+      $('#mobile-nav .sidebar-toc-wrapper li');
+    if (!navItems.length) return;
 
     let activeLock = null;
 
@@ -225,8 +227,8 @@ var scrollIntoViewAndWait = (element) => {
         anchorScroll(e);
       });
       const anchor = $(decodeURI(link.attr('href')));
-      if (!anchor) return null;
-      const alink = anchor.children('a.markdownIt-Anchor');
+      if (!anchor.length) return null;
+      const alink = anchor.children('a');
       alink && alink.on('click', (e) => {
         anchorScroll(e);
       });
@@ -235,10 +237,11 @@ var scrollIntoViewAndWait = (element) => {
 
     const activateNavByIndex = (index) => {
       const target = $(navItems[index]);
-      if (!target) return;
+
+      if (!target.length) return;
       if (target.hasClass('current')) return;
 
-      $('.toc .active').removeClass('active current');
+      $('.sidebar-toc-wrapper .active').removeClass('active current');
 
       sections.each(function () {
         $(this) && $(this).removeClass('active');
@@ -288,7 +291,7 @@ var scrollIntoViewAndWait = (element) => {
     }
 
     const observer = new IntersectionObserver((entries) => {
-      const index = findIndex(entries) + (window.diffY < 0 ? 1 : 0)
+      const index = findIndex(entries) + (window.diffY > 0 ? 1 : 0)
       if (activeLock === null) {
         activateNavByIndex(index)
       }
