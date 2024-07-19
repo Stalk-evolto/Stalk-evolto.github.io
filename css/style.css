@@ -239,216 +239,222 @@ body:after {
 .article-entry dt {
   font-weight: bold;
 }
+@font-face {
+  font-family: "iconfont";
+  src: url("//at.alicdn.com/t/c/font_4552607_tq6stt6tcg.woff2") format('woff2'), url("//at.alicdn.com/t/c/font_4552607_tq6stt6tcg.woff") format('woff'), url("//at.alicdn.com/t/c/font_4552607_tq6stt6tcg.ttf") format('truetype');
+  font-display: swap;
+}
 .tag-wrap .archives-tag-list-link:before {
-  font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands", "Font Awesome 5 Free", "Font Awesome 5 Brands", "FontAwesome";
-  content: "\f02b";
+  font-family: "iconfont";
+  content: "\e622";
 }
 .category-wrap .archives-category-list-link:before {
-  font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands", "Font Awesome 5 Free", "Font Awesome 5 Brands", "FontAwesome";
-  content: "\f02e";
+  font-family: "iconfont";
+  content: "\e604";
 }
 .article-date-link:before {
-  font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands", "Font Awesome 5 Free", "Font Awesome 5 Brands", "FontAwesome";
-  content: "\f017";
+  font-family: "iconfont";
+  content: "\e606";
 }
 .article-category-link:before {
-  font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands", "Font Awesome 5 Free", "Font Awesome 5 Brands", "FontAwesome";
-  content: "\f02e";
+  font-family: "iconfont";
+  content: "\e604";
 }
 .article-tag-list-link:before {
-  font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands", "Font Awesome 5 Free", "Font Awesome 5 Brands", "FontAwesome";
-  content: "\f02b";
+  font-family: "iconfont";
+  content: "\e622";
 }
 .article-comment-link:before {
-  font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands", "Font Awesome 5 Free", "Font Awesome 5 Brands", "FontAwesome";
-  content: "\f075";
+  font-family: "iconfont";
+  content: "\e608";
 }
 .icon-copyright:before {
-  font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands", "Font Awesome 5 Free", "Font Awesome 5 Brands", "FontAwesome";
-  content: "\f1f9";
+  font-family: "iconfont";
+  content: "\e60a";
 }
 .icon-brush:before {
-  font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands", "Font Awesome 5 Free", "Font Awesome 5 Brands", "FontAwesome";
-  content: "\f1fc";
+  font-family: "iconfont";
+  content: "\e618";
 }
 .icon-coffee:before {
-  font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands", "Font Awesome 5 Free", "Font Awesome 5 Brands", "FontAwesome";
-  content: "\f0f4";
+  font-family: "iconfont";
+  content: "\e607";
 }
 .icon-eye:before {
-  font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands", "Font Awesome 5 Free", "Font Awesome 5 Brands", "FontAwesome";
-  content: "\f06e";
+  font-family: "iconfont";
+  content: "\e60f";
 }
 .icon-user:before {
-  font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands", "Font Awesome 5 Free", "Font Awesome 5 Brands", "FontAwesome";
-  content: "\f007";
+  font-family: "iconfont";
+  content: "\e628";
 }
 #main-nav-toggle:before {
-  font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands", "Font Awesome 5 Free", "Font Awesome 5 Brands", "FontAwesome";
-  content: "\f0c9";
+  font-family: "iconfont";
+  content: "\e62f";
 }
 #nav-rss-link:before {
-  font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands", "Font Awesome 5 Free", "Font Awesome 5 Brands", "FontAwesome";
-  content: "\f09e";
+  font-family: "iconfont";
+  content: "\e61f";
 }
 #nav-search-btn:before {
-  font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands", "Font Awesome 5 Free", "Font Awesome 5 Brands", "FontAwesome";
-  content: "\f002";
+  font-family: "iconfont";
+  content: "\e631";
 }
 #nav-sun-btn:before {
-  font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands", "Font Awesome 5 Free", "Font Awesome 5 Brands", "FontAwesome";
-  content: "\f185";
+  font-family: "iconfont";
+  content: "\e621";
 }
 #nav-moon-btn:before {
-  font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands", "Font Awesome 5 Free", "Font Awesome 5 Brands", "FontAwesome";
-  content: "\f186";
+  font-family: "iconfont";
+  content: "\e617";
 }
 .icon-copy:before {
-  font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands", "Font Awesome 5 Free", "Font Awesome 5 Brands", "FontAwesome";
-  content: "\f0c5";
+  font-family: "iconfont";
+  content: "\e60c";
 }
 .icon-chevron-down:before {
-  font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands", "Font Awesome 5 Free", "Font Awesome 5 Brands", "FontAwesome";
-  content: "\f078";
+  font-family: "iconfont";
+  content: "\e609";
 }
 .icon-check:before {
-  font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands", "Font Awesome 5 Free", "Font Awesome 5 Brands", "FontAwesome";
-  content: "\f00c";
+  font-family: "iconfont";
+  content: "\e636";
 }
 .icon-times:before {
-  font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands", "Font Awesome 5 Free", "Font Awesome 5 Brands", "FontAwesome";
-  content: "\f00d";
+  font-family: "iconfont";
+  content: "\e637";
 }
 .post-meta .icon-calendar:before {
-  font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands", "Font Awesome 5 Free", "Font Awesome 5 Brands", "FontAwesome";
-  content: "\f073";
+  font-family: "iconfont";
+  content: "\e605";
 }
 .post-meta .icon-pencil:before {
-  font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands", "Font Awesome 5 Free", "Font Awesome 5 Brands", "FontAwesome";
-  content: "\f5ad";
-}
-.post-meta .icon-clock:before {
-  font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands", "Font Awesome 5 Free", "Font Awesome 5 Brands", "FontAwesome";
-  content: "\f252";
-}
-.post-sticky:before {
-  font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands", "Font Awesome 5 Free", "Font Awesome 5 Brands", "FontAwesome";
-  content: "\f164";
-}
-.reimu-popup .popup-btn-close:before {
-  font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands", "Font Awesome 5 Free", "Font Awesome 5 Brands", "FontAwesome";
-  content: "\f057";
-}
-.reimu-search-input-icon:before {
-  font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands", "Font Awesome 5 Free", "Font Awesome 5 Brands", "FontAwesome";
-  content: "\f002";
-}
-.ais-pagination--item__previous a:before {
-  font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands", "Font Awesome 5 Free", "Font Awesome 5 Brands", "FontAwesome";
-  content: "\f104";
-}
-.ais-pagination--item__next a:before {
-  font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands", "Font Awesome 5 Free", "Font Awesome 5 Brands", "FontAwesome";
-  content: "\f105";
-}
-.icon-github:before {
-  content: "\f09b";
-}
-.icon-google:before {
-  content: "\f0d5";
-}
-.icon-facebook:before {
-  content: "\f09a";
-}
-.icon-twitter:before {
+  font-family: "iconfont";
   content: "\e61b";
 }
+.post-meta .icon-clock:before {
+  font-family: "iconfont";
+  content: "\e613";
+}
+.post-sticky:before {
+  font-family: "iconfont";
+  content: "\e627";
+}
+.reimu-popup .popup-btn-close:before {
+  font-family: "iconfont";
+  content: "\e626";
+}
+.reimu-search-input-icon:before {
+  font-family: "iconfont";
+  content: "\e631";
+}
+.ais-pagination--item__previous a:before {
+  font-family: "iconfont";
+  content: "\e601";
+}
+.ais-pagination--item__next a:before {
+  font-family: "iconfont";
+  content: "\e630";
+}
+.icon-github:before {
+  font-family: "iconfont";
+  content: "\e619";
+}
+.icon-google:before {
+  content: "\e611";
+}
+.icon-facebook:before {
+  content: "\e60e";
+}
+.icon-twitter:before {
+  content: "\e62a";
+}
 .icon-instagram:before {
-  content: "\f16d";
+  content: "\e615";
 }
 .icon-linkedin:before {
-  content: "\f08c";
+  content: "\e614";
 }
 .icon-pinterest:before {
-  content: "\f0d2";
+  content: "\e61a";
 }
 .icon-youtube:before {
-  content: "\f167";
+  content: "\e62d";
 }
 .icon-vimeo:before {
-  content: "\f194";
+  content: "\e629";
 }
 .icon-flickr:before {
-  content: "\f16e";
+  content: "\e612";
 }
 .icon-dribbble:before {
-  content: "\f17d";
+  content: "\e610";
 }
 .icon-behance:before {
-  content: "\f1b4";
+  content: "\e602";
 }
 .icon-bilibili:before {
-  content: "\e3d9";
+  content: "\e603";
 }
 .icon-weibo:before {
-  content: "\f18a";
+  content: "\e62c";
 }
 .icon-zhihu:before {
-  content: "\f63f";
+  content: "\e62e";
 }
 .icon-reddit:before {
-  content: "\f1a1";
+  content: "\e61c";
 }
 .icon-tumblr:before {
-  content: "\f173";
+  content: "\e625";
 }
 .icon-medium:before {
-  content: "\f23a";
+  content: "\e616";
 }
 .icon-deviantart:before {
-  content: "\f1bd";
+  content: "\e60b";
 }
 .icon-stackoverflow:before {
-  content: "\f16c";
+  content: "\e620";
 }
 .icon-keybase:before {
-  content: "\f4f5";
+  content: "\e61e";
 }
 .icon-telegram:before {
-  content: "\f2c6";
+  content: "\e623";
 }
 .icon-discord:before {
-  content: "\f392";
+  content: "\e60d";
 }
 .icon-steam:before {
-  content: "\f1b6";
+  content: "\e624";
 }
 .icon-email:before {
-  content: "\f0e0";
+  content: "\e63c";
 }
 .sidebar-btn-wrapper .sidebar-toc-btn:before {
-  font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands", "Font Awesome 5 Free", "Font Awesome 5 Brands", "FontAwesome";
-  content: "\f0e8";
+  font-family: "iconfont";
+  content: "\e633";
 }
 .sidebar-btn-wrapper .sidebar-common-btn:before {
-  font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands", "Font Awesome 5 Free", "Font Awesome 5 Brands", "FontAwesome";
-  content: "\e3af";
+  font-family: "iconfont";
+  content: "\e632";
 }
 .sidebar-top .arrow-up:before {
-  font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands", "Font Awesome 5 Free", "Font Awesome 5 Brands", "FontAwesome";
-  content: "\f062";
+  font-family: "iconfont";
+  content: "\e634";
 }
 .icon-link:before {
-  font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands", "Font Awesome 5 Free", "Font Awesome 5 Brands", "FontAwesome";
-  content: "\f0c1";
+  font-family: "iconfont";
+  content: "\e639";
 }
 .icon-globe:before {
-  font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands", "Font Awesome 5 Free", "Font Awesome 5 Brands", "FontAwesome";
-  content: "\f0ac";
+  font-family: "iconfont";
+  content: "\e638";
 }
 .icon-creative-commons:before {
-  font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands", "Font Awesome 5 Free", "Font Awesome 5 Brands", "FontAwesome";
-  content: "\f25e";
+  font-family: "iconfont";
+  content: "\e63a";
 }
 html,
 body,
@@ -564,6 +570,7 @@ html,
 body,
 #container {
   height: 100%;
+  cursor: var(--cursor-default);
 }
 body {
   background: var(--color-background);
@@ -571,6 +578,23 @@ body {
   text-size-adjust: 100%;
   font-family: Mulish, 'Noto Serif SC', 'Noto Serif JP', -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
   transition: background 0.3s ease;
+}
+a {
+  cursor: var(--cursor-pointer) !important;
+}
+.site-search input {
+  cursor: var(--cursor-text) !important;
+}
+#main span,
+#main p,
+#main code,
+#main kbd,
+#main input,
+#main textarea {
+  cursor: var(--cursor-text) !important;
+}
+#main nav span {
+  cursor: var(--cursor-default) !important;
 }
 .outer {
   max-width: 1220px;
@@ -825,7 +849,7 @@ body {
   height: 14px;
   padding: 20px 15px;
   position: relative;
-  cursor: pointer;
+  cursor: var(--cursor-pointer);
 }
 [data-theme="dark"] .main-nav-link,
 [data-theme="dark"] .main-nav-icon,
@@ -854,7 +878,7 @@ body {
   background: url("../images/taichi.png") no-repeat center/80%;
   transform: rotate(0deg);
   transition: transform 1s ease;
-  cursor: pointer;
+  cursor: var(--cursor-pointer);
 }
 #main-nav-toggle {
   display: none;
@@ -985,7 +1009,7 @@ a.article-title:hover {
 .article-entry h4:before,
 .article-entry h5:before,
 .article-entry h6:before {
-  font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands", "Font Awesome 5 Free", "Font Awesome 5 Brands", "FontAwesome";
+  font-family: "iconfont";
   font-weight: normal;
 }
 .article-entry h1 a,
@@ -994,7 +1018,7 @@ a.article-title:hover {
 .article-entry h4 a,
 .article-entry h5 a,
 .article-entry h6 a {
-  font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands", "Font Awesome 5 Free", "Font Awesome 5 Brands", "FontAwesome";
+  font-family: "iconfont";
   opacity: 0.5;
   margin-right: 5px;
   transition: all 0.3s ease;
@@ -2086,7 +2110,7 @@ pre .javascript .function {
   margin: 5px;
   z-index: 1;
   filter: invert(50%);
-  cursor: pointer;
+  cursor: var(--cursor-pointer);
   color: #fff;
 }
 .code-lang {
@@ -2095,13 +2119,13 @@ pre .javascript .function {
   font-weight: bold;
   z-index: 1;
   filter: invert(50%);
-  cursor: pointer;
+  cursor: var(--cursor-pointer);
 }
 .code-expand {
   margin: 5px;
   filter: invert(50%);
   z-index: 1;
-  cursor: pointer;
+  cursor: var(--cursor-pointer);
   transition: all 0.3s;
   transform: rotate(0deg);
   color: #fff;
@@ -2329,7 +2353,7 @@ pre .javascript .function {
   font: 20px bold;
   text-transform: uppercase;
   vertical-align: middle;
-  cursor: pointer;
+  cursor: var(--cursor-pointer);
   padding-left: 15px;
   top: 8px;
 }
@@ -2360,6 +2384,7 @@ pre .javascript .function {
 }
 .reimu-powered {
   float: right;
+  cursor: var(--cursor-default) !important;
 }
 .reimu-powered img {
   display: inline-block;
@@ -2684,7 +2709,7 @@ pre .javascript .function {
   align-items: center;
   width: 36px;
   height: 25px;
-  font: 20px "Font Awesome 6 Free", "Font Awesome 6 Brands", "Font Awesome 5 Free", "Font Awesome 5 Brands", "FontAwesome";
+  font: 20px "iconfont";
 }
 .icon-email {
   color: #f77;
@@ -2835,7 +2860,7 @@ pre .javascript .function {
   height: 50px;
   background-color: var(--color-wrap);
   border-radius: 50%;
-  font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands", "Font Awesome 5 Free", "Font Awesome 5 Brands", "FontAwesome";
+  font-family: "iconfont";
   box-shadow: 1px 2px 10px rgba(0,0,0,0.2);
   z-index: 999;
   transition: all 0.3s ease;
