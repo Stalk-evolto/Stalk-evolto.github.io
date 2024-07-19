@@ -51,6 +51,10 @@
   
   
   
+    
+<link rel="stylesheet" href="https://npm.webcache.cn/@waline/client@v2/dist/waline.css">
+
+  
   
   
 <script src="https://npm.webcache.cn/pace-js@1.2.4/pace.min.js"></script>
@@ -354,7 +358,7 @@
       
         <div>
           <span class="icon-brush"></span>
-          2.8k
+          2.9k
           &nbsp;|&nbsp;
           <span class="icon-coffee"></span>
           00:11
@@ -480,35 +484,27 @@
 
 
 
-  
-<script src="https://npm.webcache.cn/valine@1.5.1/dist/Valine.min.js" data-pjax></script>
 
-  <script data-pjax>
-    var GUEST_INFO = ['nick', 'mail', 'link'];
-    var guest_info = 'nick,mail,link'.split(',').filter((item) => {
-      return GUEST_INFO.indexOf(item) > -1
-    });
-    var recordIP = JSON.parse('true');
-    var highlight = JSON.parse('true');
-    var visitor = JSON.parse('true');
 
-    new Valine({
-      el: '.vcomment',
-      appId: "9bohehlaDO3nAU9kAcOgbosP-MdYXbMMI",
-      appKey: "XVHswKOebAwxJ6pQMpBW72Wd",
-      placeholder: "Just go go",
-      pageSize: '10',
-      avatar: 'mp',
-      lang: 'zh-cn',
-      recordIP: recordIP,
-      highlight: highlight,
-      visitor: visitor,
-      requiredFields: guest_info,
-      path: window.location.pathname
+  <script data-pjax type="module">
+    import { init } from "https://npm.webcache.cn/@waline/client@v2/dist/waline.mjs";
+    if(document.querySelector('.wcomment')) {
+      init({
+        el: '.wcomment',
+        serverURL: 'https://stalkblogwaline.vercel.app',
+        lang: 'zh-CN',
+        locale: {},
+        emoji: ["https://unpkg.com/@waline/emojis@1.0.1/weibo","https://unpkg.com/@waline/emojis@1.0.1/alus","https://unpkg.com/@waline/emojis@1.0.1/bilibili","https://unpkg.com/@waline/emojis@1.0.1/qq","https://unpkg.com/@waline/emojis@1.0.1/tieba","https://unpkg.com/@waline/emojis@1.0.1/tw-emoji"],
+        meta: ["nick","mail","link"],
+        requiredMeta: ["nick","mail"],
+        wordLimit: JSON.parse('0'),
+        comment: true,
+        pageSize: JSON.parse('10'),
+        dark: 'html[data-theme="dark"]',
+        pageview: JSON.parse(''),
     });
+    }
   </script>
-
-
 
 
 

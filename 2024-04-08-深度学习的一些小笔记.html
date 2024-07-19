@@ -54,6 +54,10 @@
   
   
   
+    
+<link rel="stylesheet" href="https://npm.webcache.cn/@waline/client@v2/dist/waline.css">
+
+  
   
   
 <script src="https://npm.webcache.cn/pace-js@1.2.4/pace.min.js"></script>
@@ -214,20 +218,15 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://stalk-evolto.github.io/2024-04-08-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B0%8F%E7%AC%94%E8%AE%B0.html" data-id="clvtunr3y0006wkzw84x3frbc" data-title="学习深度学习的一些小笔记" class="article-share-link">分享</a>
+      <a data-url="http://stalk-evolto.github.io/2024-04-08-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B0%8F%E7%AC%94%E8%AE%B0.html" data-id="clys5vszd0006zuzw99qo7b8x" data-title="学习深度学习的一些小笔记" class="article-share-link">分享</a>
+      
       
         <a href="/2024-04-08-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B0%8F%E7%AC%94%E8%AE%B0.html#comments" class="article-comment-link">
-          <span class="post-comments-count valine-comment-count" data-xid="/2024-04-08-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B0%8F%E7%AC%94%E8%AE%B0.html" itemprop="commentCount"></span>
+          <span class="post-comments-count waline-comment-count" data-path="/2024-04-08-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B0%8F%E7%AC%94%E8%AE%B0.html" itemprop="commentCount"></span>
           留言
         </a>
       
       
-      
-      
-        <span id="/2024-04-08-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B0%8F%E7%AC%94%E8%AE%B0.html" class="leancloud_visitors article-visitor-link" data-flag-title="学习深度学习的一些小笔记">
-          <span class="leancloud-visitors-count">0</span>
-          <em class="post-meta-item-text">阅读量</em>
-        </span>
       
       
       
@@ -263,8 +262,8 @@
   
 </article>
 
-  <section id="comments" class="vcomment"></section>
 
+  <div id="comments" class="wcomment"></div>
 
 
 
@@ -366,7 +365,7 @@
       
         <div>
           <span class="icon-brush"></span>
-          2.8k
+          2.9k
           &nbsp;|&nbsp;
           <span class="icon-coffee"></span>
           00:11
@@ -502,35 +501,27 @@
 
 
 
-  
-<script src="https://npm.webcache.cn/valine@1.5.1/dist/Valine.min.js" data-pjax></script>
 
-  <script data-pjax>
-    var GUEST_INFO = ['nick', 'mail', 'link'];
-    var guest_info = 'nick,mail,link'.split(',').filter((item) => {
-      return GUEST_INFO.indexOf(item) > -1
-    });
-    var recordIP = JSON.parse('true');
-    var highlight = JSON.parse('true');
-    var visitor = JSON.parse('true');
 
-    new Valine({
-      el: '.vcomment',
-      appId: "9bohehlaDO3nAU9kAcOgbosP-MdYXbMMI",
-      appKey: "XVHswKOebAwxJ6pQMpBW72Wd",
-      placeholder: "Just go go",
-      pageSize: '10',
-      avatar: 'mp',
-      lang: 'zh-cn',
-      recordIP: recordIP,
-      highlight: highlight,
-      visitor: visitor,
-      requiredFields: guest_info,
-      path: window.location.pathname
+  <script data-pjax type="module">
+    import { init } from "https://npm.webcache.cn/@waline/client@v2/dist/waline.mjs";
+    if(document.querySelector('.wcomment')) {
+      init({
+        el: '.wcomment',
+        serverURL: 'https://stalkblogwaline.vercel.app',
+        lang: 'zh-CN',
+        locale: {},
+        emoji: ["https://unpkg.com/@waline/emojis@1.0.1/weibo","https://unpkg.com/@waline/emojis@1.0.1/alus","https://unpkg.com/@waline/emojis@1.0.1/bilibili","https://unpkg.com/@waline/emojis@1.0.1/qq","https://unpkg.com/@waline/emojis@1.0.1/tieba","https://unpkg.com/@waline/emojis@1.0.1/tw-emoji"],
+        meta: ["nick","mail","link"],
+        requiredMeta: ["nick","mail"],
+        wordLimit: JSON.parse('0'),
+        comment: true,
+        pageSize: JSON.parse('10'),
+        dark: 'html[data-theme="dark"]',
+        pageview: JSON.parse(''),
     });
+    }
   </script>
-
-
 
 
 
