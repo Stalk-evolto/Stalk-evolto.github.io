@@ -570,7 +570,6 @@ html,
 body,
 #container {
   height: 100%;
-  cursor: var(--cursor-default);
 }
 body {
   background: var(--color-background);
@@ -578,23 +577,6 @@ body {
   text-size-adjust: 100%;
   font-family: Mulish, 'Noto Serif SC', 'Noto Serif JP', -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
   transition: background 0.3s ease;
-}
-a {
-  cursor: var(--cursor-pointer) !important;
-}
-.site-search input {
-  cursor: var(--cursor-text) !important;
-}
-#main span,
-#main p,
-#main code,
-#main kbd,
-#main input,
-#main textarea {
-  cursor: var(--cursor-text) !important;
-}
-#main nav span {
-  cursor: var(--cursor-default) !important;
 }
 .outer {
   max-width: 1220px;
@@ -849,7 +831,7 @@ a {
   height: 14px;
   padding: 20px 15px;
   position: relative;
-  cursor: var(--cursor-pointer);
+  cursor: pointer;
 }
 [data-theme="dark"] .main-nav-link,
 [data-theme="dark"] .main-nav-icon,
@@ -878,7 +860,7 @@ a {
   background: url("../images/taichi.png") no-repeat center/80%;
   transform: rotate(0deg);
   transition: transform 1s ease;
-  cursor: var(--cursor-pointer);
+  cursor: pointer;
 }
 #main-nav-toggle {
   display: none;
@@ -2110,7 +2092,7 @@ pre .javascript .function {
   margin: 5px;
   z-index: 1;
   filter: invert(50%);
-  cursor: var(--cursor-pointer);
+  cursor: pointer;
   color: #fff;
 }
 .code-lang {
@@ -2119,13 +2101,13 @@ pre .javascript .function {
   font-weight: bold;
   z-index: 1;
   filter: invert(50%);
-  cursor: var(--cursor-pointer);
+  cursor: pointer;
 }
 .code-expand {
   margin: 5px;
   filter: invert(50%);
   z-index: 1;
-  cursor: var(--cursor-pointer);
+  cursor: pointer;
   transition: all 0.3s;
   transform: rotate(0deg);
   color: #fff;
@@ -2353,7 +2335,7 @@ pre .javascript .function {
   font: 20px bold;
   text-transform: uppercase;
   vertical-align: middle;
-  cursor: var(--cursor-pointer);
+  cursor: pointer;
   padding-left: 15px;
   top: 8px;
 }
@@ -2384,7 +2366,6 @@ pre .javascript .function {
 }
 .reimu-powered {
   float: right;
-  cursor: var(--cursor-default) !important;
 }
 .reimu-powered img {
   display: inline-block;
