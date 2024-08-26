@@ -36,7 +36,7 @@
 <meta property="og:image" content="http://stalk-evolto.github.io/images/vimusr/default.png">
 <meta property="og:image" content="http://stalk-evolto.github.io/images/vimusr/molokai.png">
 <meta property="article:published_time" content="2024-04-07T09:27:03.000Z">
-<meta property="article:modified_time" content="2024-08-26T07:02:57.897Z">
+<meta property="article:modified_time" content="2024-08-26T07:07:41.000Z">
 <meta property="article:author" content="Stalk">
 <meta property="article:tag" content="notes">
 <meta name="twitter:card" content="summary">
@@ -301,18 +301,18 @@
 
 <p>把molokai改成你喜欢的主题配色，如果没有就下载<strong>主题配色名字.vim</strong>文件到vim的color目录就可以修改啦。</p>
 <h2 id="高效的编辑"><a href="#高效的编辑" class="headerlink" title="高效的编辑"></a>高效的编辑</h2><p>到这里vim的基本安装配置已经完成啦！！可以愉快的使用vim进行文件编辑了。而编辑过程中有一些小技巧，能够改善编写体验，持续更新中…</p>
-<h3 id="移动"><a href="#移动" class="headerlink" title="移动"></a>移动</h3><p>__”$”__会把光标移动到当前行尾。<br>__”^”__会把光标移动到一行的第一个非空字符。<br>__”0”__会把光标移动到一行的第一个字符。</p>
-<h4 id="移动到指定字符"><a href="#移动到指定字符" class="headerlink" title="移动到指定字符"></a>移动到指定字符</h4><p>单字符查找命令是最有用的移动命令之一。__”f”<strong>和</strong>“F”<strong>(Find寻找）。<br>将光标移动到这一行第一个</strong>“y”<strong>上，可以输入</strong>“fy”<strong>，光标就会移动到第一个</strong>“y”__上啦。<br>__”f”<strong>是向右寻找，如果向左边寻找可以使用</strong>“F”__命令。</p>
-<h4 id="括号匹配"><a href="#括号匹配" class="headerlink" title="括号匹配"></a>括号匹配</h4><p>例如现在光标在__”(“<strong>上，现在我要找到它匹配的</strong>“)”<strong>，只需要按一下</strong>“%”__光标就会跳转到匹配的括号上了。</p>
-<h4 id="移动到指定行"><a href="#移动到指定行" class="headerlink" title="移动到指定行"></a>移动到指定行</h4><p>例如我要移动到33行，可以按__”33G”__(Go前往),光标就会移动到33行的第一个字符了。<br>__”gg”__可以移动到文件首部。<br>__”G”__可以移动到文件末。</p>
-<h4 id="屏幕滚动"><a href="#屏幕滚动" class="headerlink" title="屏幕滚动"></a>屏幕滚动</h4><p>__”CTRL-U”__命令向上滚动半屏。(Up向上)<br>__”CTRL-D”__命令向下滚动半屏。(Down向下)<br>__”CTRL-B”__命令向上滚动一整屏。(Backword向后)<br>__”CTRL-F”__命令向下滚动一整个屏幕。(Forward向前，文件的前方是下)</p>
-<p>__”zz”__将光标移动到屏幕中间。<br>__”zt”__将光标移动到屏幕顶部。(top顶部)<br>__”zb”__将光标移动到屏幕底部。(bottom底部)</p>
-<h4 id="使用标记"><a href="#使用标记" class="headerlink" title="使用标记"></a>使用标记</h4><p>当使用G跳到另一个地方时，想回到原来的位置。可以使用如下命令：<br>    <strong>“&#96;&#96;”</strong><br>__”&#96;”__是反引号，用单引号__”‘“__也可以。<br>__”&#96;&#96;”__可以在两个位置上跳来跳去。<br>__”CTRL-O”__则跳到一个”较老”的地方。(Older老的)<br>__”CTRL-I”__则跳到一个”较新”的地方。(常见的键盘布局上I在键盘上紧靠着O)</p>
-<h5 id="有名字的标记"><a href="#有名字的标记" class="headerlink" title="有名字的标记"></a>有名字的标记</h5><p><strong>“ma”<strong>用a标记当前光标位置，可以在文本中使用26个标记(a-z)。<br>要跳转到a标记位置命令是:</strong>“&#96;a”</strong>(反引号加上一个标记)<br>而__”‘a”<strong>(单引号加上一个标记)会移动到标记所在行的行首。<br>可以使用如下命令获取所有标记列表：</strong>“:marks”__</p>
+<h3 id="移动"><a href="#移动" class="headerlink" title="移动"></a>移动</h3><p>**”$”**会把光标移动到当前行尾。<br>**”^”**会把光标移动到一行的第一个非空字符。<br>**”0”**会把光标移动到一行的第一个字符。</p>
+<h4 id="移动到指定字符"><a href="#移动到指定字符" class="headerlink" title="移动到指定字符"></a>移动到指定字符</h4><p>单字符查找命令是最有用的移动命令之一。**”f”<strong>和</strong>“F”<strong>(Find寻找）。<br>将光标移动到这一行第一个</strong>“y”<strong>上，可以输入</strong>“fy”<strong>，光标就会移动到第一个</strong>“y”**上啦。<br>**”f”<strong>是向右寻找，如果向左边寻找可以使用</strong>“F”**命令。</p>
+<h4 id="括号匹配"><a href="#括号匹配" class="headerlink" title="括号匹配"></a>括号匹配</h4><p>例如现在光标在**”(“<strong>上，现在我要找到它匹配的</strong>“)”<strong>，只需要按一下</strong>“%”**光标就会跳转到匹配的括号上了。</p>
+<h4 id="移动到指定行"><a href="#移动到指定行" class="headerlink" title="移动到指定行"></a>移动到指定行</h4><p>例如我要移动到33行，可以按**”33G”**(Go前往),光标就会移动到33行的第一个字符了。<br>**”gg”**可以移动到文件首部。<br>**”G”**可以移动到文件末。</p>
+<h4 id="屏幕滚动"><a href="#屏幕滚动" class="headerlink" title="屏幕滚动"></a>屏幕滚动</h4><p>**”CTRL-U”**命令向上滚动半屏。(Up向上)<br>**”CTRL-D”**命令向下滚动半屏。(Down向下)<br>**”CTRL-B”**命令向上滚动一整屏。(Backword向后)<br>**”CTRL-F”**命令向下滚动一整个屏幕。(Forward向前，文件的前方是下)</p>
+<p>**”zz”**将光标移动到屏幕中间。<br>**”zt”**将光标移动到屏幕顶部。(top顶部)<br>**”zb”**将光标移动到屏幕底部。(bottom底部)</p>
+<h4 id="使用标记"><a href="#使用标记" class="headerlink" title="使用标记"></a>使用标记</h4><p>当使用G跳到另一个地方时，想回到原来的位置。可以使用如下命令：<br>    <strong>“&#96;&#96;”</strong><br>**”&#96;”**是反引号，用单引号**”‘“**也可以。<br>**”&#96;&#96;”**可以在两个位置上跳来跳去。<br>**”CTRL-O”**则跳到一个”较老”的地方。(Older老的)<br>**”CTRL-I”**则跳到一个”较新”的地方。(常见的键盘布局上I在键盘上紧靠着O)</p>
+<h5 id="有名字的标记"><a href="#有名字的标记" class="headerlink" title="有名字的标记"></a>有名字的标记</h5><p><strong>“ma”<strong>用a标记当前光标位置，可以在文本中使用26个标记(a-z)。<br>要跳转到a标记位置命令是:</strong>“&#96;a”</strong>(反引号加上一个标记)<br>而**”‘a”<strong>(单引号加上一个标记)会移动到标记所在行的行首。<br>可以使用如下命令获取所有标记列表：</strong>“:marks”**</p>
 <p>有一些特殊的标记<br><strong>“‘“</strong>     跳转前的光标位置<br><strong>“””</strong>     最后编辑的光标位置<br><strong>“[“</strong>     最后修改的开始位置<br><strong>“]”</strong>     最后修改的结束位置</p>
-<h3 id="s-替换命令"><a href="#s-替换命令" class="headerlink" title=":s(替换命令)"></a>:s(替换命令)</h3><p>__”:s”__命令可以在连续的行中执行字符串替换。一般形式：</p>
+<h3 id="s-替换命令"><a href="#s-替换命令" class="headerlink" title=":s(替换命令)"></a>:s(替换命令)</h3><p>**”:s”**命令可以在连续的行中执行字符串替换。一般形式：</p>
 <figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:[<span class="built_in">range</span>]s /form/<span class="keyword">to</span>/[flags]</span><br></pre></td></tr></table></figure>
-<p><strong>[range]</strong>     替换范围__”%”<strong>(所有行)，</strong>“1,5”<strong>(1到5行)，</strong>“.,$”<strong>(当前行到文件末),</strong>“5”<strong>第5行,甚至可以使用搜索模式<br><strong>[form]</strong>      需要替换的字符串,<br><strong>[to]</strong>        替换成目标字符串<br><strong>[flags]</strong>     标志位</strong>“g”<strong>(global全局),</strong>“p”<strong>(print打印)命令执行会打印出最后一个被修改的行,</strong>“c”<strong>(confirm确认)每次替换会询问是否替换<br>若使用</strong>“c”__标志，有以下回答<br><strong>“y”</strong>     Yes，是；执行替换<br><strong>“n”</strong>     No，否；跳过<br><strong>“a”</strong>     All，全部；对剩下的匹配点全部执行替换，不需要确认<br><strong>“q”</strong>     Quit，退出；不再执行任何替换<br><strong>“l”</strong>     Last，最后；替换完当前匹配点后退出<br><strong>“^E”</strong>    CTRL-E，one line Extra，向上滚动一行<br><strong>“^Y”</strong>    CTRL-Y，Yank one line,向下滚动一行</p>
+<p><strong>[range]</strong>     替换范围**”%”<strong>(所有行)，</strong>“1,5”<strong>(1到5行)，</strong>“.,$”<strong>(当前行到文件末),</strong>“5”<strong>第5行,甚至可以使用搜索模式<br><strong>[form]</strong>      需要替换的字符串,<br><strong>[to]</strong>        替换成目标字符串<br><strong>[flags]</strong>     标志位</strong>“g”<strong>(global全局),</strong>“p”<strong>(print打印)命令执行会打印出最后一个被修改的行,</strong>“c”<strong>(confirm确认)每次替换会询问是否替换<br>若使用</strong>“c”**标志，有以下回答<br><strong>“y”</strong>     Yes，是；执行替换<br><strong>“n”</strong>     No，否；跳过<br><strong>“a”</strong>     All，全部；对剩下的匹配点全部执行替换，不需要确认<br><strong>“q”</strong>     Quit，退出；不再执行任何替换<br><strong>“l”</strong>     Last，最后；替换完当前匹配点后退出<br><strong>“^E”</strong>    CTRL-E，one line Extra，向上滚动一行<br><strong>“^Y”</strong>    CTRL-Y，Yank one line,向下滚动一行</p>
 <h4 id="批量替换“反斜杠”"><a href="#批量替换“反斜杠”" class="headerlink" title="批量替换“反斜杠”"></a>批量替换“反斜杠”</h4><p>在使用Windows的路径时**”C:\User\Desktop”<strong>,在一些程序中会把反斜杠</strong>“&quot;<strong>当成转义字符标志，导致错误。将</strong>“&quot;<strong>替换成</strong>“&#x2F;“**，是一种解决办法，在vim中输入：</p>
 <figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:s @\\@/@g</span><br></pre></td></tr></table></figure>
 <ul>
@@ -324,12 +324,12 @@
 </ul>
 <h4 id="批量删除行尾空格"><a href="#批量删除行尾空格" class="headerlink" title="批量删除行尾空格"></a>批量删除行尾空格</h4><p>在编辑过程中可能在某些行的末尾无意中打了不需要的空格，某些对空格管控严格的语言可能会发生未知的错误。使用如下命令批量删除行尾空格：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:%s /\s\+$//g</span><br></pre></td></tr></table></figure>
-<p>__”%”<strong>表示命令作用于全部行，</strong>“\s”<strong>是空格的转义字符(space空格)，</strong>“+$”__表示行末($)前的一个或者多个(+)。</p>
-<h4 id="range-的各种范围写法"><a href="#range-的各种范围写法" class="headerlink" title="[range]的各种范围写法"></a>[range]的各种范围写法</h4><p>例如__”:?^Begin?,&#x2F;^End&#x2F;s@int@char@g”__<br>用于替换__行首为Begin__和__行首为End__之间的行，将int替换为char。__”?”<strong>是向前查找，</strong>“&#x2F;“__是向后查找。</p>
-<h5 id="偏移-加减号"><a href="#偏移-加减号" class="headerlink" title="偏移(加减号)"></a>偏移(加减号)</h5><p>这个写法还是有问题的，如果__End__这一行有”int”，那么这个”int”也会被替换掉。如果你不想将它替换掉可以设置偏移，像这样：</p>
+<p>**”%”<strong>表示命令作用于全部行，</strong>“\s”<strong>是空格的转义字符(space空格)，</strong>“+$”**表示行末($)前的一个或者多个(+)。</p>
+<h4 id="range-的各种范围写法"><a href="#range-的各种范围写法" class="headerlink" title="[range]的各种范围写法"></a>[range]的各种范围写法</h4><p>例如**”:?^Begin?,&#x2F;^End&#x2F;s@int@char@g”**<br>用于替换<strong>行首为Begin</strong>和<strong>行首为End</strong>之间的行，将int替换为char。**”?”<strong>是向前查找，</strong>“&#x2F;“**是向后查找。</p>
+<h5 id="偏移-加减号"><a href="#偏移-加减号" class="headerlink" title="偏移(加减号)"></a>偏移(加减号)</h5><p>这个写法还是有问题的，如果<strong>End</strong>这一行有”int”，那么这个”int”也会被替换掉。如果你不想将它替换掉可以设置偏移，像这样：</p>
 <figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/^End/-<span class="number">1</span></span><br></pre></td></tr></table></figure>
 
-<p>可以用任意数值代替命令中的__”-1”__，例如要定位匹配点下的第二行，要这样：</p>
+<p>可以用任意数值代替命令中的**”-1”**，例如要定位匹配点下的第二行，要这样：</p>
 <figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/^End/+<span class="number">2</span></span><br></pre></td></tr></table></figure>
 <p>偏移量还可以用于其他范围指定符。看一下这个例子：</p>
 <figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:.+<span class="number">3</span>,$-<span class="number">5</span></span><br></pre></td></tr></table></figure>
@@ -542,7 +542,7 @@
       
         <div>
           <span class="icon-brush"></span>
-          5.8k
+          5.7k
           &nbsp;|&nbsp;
           <span class="icon-coffee"></span>
           00:22
