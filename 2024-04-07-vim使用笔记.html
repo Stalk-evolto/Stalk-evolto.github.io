@@ -33,11 +33,14 @@
 <meta property="og:site_name" content="Stalk&#39;s Blog">
 <meta property="og:description" content="package version   package version    ubuntu 24.04   vim 9.1   vim安装与配置vim简介一个传统、看似繁琐，实际上很有趣的编辑器。官网：https:&#x2F;&#x2F;www.vim.org vim的官方文档编写得十分有趣，有时间推荐阅读。官方文档(英文)： https:&#x2F;&#x2F;vimhelp.org 如果你和我一样英文不太好，可以下载中文翻译文件。中文帮">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://stalk-evolto.github.io/images/vimusr/default.png">
+<meta property="og:image" content="http://stalk-evolto.github.io/images/vimusr/molokai.png">
 <meta property="article:published_time" content="2024-04-07T09:27:03.000Z">
-<meta property="article:modified_time" content="2024-08-21T20:16:42.366Z">
+<meta property="article:modified_time" content="2024-08-26T02:31:56.688Z">
 <meta property="article:author" content="Stalk">
 <meta property="article:tag" content="notes">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://stalk-evolto.github.io/images/vimusr/default.png">
   
     <link rel="alternate" href="/atom.xml" title="Stalk's Blog" type="application/atom+xml">
   
@@ -264,7 +267,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:wq</span><br></pre></td></tr></table></figure>
 <p>再次编辑vimrc看看配置有没有生效，在终端输入：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim ~/.vimrc</span><br></pre></td></tr></table></figure>
-<p>你会看到</p>
+<p>你会看到<br><img src="/images/vimusr/default.png" alt="The failed colorscheme"></p>
 <p>乍一看没什么问题，但是我43行设置的主题配色没有应用上！！</p>
 <h4 id="安装主题配色"><a href="#安装主题配色" class="headerlink" title="安装主题配色"></a>安装主题配色</h4><p>查看一下vim的主题配色文件目录</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /usr/share/vim/vim91/colors</span><br><span class="line"><span class="built_in">ls</span> -a</span><br></pre></td></tr></table></figure>
@@ -292,7 +295,7 @@
 <p>好，我们再回去编辑vimrc看看效果</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~</span><br><span class="line">vim .vimrc</span><br></pre></td></tr></table></figure>
 
-<p>效果</p>
+<p>效果<br><img src="/images/vimusr/molokai.png" alt="The successful colorscheme"></p>
 <p>真不错，如果要更改其他主题配色可以先修改vimrc里的</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">colorscheme molokai</span><br></pre></td></tr></table></figure>
 
