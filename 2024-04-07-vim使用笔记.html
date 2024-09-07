@@ -36,7 +36,7 @@
 <meta property="og:image" content="http://stalk-evolto.github.io/images/vimusr/default.png">
 <meta property="og:image" content="http://stalk-evolto.github.io/images/vimusr/molokai.png">
 <meta property="article:published_time" content="2024-04-07T09:27:03.000Z">
-<meta property="article:modified_time" content="2024-09-07T16:41:28.517Z">
+<meta property="article:modified_time" content="2024-09-07T16:52:22.913Z">
 <meta property="article:author" content="Stalk">
 <meta property="article:tag" content="notes">
 <meta name="twitter:card" content="summary">
@@ -385,10 +385,12 @@
 </tbody></table>
 <h5 id="离开与回来"><a href="#离开与回来" class="headerlink" title="离开与回来"></a>离开与回来</h5><p>这里引用一下文档翻译版的原话:</p>
 <hr>
-<p>重 返 VIM 中 断 处<br>你编辑一个文件到一半，但你得下班去度假了。你退出 Vim 就去享受你的人生，把你那<br>些工作忘得干干净净。两个星期以后你启动 Vim，键入:</p>
+<p>重 返 VIM 中 断 处<br>你编辑一个文件到一半，但你得下班去度假了。你退出 Vim 就去享受你的人生，把你那些工作忘得干干净净。两个星期以后你启动 Vim，键入:</p>
 <figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&#x27;0</span></span><br></pre></td></tr></table></figure>
 
-<p>你正好回到当初离开 Vim 的地方。所以你就把你的工作接着做下去。<br>你每次退出 Vim，它都创建一个标记。最后那个是 ‘0。原来那个 ‘0 所指的位置就<br>成了 ‘1。而原来那个 ‘1 就成了 ‘2，依此类推。而原来的标记 ‘9 就没了。<br>要发现标记 ‘0 至 ‘9 指向何处， :marks 命令很有用。</p>
+<p>你正好回到当初离开 Vim 的地方。所以你就把你的工作接着做下去。</p>
+<p>你每次退出 Vim，它都创建一个标记。最后那个是 ‘0。原来那个 ‘0 所指的位置就成了 ‘1。而原来那个 ‘1 就成了 ‘2，依此类推。而原来的标记 ‘9 就没了。</p>
+<p>要发现标记 ‘0 至 ‘9 指向何处， :marks 命令很有用。</p>
 <hr>
 <h2 id="s-替换命令"><a href="#s-替换命令" class="headerlink" title=":s(替换命令)"></a>:s(替换命令)</h2><p>“:s”命令可以在连续的行中执行字符串替换。一般形式：</p>
 <figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:[<span class="built_in">range</span>]s /form/<span class="keyword">to</span>/[flags]</span><br></pre></td></tr></table></figure>
