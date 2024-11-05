@@ -10,7 +10,7 @@
   
 
   
-  <script>window.icon_font = '4552607_tq6stt6tcg';window.clipboard_tips = {"success":"复制成功(*^▽^*)","fail":"复制失败 (ﾟ⊿ﾟ)ﾂ"};</script>
+  <script>window.icon_font = '4552607_tq6stt6tcg';window.clipboard_tips = {"success":"复制成功(*^▽^*)","fail":"复制失败 (ﾟ⊿ﾟ)ﾂ","copyright":{"enable":false,"count":50,"content":"本文版权：本博客所有文章除特别声明外，均采用 BY-NC-SA 许可协议。转载请注明出处！"}};</script>
   
   
   <title>
@@ -19,27 +19,31 @@
     Stalk&#39;s Blog
   </title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin><link rel="preload" as="style" href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7CNoto%20Serif%20SC:400,400italic,700,700italic%7CUbuntu%20Mono:400,400italic,700,700italic&display=swap"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7CNoto%20Serif%20SC:400,400italic,700,700italic%7CUbuntu%20Mono:400,400italic,700,700italic&display=swap" media="print" onload="this.media&#x3D;&#39;all&#39;">
+  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin><link rel="preload" as="style" href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7CNoto%20Serif%20SC:400,400italic,700,700italic&display=swap"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7CNoto%20Serif%20SC:400,400italic,700,700italic&display=swap" media="print" onload="this.media&#x3D;&#39;all&#39;">
   
     <link rel="preload" href="//at.alicdn.com/t/c/font_4552607_tq6stt6tcg.woff2" as="font" type="font/woff2" crossorigin="anonymous">
   
   
+    
 <link rel="stylesheet" href="/css/loader.css">
 
-  <meta name="description" content="package version   package version    ubuntu 24.10   mariadb 11.7.0   mariadb部署什么是mariadb引用维基百科的描述：  MariaDB是MySQL关系数据库管理系统的一个分叉，由社区开发，有商业支持，旨在继续保持在GNU GPL下开源。MariaDB的开发是由MySQL的一些原始开发者领导的，他们担心甲骨文公司收购My">
+  
+  
+    <meta name="description" content="package version   package version    ubuntu 24.10   mariadb 11.7.0   mariadb部署什么是mariadb引用维基百科的描述：  MariaDB是MySQL关系数据库管理系统的一个分叉，由社区开发，有商业支持，旨在继续保持在GNU GPL下开源。MariaDB的开发是由MySQL的一些原始开发者领导的，他们担心甲骨文公司收购My">
 <meta property="og:type" content="article">
 <meta property="og:title" content="mariadb安装历程">
-<meta property="og:url" content="http://stalk-evolto.github.io/2024-10-12-mariadb%E5%BC%80%E6%BA%90%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%89%E8%A3%85%E5%8E%86%E7%A8%8B.html">
+<meta property="og:url" content="http://stalk-evolto.github.io/2024-11-05-mariadb%E5%BC%80%E6%BA%90%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%89%E8%A3%85%E5%8E%86%E7%A8%8B.html">
 <meta property="og:site_name" content="Stalk&#39;s Blog">
 <meta property="og:description" content="package version   package version    ubuntu 24.10   mariadb 11.7.0   mariadb部署什么是mariadb引用维基百科的描述：  MariaDB是MySQL关系数据库管理系统的一个分叉，由社区开发，有商业支持，旨在继续保持在GNU GPL下开源。MariaDB的开发是由MySQL的一些原始开发者领导的，他们担心甲骨文公司收购My">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://stalk-evolto.github.io/images/mariadb_usr/mariadb_service_status.png">
-<meta property="article:published_time" content="2024-10-11T23:02:39.750Z">
-<meta property="article:modified_time" content="2024-10-11T23:02:39.750Z">
+<meta property="article:published_time" content="2024-11-05T02:27:08.742Z">
+<meta property="article:modified_time" content="2024-11-05T02:27:08.742Z">
 <meta property="article:author" content="Stalk">
 <meta property="article:tag" content="record">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://stalk-evolto.github.io/images/mariadb_usr/mariadb_service_status.png">
+  
   
     <link rel="alternate" href="/atom.xml" title="Stalk's Blog" type="application/atom+xml">
   
@@ -49,36 +53,25 @@
   
 <link rel="stylesheet" href="/css/style.css">
 
-  
-<link rel="stylesheet" href="https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.css">
-
+  <link rel="preload" href="https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
   
   
     
+      
 <link rel="stylesheet" href="https://npm.webcache.cn/@waline/client@v2/dist/waline.css">
 
+    
   
   
   
+    
 <script src="https://npm.webcache.cn/pace-js@1.2.4/pace.min.js"></script>
 
   
-    
-<link rel="stylesheet" href="https://npm.webcache.cn/wowjs@1.1.3/css/libs/animate.css">
-
-    
-<script src="https://npm.webcache.cn/wowjs@1.1.3/dist/wow.min.js"></script>
-
-    <script>
-      new WOW({
-        offset: 0,
-        mobile: true,
-        live: false
-      }).init();
-    </script>
   
-  
-    <script src="/sw.js"></script>
+    
+<link rel="stylesheet" href="https://npm.webcache.cn/@reimujs/aos@0.0.1/dist/aos.css">
+
   
 <meta name="generator" content="Hexo 7.1.1"></head>
 
@@ -90,9 +83,9 @@
     <div class="spinner-box">
       <div class="loading-taichi">
         <svg width="150" height="150" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="https://www.w3.org/2000/svg" shape-rendering="geometricPrecision">
-          <path d="M303.5 432A80 80 0 0 1 291.5 592A80 80 0 0 1 303.5 432z" fill="#ff6e6b" />
-          <path d="M512 65A447 447 0 0 1 512 959L512 929A417 417 0 0 0 512 95A417 417 0 0 0 512 929L512 959A447 447 0 0 1 512 65z" fill="#fd0d00" />
-          <path d="M512 95A417 417 0 0 1 929 512A208.5 208.5 0 0 1 720.5 720.5L720.5 592A80 80 0 0 0 720.5 432A80 80 0 0 0 720.5 592L720.5 720.5A208.5 208.5 0 0 1 512 512A208.5 208.5 0 0 0 303.5 303.5A208.5 208.5 0 0 0 95 512A417 417 0 0 1 512 95" fill="#fd0d00" />
+          <path d="M303.5 432A80 80 0 0 1 291.5 592A80 80 0 0 1 303.5 432z" fill="#ff5252" />
+          <path d="M512 65A447 447 0 0 1 512 959L512 929A417 417 0 0 0 512 95A417 417 0 0 0 512 929L512 959A447 447 0 0 1 512 65z 
+         M512 95A417 417 0 0 1 929 512A208.5 208.5 0 0 1 720.5 720.5L720.5 592A80 80 0 0 0 720.5 432A80 80 0 0 0 720.5 592L720.5 720.5A208.5 208.5 0 0 1 512 512A208.5 208.5 0 0 0 303.5 303.5A208.5 208.5 0 0 0 95 512A417 417 0 0 1 512 95z" fill="#ff5252" />
         </svg>
       </div>
       <div class="loading-word">少女祈祷中...</div>
@@ -127,28 +120,29 @@
 <div id="copy-tooltip" style="pointer-events: none; opacity: 0; transition: all 0.2s ease; position: fixed;top: 50%;left: 50%;z-index: 999;transform: translate(-50%, -50%);color: white;background: rgba(0, 0, 0, 0.5);padding: 10px 15px;border-radius: 10px;">
 </div>
 
+
     <div id="container">
       <div id="wrap">
         <div id="header-nav">
   <nav id="main-nav">
     
       <span class="main-nav-link-wrap">
-        <span class="main-nav-icon"></span>
+        <div class="main-nav-icon icon-taichi"></div>
         <a class="main-nav-link" href="/">首页</a>
       </span>
     
       <span class="main-nav-link-wrap">
-        <span class="main-nav-icon"></span>
+        <div class="main-nav-icon icon-taichi"></div>
         <a class="main-nav-link" href="/archives">归档</a>
       </span>
     
       <span class="main-nav-link-wrap">
-        <span class="main-nav-icon"></span>
+        <div class="main-nav-icon icon-taichi"></div>
         <a class="main-nav-link" href="/about">关于</a>
       </span>
     
       <span class="main-nav-link-wrap">
-        <span class="main-nav-icon"></span>
+        <div class="main-nav-icon icon-taichi"></div>
         <a class="main-nav-link" href="/friend">友链</a>
       </span>
     
@@ -156,7 +150,7 @@
   </nav>
   <nav id="sub-nav">
     
-      <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+      <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅" target="_blank"></a>
     
     
       <a id="nav-search-btn" class="nav-icon popup-trigger" title="搜索"></a>
@@ -170,21 +164,19 @@
       <img fetchpriority="high" src="/images/banner.webp" alt="mariadb安装历程">
     
   
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <div id="logo-wrap">
-        
-          
-          
-            <a href="/" id="logo">
-              <h1>mariadb安装历程</h1>
-            </a>
-          
-        
-      </div>
+  <div id="header-outer">
+    <div id="header-title">
       
         
-        <h2 id="subtitle-wrap">
+        
+          <a href="/" id="logo">
+            <h1 data-aos="slide-up">mariadb安装历程</h1>
+          </a>
+        
+      
+      
+        
+        <h2 id="subtitle-wrap" data-aos="slide-down">
           
         </h2>
       
@@ -192,20 +184,21 @@
   </div>
 </header>
 
-        <div id="content" class="outer">
+        <div id="content">
           
           <section id="main"><article id="post-mariadb开源数据库安装历程" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-inner">
+  <div class="article-inner" data-aos="fade-up">
     <div class="article-meta">
-      <div class="article-date wow slideInLeft">
-  <a href="/2024-10-12-mariadb%E5%BC%80%E6%BA%90%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%89%E8%A3%85%E5%8E%86%E7%A8%8B.html" class="article-date-link">
-    <time datetime="2024-10-11T23:02:39.750Z" itemprop="datePublished">2024-10-12</time>
+      <div class="article-date">
+  <a href="/2024-11-05-mariadb%E5%BC%80%E6%BA%90%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%89%E8%A3%85%E5%8E%86%E7%A8%8B.html" class="article-date-link" data-aos="zoom-in">
+    <time datetime="2024-11-05T02:27:08.742Z" itemprop="datePublished">2024-11-05</time>
+    <time style="display: none;" id="post-update-time">2024-11-05</time>
   </a>
 </div>
 
       
-  <div class="article-category wow slideInLeft">
-    <a class="article-category-link" href="/categories/Docs/">Docs</a>
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Docs/" data-aos="zoom-in">Docs</a>
   </div>
 
 
@@ -214,6 +207,7 @@
     
 
     <div class="e-content article-entry" itemprop="articleBody">
+      
       
         <h1 id="package-version"><a href="#package-version" class="headerlink" title="package version"></a>package version</h1><table>
 <thead>
@@ -250,6 +244,44 @@
 <p>文档里安装的是10.3的构建依赖，我没有使用mariadb官方库，使用的ubuntu的库:<br><del>毕竟去&#x2F;etc&#x2F;apt&#x2F;sources.list.d路径下删不需要的源对我这种懒人来说有点心累。缺点是编译途中遇到没有安装的依赖就要自己安装了</del></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install software-properties-common devscripts equivs</span><br><span class="line">sudo apt-get build-dep mariadb</span><br></pre></td></tr></table></figure>
 
+<p>如果出现以下错误</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">E: 您必须在 sources.list 中指定代码源（deb-src）URI</span><br></pre></td></tr></table></figure>
+
+<p>说明你当前apt没有deb-src软件源<br>可以通过以下步骤添加：</p>
+<ol>
+<li>编辑apt源配置文件(两种选一种，看你电脑上是怎么设置的)</li>
+</ol>
+<ul>
+<li>&#x2F;etc&#x2F;apt&#x2F;source.list文件<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/apt/source.list</span><br></pre></td></tr></table></figure>
+可以看到以下内容<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">deb</span> <span class="string">http://archive.ubuntu.com/ubuntu</span> <span class="string">oracular</span> <span class="string">main</span> <span class="string">restricted</span> <span class="string">universe</span> <span class="string">multiverse</span></span><br><span class="line"></span><br><span class="line"><span class="string">deb</span> <span class="string">http://security.ubuntu.com/ubuntu</span> <span class="string">oracular</span> <span class="string">main</span> <span class="string">restricted</span> <span class="string">universe</span> <span class="string">multiverse</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>将这两行复制，并更改复制行的开头为deb-src,即：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">deb</span> <span class="string">http://archive.ubuntu.com/ubuntu</span> <span class="string">oracular</span> <span class="string">main</span> <span class="string">restricted</span> <span class="string">universe</span> <span class="string">multiverse</span></span><br><span class="line"><span class="string">deb-src</span> <span class="string">http://archive.ubuntu.com/ubuntu</span> <span class="string">oracular</span> <span class="string">main</span> <span class="string">restricted</span> <span class="string">universe</span> <span class="string">multiverse</span></span><br><span class="line"></span><br><span class="line"><span class="string">deb</span> <span class="string">http://security.ubuntu.com/ubuntu</span> <span class="string">oracular</span> <span class="string">main</span> <span class="string">restricted</span> <span class="string">universe</span> <span class="string">multiverse</span></span><br><span class="line"><span class="string">deb-src</span> <span class="string">http://security.ubuntu.com/ubuntu</span> <span class="string">oracular</span> <span class="string">main</span> <span class="string">restricted</span> <span class="string">universe</span> <span class="string">multiverse</span></span><br></pre></td></tr></table></figure>
+
+<p>保存退出后（按Esc后输入:wq回车),在终端运行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update</span><br></pre></td></tr></table></figure>
+
+<p>再执行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get build-dep mariadb</span><br></pre></td></tr></table></figure>
+
+<p>就不会报错了</p>
+<p>如果你的&#x2F;etc&#x2F;apt&#x2F;source.list显示以下内容</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># Ubuntu sources have moved to /etc/apt/sources.list.d/ubuntu.sources</span><br></pre></td></tr></table></figure>
+
+<p>则按照提示修改&#x2F;etc&#x2F;apt&#x2F;sources.list.d&#x2F;ubuntu.sources文件</p>
+<ul>
+<li>&#x2F;etc&#x2F;apt&#x2F;source.list.d&#x2F;ubuntu.source文件（deb822风格）<br>修改该文件:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/apt/source.list.d/ubuntu.source</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>可以看到以下内容:</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">Types:</span> <span class="string">deb</span></span><br><span class="line"><span class="attr">URIs:</span> <span class="string">http://archive.ubuntu.com/ubuntu/</span></span><br><span class="line"><span class="attr">Suites:</span> <span class="string">oracular</span> <span class="string">oracular-updates</span> <span class="string">oracular-backports</span> <span class="string">oracular-proposed</span></span><br><span class="line"><span class="attr">Components:</span> <span class="string">main</span> <span class="string">restricted</span> <span class="string">universe</span> <span class="string">multiverse</span></span><br><span class="line"><span class="attr">Signed-By:</span> <span class="string">/usr/share/keyrings/ubuntu-archive-keyring.gpg</span></span><br><span class="line"></span><br><span class="line"><span class="attr">Types:</span> <span class="string">deb</span></span><br><span class="line"><span class="attr">URIs:</span> <span class="string">http://security.ubuntu.com/ubuntu/</span></span><br><span class="line"><span class="attr">Suites:</span> <span class="string">oracular-security</span></span><br><span class="line"><span class="attr">Components:</span> <span class="string">main</span> <span class="string">restricted</span> <span class="string">universe</span> <span class="string">multiverse</span></span><br><span class="line"><span class="attr">Signed-By:</span> <span class="string">/usr/share/keyrings/ubuntu-archive-keyring.gpg</span></span><br></pre></td></tr></table></figure>
+
+<p>需要在Types键添加deb-src值，即：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">Types:</span> <span class="string">deb</span> <span class="string">deb-src</span></span><br><span class="line"><span class="attr">URIs:</span> <span class="string">http://archive.ubuntu.com/ubuntu/</span></span><br><span class="line"><span class="attr">Suites:</span> <span class="string">oracular</span> <span class="string">oracular-updates</span> <span class="string">oracular-backports</span> <span class="string">oracular-proposed</span></span><br><span class="line"><span class="attr">Components:</span> <span class="string">main</span> <span class="string">restricted</span> <span class="string">universe</span> <span class="string">multiverse</span></span><br><span class="line"><span class="attr">Signed-By:</span> <span class="string">/usr/share/keyrings/ubuntu-archive-keyring.gpg</span></span><br><span class="line"></span><br><span class="line"><span class="attr">Types:</span> <span class="string">deb</span> <span class="string">deb-src</span></span><br><span class="line"><span class="attr">URIs:</span> <span class="string">http://security.ubuntu.com/ubuntu/</span></span><br><span class="line"><span class="attr">Suites:</span> <span class="string">oracular-security</span></span><br><span class="line"><span class="attr">Components:</span> <span class="string">main</span> <span class="string">restricted</span> <span class="string">universe</span> <span class="string">multiverse</span></span><br><span class="line"><span class="attr">Signed-By:</span> <span class="string">/usr/share/keyrings/ubuntu-archive-keyring.gpg</span></span><br></pre></td></tr></table></figure>
+
+<p>保存并退出后(按Esc后输入:wq回车),运行:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update</span><br></pre></td></tr></table></figure>
+
+<p>也可解决此问题</p>
 <h3 id="下载源代码"><a href="#下载源代码" class="headerlink" title="下载源代码"></a>下载源代码</h3><p>查看《通用构建说明》: <a target="_blank" rel="noopener" href="https://mariadb.com/kb/en/generic-build-instructions/">https://mariadb.com/kb/en/generic-build-instructions/</a></p>
 <p>找一个好地方存放你mariadb源代码，我选的是&#x2F;usr&#x2F;local<br>使用git工具将源代码clone下来,放在这里的mariadb_source目录下，进入这个目录：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /usr/local</span><br><span class="line">sudo git <span class="built_in">clone</span> https://github.com/mariadb/server mariadb_source</span><br><span class="line"><span class="built_in">cd</span> mariadb_source</span><br></pre></td></tr></table></figure>
@@ -262,7 +294,7 @@
 
 <h3 id="使用cmake构建："><a href="#使用cmake构建：" class="headerlink" title="使用cmake构建："></a>使用cmake构建：</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo cmake ../mariadb_source</span><br><span class="line">sudo cmake --build .</span><br><span class="line">sudo cmake --install .</span><br></pre></td></tr></table></figure>
 
-<p>中间如果出现问题我没记录，多半是依赖问题，搜一下就知道了。</p>
+<p>中间如果出现问题我没记录，多半是缺少依赖问题，搜一下就知道了。</p>
 <p>这样就构建好mariadb的服务器端啦，不过先不急着用，官网下还给了几个操作，虽然不知道什么用，但还是先照做吧。</p>
 <h3 id="mariadb首次启动"><a href="#mariadb首次启动" class="headerlink" title="mariadb首次启动"></a>mariadb首次启动</h3><p>创建一个叫mariadb&#x2F;mysql的用户<del>以前叫mysql,现在文档叫mariadb了，不过实测两个都可以</del><br>创建一个叫mysql的组<br>将mariadb&#x2F;mysql用户添加到mysql组里</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo adduser mysql</span><br><span class="line">sudo groupadd mysql</span><br><span class="line">sudo usermod -g mysql mysql</span><br></pre></td></tr></table></figure>
@@ -286,7 +318,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="built_in">chown</span> -R mysql /usr/local/mariadb</span><br></pre></td></tr></table></figure>
 
 <p>安装系统表</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /usr/local/mariadb</span><br><span class="line">./scripts/mariadb-install-db --user=mysql --srcdir=/usr/local/mariadb_source --builddir=/usr/local/mariadb --datadir=/usr/local/mariadb/data</span><br><span class="line">/usr/local/mariadb/bin/mariadb-safe --user=mysql &amp;</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /usr/local/mariadb</span><br><span class="line">./scripts/mariadb-install-db --user=mysql --srcdir=/usr/local/mariadb_source --builddir=/usr/local/mariadb --datadir=/usr/local/mariadb/data</span><br><span class="line">/usr/local/mariadb/bin/mariadbd-safe --user=mysql &amp;</span><br></pre></td></tr></table></figure>
 
 <p>然后就在上级目录下创建了一个mysql目录，进入这个目录</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ../mysql</span><br><span class="line"><span class="built_in">ls</span> -a</span><br></pre></td></tr></table></figure>
@@ -359,7 +391,7 @@
 <p>进入后设置以下root账户的密码为”XH4VnT3_jt”（你可以替换成你喜欢的密码）</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SET</span> PASSWORD <span class="operator">=</span> PASSWORD(<span class="string">&#x27;XH4VmT3_jt&#x27;</span>);</span><br></pre></td></tr></table></figure>
 <p>在root账户下你可以做很多事情，比如设置用户mysql的密码为newpassword（你也可以设置为你喜欢的密码）：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SET</span> PASSWORD <span class="string">&#x27;mysql&#x27;</span>@<span class="string">&#x27;localhost&#x27;</span> <span class="operator">=</span> PASSWORD(<span class="string">&#x27;newpassword&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SET</span> PASSWORD <span class="keyword">FOR</span> <span class="string">&#x27;mysql&#x27;</span>@<span class="string">&#x27;localhost&#x27;</span> <span class="operator">=</span> PASSWORD(<span class="string">&#x27;newpassword&#x27;</span>);</span><br></pre></td></tr></table></figure>
 
 <p>其实账户信息都被存在mysql数据库下的user表里，可以通过sql语句查询：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> mysql.user;</span><br></pre></td></tr></table></figure>
@@ -368,7 +400,7 @@
 <p>更多sql语句可以查看官方文档： <a target="_blank" rel="noopener" href="https://mariadb.com/kb/en/sql-statements-structure/">https://mariadb.com/kb/en/sql-statements-structure/</a></p>
 <p>不过数据库光有这一个客户端是不够用的，比如我觉得自带的客户端不合我的胃口，想自己开发一个客户端。而且我们有各种数据来源，比如通过别的程序获取的数据。实现这些就需要使用官方提供的各种程序语言的连接器啦。</p>
 <h2 id="C-C-连接器"><a href="#C-C-连接器" class="headerlink" title="C &amp; C++连接器"></a>C &amp; C++连接器</h2><p>可以检查系统表的目录下的lib目录：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /usr/local/mysql</span><br><span class="line"><span class="built_in">ls</span> -a</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /usr/local/mysql/lib</span><br><span class="line"><span class="built_in">ls</span> -a</span><br></pre></td></tr></table></figure>
 <p>如果有：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">ls</span> -a</span><br><span class="line">.                   libmariadb.so       libmysqlclient_r.so  plugin</span><br><span class="line">..                  libmariadb.so.3     libmysqlclient.so</span><br><span class="line">libmariadb.a        libmysqlclient.a    libmysqlservices.a</span><br><span class="line">libmariadbclient.a  libmysqlclient_r.a  pkgconfig</span><br></pre></td></tr></table></figure>
 
@@ -458,52 +490,56 @@
       
     </div>
     <footer class="article-footer">
-      <blockquote class="article-copyright">
+      
+        <blockquote class="article-copyright">
     <p><strong>本文作者：</strong>Stalk @ Stalk's Blog</p>
     
     
     
-    <p><strong>本文修改时间：</strong>2024-10-12 07:02:39</p>
+    <p><strong>本文修改时间：</strong>2024-11-05 10:27:08</p>
     <p><strong>本文版权：</strong>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh"><span class="icon-creative-commons"></span>BY-NC-SA</a> 许可协议。转载请注明出处！</p>
+    <span class="icon-creative-commons article-copyright-bg"></span>
   </blockquote>
       
       
-        <a href="/2024-10-12-mariadb%E5%BC%80%E6%BA%90%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%89%E8%A3%85%E5%8E%86%E7%A8%8B.html#comments" class="article-comment-link">
-          <span class="post-comments-count waline-comment-count" data-path="/2024-10-12-mariadb%E5%BC%80%E6%BA%90%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%89%E8%A3%85%E5%8E%86%E7%A8%8B.html" itemprop="commentCount"></span>
+      
+      
+        <a data-aos="zoom-in" href="/2024-11-05-mariadb%E5%BC%80%E6%BA%90%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%89%E8%A3%85%E5%8E%86%E7%A8%8B.html#comments" class="article-comment-link">
+          <span class="post-comments-count waline-comment-count" data-path="/2024-11-05-mariadb%E5%BC%80%E6%BA%90%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%89%E8%A3%85%E5%8E%86%E7%A8%8B.html" itemprop="commentCount"></span>
           留言
         </a>
       
       
       
       
-        <span class="article-visitor-link">
-          <span class="waline-pageview-count" data-path="/2024-10-12-mariadb%E5%BC%80%E6%BA%90%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%89%E8%A3%85%E5%8E%86%E7%A8%8B.html">0</span>
+        <span data-aos="zoom-in" class="article-visitor-link">
+          <span class="waline-pageview-count" data-path="/2024-11-05-mariadb%E5%BC%80%E6%BA%90%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%89%E8%A3%85%E5%8E%86%E7%A8%8B.html">0</span>
           <em class="post-meta-item-text">阅读量</em>
         </span>
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/record/" rel="tag">record</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item" data-aos="zoom-in"><a class="article-tag-list-link" href="/tags/record/" rel="tag">record</a></li></ul>
 
 
     </footer>
   </div>
   
     
-  <nav id="article-nav" class="wow fadeInUp">
+  <nav id="article-nav" data-aos="fade-up">
     
     
     <div class="article-nav-link-wrap article-nav-link-right">
       
         
         
-          <img data-src="/images/banner.webp" data-sizes="auto" alt="Js逆向学习笔记" class="lazyload">
+          <img data-src="/images/banner.webp" data-sizes="auto" alt="aiohttp库使用笔记" class="lazyload">
         
       
-      <a href="/2024-09-05-Js%E9%80%86%E5%90%91%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html"></a>
+      <a href="/2024-11-02-aiohttp%E5%BA%93%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0.html"></a>
       <div class="article-nav-caption">后一篇</div>
       <h3 class="article-nav-title">
         
-          Js逆向学习笔记
+          aiohttp库使用笔记
         
       </h3>
     </div>
@@ -515,7 +551,7 @@
 </article>
 
 
-  <div id="comments" class="wcomment"></div>
+  <div id="comments" class="wcomment" data-aos="fade-up"></div>
 
 
 
@@ -524,9 +560,10 @@
 </section>
           
             <aside id="sidebar">
-  <div class="sidebar-wrap wow fadeInRight wrap-sticky">
-    
-      <div class="sidebar-toc-sidebar"><div class="sidebar-toc">
+  <div class="sidebar-wrapper wrap-sticky">
+    <div class="sidebar-wrap" data-aos="fade-up">
+      
+        <div class="sidebar-toc-sidebar"><div class="sidebar-toc">
   <h3 class="toc-title">文章目录</h3>
   <div class="sidebar-toc-wrapper toc-div-class" >
       
@@ -535,7 +572,7 @@
   </div>
 </div>
 </div>
-      <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+        <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
   <img data-src="/avatar/avatar.jpg" data-sizes="auto" alt="Stalk" class="lazyload">
   <div class="sidebar-author-name">Stalk</div>
   <div class="sidebar-description">stalk的个人学习笔记</div>
@@ -543,7 +580,7 @@
 <div class="sidebar-state">
   <div class="sidebar-state-article">
     <div>文章</div>
-    <div class="sidebar-state-number">5</div>
+    <div class="sidebar-state-number">6</div>
   </div>
   <div class="sidebar-state-category">
     <div>分类</div>
@@ -561,37 +598,38 @@
   
     <div class="sidebar-menu-link-wrap">
       <a class="sidebar-menu-link-dummy" href="/" aria-label="首页"></a>
-      <span class="sidebar-menu-icon"></span>
+      <div class="sidebar-menu-icon icon-taichi"></div>
       <div class="sidebar-menu-link">首页</div>
     </div>
   
     <div class="sidebar-menu-link-wrap">
       <a class="sidebar-menu-link-dummy" href="/archives" aria-label="归档"></a>
-      <span class="sidebar-menu-icon"></span>
+      <div class="sidebar-menu-icon icon-taichi"></div>
       <div class="sidebar-menu-link">归档</div>
     </div>
   
     <div class="sidebar-menu-link-wrap">
       <a class="sidebar-menu-link-dummy" href="/about" aria-label="关于"></a>
-      <span class="sidebar-menu-icon"></span>
+      <div class="sidebar-menu-icon icon-taichi"></div>
       <div class="sidebar-menu-link">关于</div>
     </div>
   
     <div class="sidebar-menu-link-wrap">
       <a class="sidebar-menu-link-dummy" href="/friend" aria-label="友链"></a>
-      <span class="sidebar-menu-icon"></span>
+      <div class="sidebar-menu-icon icon-taichi"></div>
       <div class="sidebar-menu-link">友链</div>
     </div>
   
 </div>
 </div>
-    
-    
-      <div class="sidebar-btn-wrapper" style="position:static">
-        <div class="sidebar-toc-btn current"></div>
-        <div class="sidebar-common-btn"></div>
-      </div>
-    
+      
+      
+        <div class="sidebar-btn-wrapper" style="position:static">
+          <div class="sidebar-toc-btn current"></div>
+          <div class="sidebar-common-btn"></div>
+        </div>
+      
+    </div>
   </div>
 
   
@@ -599,44 +637,44 @@
 
           
         </div>
-        <footer id="footer" class="wow fadeInUp">
+        <footer id="footer">
   <div style="width: 100%; overflow: hidden">
     <div class="footer-line"></div>
   </div>
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      
-      <div>
-        <span class="icon-copyright"></span>
-        2020-2024
-        <span class="footer-info-sep"></span>
-        Stalk
-      </div>
-      
-        <div>
-          基于&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>&nbsp;
-          Theme.<a href="https://github.com/D-Sketon/hexo-theme-reimu" target="_blank">Reimu</a>
-        </div>
-      
-      
-        <div>
-          <span class="icon-brush"></span>
-          12.2k
-          &nbsp;|&nbsp;
-          <span class="icon-coffee"></span>
-          00:47
-        </div>
-      
-      
-        <div>
-          <span class="icon-eye"></span>
-          <span id="busuanzi_container_site_pv">总访问量&nbsp;<span id="busuanzi_value_site_pv"></span></span>
-          &nbsp;|&nbsp;
-          <span class="icon-user"></span>
-          <span id="busuanzi_container_site_uv">总访客量&nbsp;<span id="busuanzi_value_site_uv"></span></span>
-        </div>
-      
+  <div id="footer-info">
+    
+    <div>
+      <span class="icon-copyright"></span>
+      2020-2024
+      <span class="footer-info-sep"></span>
+      Stalk
     </div>
+    
+      <div>
+        基于&nbsp;<a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a>&nbsp;
+        Theme.<a href="https://github.com/D-Sketon/hexo-theme-reimu" rel="noopener" target="_blank">Reimu</a>
+      </div>
+    
+    
+      <div>
+        <span class="icon-brush"></span>
+        12.7k
+        &nbsp;|&nbsp;
+        <span class="icon-coffee"></span>
+        00:50
+      </div>
+    
+    
+    
+    
+      <div>
+        <span class="icon-eye"></span>
+        <span id="busuanzi_container_site_pv">总访问量&nbsp;<span id="busuanzi_value_site_pv"></span></span>
+        &nbsp;|&nbsp;
+        <span class="icon-user"></span>
+        <span id="busuanzi_container_site_uv">总访客量&nbsp;<span id="busuanzi_value_site_uv"></span></span>
+      </div>
+    
   </div>
 </footer>
 
@@ -666,7 +704,7 @@
 <div class="sidebar-state">
   <div class="sidebar-state-article">
     <div>文章</div>
-    <div class="sidebar-state-number">5</div>
+    <div class="sidebar-state-number">6</div>
   </div>
   <div class="sidebar-state-category">
     <div>分类</div>
@@ -684,25 +722,25 @@
   
     <div class="sidebar-menu-link-wrap">
       <a class="sidebar-menu-link-dummy" href="/" aria-label="首页"></a>
-      <span class="sidebar-menu-icon"></span>
+      <div class="sidebar-menu-icon icon-taichi"></div>
       <div class="sidebar-menu-link">首页</div>
     </div>
   
     <div class="sidebar-menu-link-wrap">
       <a class="sidebar-menu-link-dummy" href="/archives" aria-label="归档"></a>
-      <span class="sidebar-menu-icon"></span>
+      <div class="sidebar-menu-icon icon-taichi"></div>
       <div class="sidebar-menu-link">归档</div>
     </div>
   
     <div class="sidebar-menu-link-wrap">
       <a class="sidebar-menu-link-dummy" href="/about" aria-label="关于"></a>
-      <span class="sidebar-menu-icon"></span>
+      <div class="sidebar-menu-icon icon-taichi"></div>
       <div class="sidebar-menu-link">关于</div>
     </div>
   
     <div class="sidebar-menu-link-wrap">
       <a class="sidebar-menu-link-dummy" href="/friend" aria-label="友链"></a>
-      <span class="sidebar-menu-icon"></span>
+      <div class="sidebar-menu-icon icon-taichi"></div>
       <div class="sidebar-menu-link">友链</div>
     </div>
   
@@ -719,20 +757,23 @@
 </nav>
 
     </div>
-    <div class="site-search">
-      <div class="reimu-popup popup">
-        <div class="reimu-search">
-          <span class="reimu-search-input-icon"></span>
-          <div class="reimu-search-input" id="reimu-search-input"></div>
+    
+      <div class="site-search">
+        <div class="reimu-popup popup">
+          <div class="reimu-search">
+            <div class="reimu-search-input-icon"></div>
+            <div class="reimu-search-input" id="reimu-search-input"></div>
+            <div class="popup-btn-close"></div>
+          </div>
+          <div class="reimu-results">
+            <div id="reimu-stats"></div>
+            <div id="reimu-hits"></div>
+            <div id="reimu-pagination" class="reimu-pagination"></div>
+          </div>
+          <img class="reimu-bg" src="/images/reimu.png"/>
         </div>
-        <div class="reimu-results">
-          <div id="reimu-stats"></div>
-          <div id="reimu-hits"></div>
-          <div id="reimu-pagination" class="reimu-pagination"></div>
-        </div>
-        <span class="popup-btn-close"></span>
       </div>
-    </div>
+    
     
 <script src="https://npm.webcache.cn/lazysizes@5.3.2/lazysizes.min.js"></script>
 
@@ -745,25 +786,46 @@
 
 
 
+  
+<script src="/js/aos.js"></script>
+
+  <script>
+    var aosInit = () => {
+      AOS.init({
+        duration: 1000,
+        easing: "ease",
+        once: true,
+        offset: 50,
+      });
+    };
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', aosInit);
+    } else {
+      aosInit();
+    }
+  </script>
+
+
+
 <script src="/js/pjax_script.js" data-pjax></script>
 
 
 <script type="module" data-pjax>
-  import PhotoSwipeLightbox from "https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe-lightbox.esm.js";
+  import PhotoSwipeLightbox from "https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe-lightbox.esm.min.js";
   
   const pswp = () => {
     if (_$$('.article-entry a.article-gallery-item').length > 0) {
       new PhotoSwipeLightbox({
         gallery: '.article-entry',
         children: 'a.article-gallery-item',
-        pswpModule: () => import("https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.esm.js")
+        pswpModule: () => import("https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.esm.min.js")
       }).init();
     }
     if(_$$('.article-gallery a.article-gallery-item').length > 0) {
       new PhotoSwipeLightbox({
         gallery: '.article-gallery',
         children: 'a.article-gallery-item',
-        pswpModule: () => import("https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.esm.js")
+        pswpModule: () => import("https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.esm.min.js")
       }).init();
     }
     window.lightboxStatus = 'done';
@@ -809,15 +871,6 @@
 
 
 
-  
-<script src="https://npm.webcache.cn/algoliasearch@4.17.1/dist/algoliasearch-lite.umd.js"></script>
-
-  
-<script src="https://npm.webcache.cn/instantsearch.js@4.56.1/dist/instantsearch.production.min.js"></script>
-
-  
-<script src="/js/algolia_search.js"></script>
-
   <script>
     var CONFIG = {
       root: '/',
@@ -836,6 +889,15 @@
       }
     };
   </script>
+  
+<script src="https://npm.webcache.cn/algoliasearch@4.17.1/dist/algoliasearch-lite.umd.js"></script>
+
+  
+<script src="https://npm.webcache.cn/instantsearch.js@4.56.1/dist/instantsearch.production.min.js" defer></script>
+
+  
+<script src="/js/algolia_search.js" defer></script>
+
 
 
 
@@ -845,12 +907,25 @@
 
   <script>
     function initLive2d() {
-      live2d.init("https://fastly.jsdelivr.net/gh/MliKiowa/plugin-live2d/", {themeTipsPath: ""});
+      live2d.init("https://fastly.jsdelivr.net/gh/D-Sketon/plugin-live2d/", {themeTipsPath: ""});
     }
   </script>
   
-<script src="https://fastly.jsdelivr.net/gh/MliKiowa/plugin-live2d/js/live2d-autoload.js" onload="initLive2d &amp;&amp; initLive2d()" async></script>
+<script src="https://fastly.jsdelivr.net/gh/D-Sketon/plugin-live2d/js/live2d-autoload.js" onload="initLive2d &amp;&amp; initLive2d()" async></script>
 
+
+
+
+  
+<script src="https://npm.webcache.cn/quicklink@2.3.0/dist/quicklink.umd.js"></script>
+
+  <script data-pjax>
+    window.quicklink?.listen({
+      timeout: 3000,
+      priority: true,
+      ignores: []
+    });
+  </script>
 
 
 <div id="lazy-script">
@@ -869,14 +944,27 @@
   \/_/ /_/   \/_____/   \/_/   \/_/  \/_/   \/_____/ 
                                                   
 `,'color: #ff5252;')
-    console.log('%c Theme.Reimu v' + '0.2.1' + ' %c https://github.com/D-Sketon/hexo-theme-reimu ', 'color: white; background: #ff5252; padding:5px 0;', 'padding:4px;border:1px solid #ff5252;')
+    console.log('%c Theme.Reimu v' + '0.3.3' + ' %c https://github.com/D-Sketon/hexo-theme-reimu ', 'color: white; background: #ff5252; padding:5px 0;', 'padding:4px;border:1px solid #ff5252;')
   </script>
   
+
 
 
   
 <script src="https://npm.webcache.cn/busuanzi@2.3.0/bsz.pure.mini.js" async></script>
 
+
+
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.getRegistrations().then((registrations) => {
+      for (let registration of registrations) {
+        registration.unregister();
+      }
+    });
+  }
+</script>
 
   <!-- hexo injector body_end start -->
 <script src="/js/insert_highlight.js" data-pjax></script>

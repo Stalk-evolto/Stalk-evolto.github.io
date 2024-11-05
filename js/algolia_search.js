@@ -7,7 +7,12 @@ const algoliaHandler = () => {
     algoliaSettings.indexName;
 
   if (!isAlgoliaSettingsValid) {
-    window.console.error("Algolia Settings are invalid.");
+    console.error("Algolia Settings are invalid.");
+    return;
+  }
+
+  if (!window.instantsearch) {
+    console.error("Algolia InstantSearch is not loaded.");
     return;
   }
 
@@ -108,9 +113,13 @@ const algoliaHandler = () => {
     .off("click")
     .on("click", (event) => {
       event.stopPropagation();
-      document.body.insertAdjacentHTML("beforeend", '<div class="popoverlay">');
+      document.body.insertAdjacentHTML("beforeend", '<div class="popoverlay hide"></div>');
+      const scrollWidth = window.innerWidth - document.documentElement.offsetWidth;
+      _$("#container").style.marginRight = scrollWidth + "px";
+      _$("#header-nav").style.marginRight = scrollWidth + "px";
+      _$(".popup").classList.add("show");
+      _$(".popoverlay").classList.remove("hide");
       document.body.style.overflow = "hidden";
-      _$(".popup").style.display = "block";
       _$("#reimu-search-input input").focus();
     });
 
@@ -118,8 +127,13 @@ const algoliaHandler = () => {
     .querySelector(".popup-btn-close")
     .off("click")
     .on("click", () => {
-      _$(".popup").style.display = "none";
-      _$(".popoverlay").remove();
+      _$(".popup").classList.remove("show");
+      _$(".popoverlay").classList.add("hide");
+      setTimeout(() => {
+        _$(".popoverlay").remove();
+      }, 300);
+      _$("#container").style.marginRight = "";
+      _$("#header-nav").style.marginRight = "";
       document.body.style.overflow = "";
     });
 };
