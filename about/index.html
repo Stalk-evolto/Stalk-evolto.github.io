@@ -10,7 +10,7 @@
   
 
   
-  <script>window.icon_font = '4552607_tq6stt6tcg';window.clipboard_tips = {"success":"复制成功(*^▽^*)","fail":"复制失败 (ﾟ⊿ﾟ)ﾂ","copyright":{"enable":false,"count":50,"content":"本文版权：本博客所有文章除特别声明外，均采用 BY-NC-SA 许可协议。转载请注明出处！"}};</script>
+  <script>window.icon_font = '4552607_tq6stt6tcg';window.clipboard_tips = {"success":"复制成功(*^▽^*)","fail":"复制失败 (ﾟ⊿ﾟ)ﾂ","copyright":{"enable":false,"count":50,"content":"本文版权：本博客所有文章除特别声明外，均采用 BY-NC-SA 许可协议。转载请注明出处！"}};window.outdate = {"enable":true,"daysAgo":180,"message":"本文最后更新于 {time}，请注意文中内容可能已经发生变化。"};</script>
   
   
   <title>
@@ -203,13 +203,15 @@
 
     <div class="e-content article-entry" itemprop="articleBody">
       
+        <blockquote id="outdate-blockquote" style="display: none;"><p></p></blockquote>
+      
       
         <h2 id="关于"><a href="#关于" class="headerlink" title="关于"></a>关于</h2><p>本站属于个人学习记录，各项功能还在完善中。如有错误，请在评论功能完善后指正，感谢各位指点。<br>食用说明：</p>
 <ul>
 <li>笔记类：可以看成我个人自用的工具书，里面记录着我常用的命令与操作，会对命令做一些比较详细解释，防止这篇文章在我遗忘后只有上帝能看懂。</li>
 <li>记录类：记录某件事的历程，包括里面遇到的一些问题,主观性很强，毕竟很多问题我也没搞懂原因，但是终归是过掉啦这个问题<del>暂时性的胜利也能带来暂时的喜悦嘛</del>。</li>
 </ul>
-<h2 id="站长简介"><a href="#站长简介" class="headerlink" title="站长简介"></a>站长简介</h2><p>通过网站自学计算机相关技术，想要从事相关工作或创业。2023年一年迷茫期，技术停滞不前，但愿尽快脱离瓶颈，向梦想前进。<br>邮箱：<a href="mailto:&#x73;&#116;&#97;&#108;&#107;&#x2e;&#x77;&#x6f;&#114;&#x6b;&#64;&#111;&#117;&#x74;&#x6c;&#111;&#111;&#x6b;&#x2e;&#x63;&#x6f;&#109;">&#x73;&#116;&#97;&#108;&#107;&#x2e;&#x77;&#x6f;&#114;&#x6b;&#64;&#111;&#117;&#x74;&#x6c;&#111;&#111;&#x6b;&#x2e;&#x63;&#x6f;&#109;</a></p>
+<h2 id="站长简介"><a href="#站长简介" class="headerlink" title="站长简介"></a>站长简介</h2><p>通过网站自学计算机相关技术，想要从事相关工作或创业。2023年一年迷茫期，技术停滞不前，但愿尽快脱离瓶颈，向梦想前进。<br>邮箱：<a href="mailto:&#115;&#x74;&#x61;&#108;&#107;&#x2e;&#x77;&#x6f;&#114;&#x6b;&#64;&#x6f;&#x75;&#x74;&#108;&#111;&#x6f;&#x6b;&#46;&#99;&#x6f;&#109;">&#115;&#x74;&#x61;&#108;&#107;&#x2e;&#x77;&#x6f;&#114;&#x6b;&#64;&#x6f;&#x75;&#x74;&#108;&#111;&#x6f;&#x6b;&#46;&#99;&#x6f;&#109;</a></p>
 <p>图库均来源于网络，如有侵权则删除。</p>
 <h2 id="座右铭"><a href="#座右铭" class="headerlink" title="座右铭"></a>座右铭</h2><ul>
 <li>《笨方法学python》节选：<br>原文链接：<a target="_blank" rel="noopener" href="https://learnpythonthehardway.org/book/advice.html">https://learnpythonthehardway.org/book/advice.html</a><br>译文链接：<a target="_blank" rel="noopener" href="https://wizardforcel.gitbooks.io/lpthw/content">https://wizardforcel.gitbooks.io/lpthw/content</a></li>
@@ -651,6 +653,25 @@
   </script>
   
 
+<script data-pjax>
+  var updateTime = _$('#post-update-time')?.innerHTML;
+
+  if (updateTime) {
+    const update = new Date(updateTime);
+    const now = new Date();
+    const diff = now - update;
+    const days = diff / 86400000;
+    const { daysAgo, message: template } = window.outdate;
+    if (days >= daysAgo) {
+      const message = template.replace(/{time}/, updateTime);
+      const blockquote = _$('#outdate-blockquote');
+      if (blockquote) {
+        blockquote.querySelector('p').innerText = message;
+        blockquote.style.display = 'block';
+      }
+    }
+  }
+</script>
 
 
   
