@@ -1,0 +1,1154 @@
+
+  <!DOCTYPE html>
+  <html lang="zh-CN"  >
+  <head>
+  <meta charset="utf-8">
+  
+
+  
+
+  
+
+  <script>window.REIMU_CONFIG = {};window.REIMU_CONFIG.icon_font = '4552607_tq6stt6tcg';window.REIMU_CONFIG.clipboard_tips = {"success":"复制成功(*^▽^*)","fail":"复制失败 (ﾟ⊿ﾟ)ﾂ","copyright":{"enable":false,"count":50,"content":"本文版权：本博客所有文章除特别声明外，均采用 BY-NC-SA 许可协议。转载请注明出处！"}};window.REIMU_CONFIG.outdate = {"enable":true,"daysAgo":180,"message":"本文最后更新于 {time}，请注意文中内容可能已经发生变化。"};window.REIMU_CONFIG.code_block = {"expand":true};</script>
+  
+  <title>
+    mariadb安装历程 |
+    
+    Stalk&#39;s Blog
+  </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin><link rel="preload" as="style" href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7CNoto%20Serif%20SC:400,400italic,700,700italic&display=swap"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7CNoto%20Serif%20SC:400,400italic,700,700italic&display=swap" media="print" onload="this.media&#x3D;&#39;all&#39;">
+  
+    <link rel="preload" href="//at.alicdn.com/t/c/font_4552607_tq6stt6tcg.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+  
+  
+    
+<link rel="stylesheet" href="/css/loader.css">
+
+  
+  
+    <meta name="description" content="package version    package version     ubuntu 24.10   mariadb 11.7.0     mariadb部署  什么是mariadb 引用维基百科的描述：  MariaDB是MySQL关系数据库管理系统的一个分叉，由社区开发，有商业支持，旨在继续保持在GNU GPL下开源。MariaDB的开发是由MySQL的一些原始开发者领导的，他们担心甲">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mariadb安装历程">
+<meta property="og:url" content="https://stalk-evolto.github.io/2024-11-05-mariadb%E5%BC%80%E6%BA%90%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%89%E8%A3%85%E5%8E%86%E7%A8%8B.html">
+<meta property="og:site_name" content="Stalk&#39;s Blog">
+<meta property="og:description" content="package version    package version     ubuntu 24.10   mariadb 11.7.0     mariadb部署  什么是mariadb 引用维基百科的描述：  MariaDB是MySQL关系数据库管理系统的一个分叉，由社区开发，有商业支持，旨在继续保持在GNU GPL下开源。MariaDB的开发是由MySQL的一些原始开发者领导的，他们担心甲">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://stalk-evolto.github.io/images/mariadb_usr/mariadb_service_status.png">
+<meta property="article:published_time" content="2024-11-05T02:27:08.742Z">
+<meta property="article:modified_time" content="2024-11-05T02:27:08.742Z">
+<meta property="article:author" content="Stalk">
+<meta property="article:tag" content="record">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://stalk-evolto.github.io/images/mariadb_usr/mariadb_service_status.png">
+  
+  
+    <link rel="alternate" href="/atom.xml" title="Stalk's Blog" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/images/favicon.ico">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  <link rel="preload" href="https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  
+    
+      
+        
+<link rel="stylesheet" href="https://npm.webcache.cn/katex@0.16.11/dist/katex.min.css">
+
+      
+    
+  
+  
+    
+      
+<link rel="stylesheet" href="https://npm.webcache.cn/@waline/client@2.15.8/dist/waline.css">
+
+    
+  
+  
+  
+    
+<script src="https://npm.webcache.cn/pace-js@1.2.4/pace.min.js" integrity="sha384-k6YtvFUEIuEFBdrLKJ3YAUbBki333tj1CSUisai5Cswsg9wcLNaPzsTHDswp4Az8" crossorigin="anonymous"></script>
+
+  
+  
+    
+<link rel="stylesheet" href="https://npm.webcache.cn/@reimujs/aos@0.1.0/dist/aos.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+  <body>
+    
+  <div id='loader'>
+    <div class="loading-left-bg loading-bg"></div>
+    <div class="loading-right-bg loading-bg"></div>
+    <div class="spinner-box">
+      <div class="loading-taichi">
+        
+          <svg width="150" height="150" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="https://www.w3.org/2000/svg" shape-rendering="geometricPrecision">
+            <path d="M303.5 432A80 80 0 0 1 291.5 592A80 80 0 0 1 303.5 432z" fill="var(--red-1, #ff5252)" />
+            <path d="M512 65A447 447 0 0 1 512 959L512 929A417 417 0 0 0 512 95A417 417 0 0 0 512 929L512 959A447 447 0 0 1 512 65z 
+           M512 95A417 417 0 0 1 929 512A208.5 208.5 0 0 1 720.5 720.5L720.5 592A80 80 0 0 0 720.5 432A80 80 0 0 0 720.5 592L720.5 720.5A208.5 208.5 0 0 1 512 512A208.5 208.5 0 0 0 303.5 303.5A208.5 208.5 0 0 0 95 512A417 417 0 0 1 512 95z" fill="var(--red-1, #ff5252)" />
+          </svg>
+        
+      </div>
+      <div class="loading-word">少女祈祷中...</div>
+    </div>
+  </div>
+  </div>
+  <script>
+    var time = null;
+    var startLoading = () => {
+      time = Date.now();
+      document.getElementById('loader').classList.remove("loading");
+    }
+    var endLoading = () => {
+      if (!time) {
+        document.body.style.overflow = 'auto';
+        document.getElementById('loader').classList.add("loading");
+      } else {
+        if (Date.now() - time > 500) {
+          time = null;
+          document.body.style.overflow = 'auto';
+          document.getElementById('loader').classList.add("loading");
+        } else {
+          setTimeout(endLoading, 500 - (Date.now() - time));
+          time = null;
+        }
+      }
+    }
+    window.addEventListener('DOMContentLoaded', endLoading);
+    document.getElementById('loader').addEventListener('click', endLoading);
+  </script>
+
+<div id="copy-tooltip" style="pointer-events: none; opacity: 0; transition: all 0.2s ease; position: fixed;top: 50%;left: 50%;z-index: 999;transform: translate(-50%, -50%);color: white;background: rgba(0, 0, 0, 0.5);padding: 10px 15px;border-radius: 10px;">
+</div>
+
+
+    <div id="container">
+      <div id="wrap">
+        <div id="header-nav">
+  <nav id="main-nav">
+    
+      
+        <span class="main-nav-link-wrap">
+          <div class="main-nav-icon icon rotate">
+            &#xe62b;
+          </div>
+          <a class="main-nav-link" href="/">首页</a>
+        </span>
+      
+        <span class="main-nav-link-wrap">
+          <div class="main-nav-icon icon rotate">
+            &#xe62b;
+          </div>
+          <a class="main-nav-link" href="/archives">归档</a>
+        </span>
+      
+        <span class="main-nav-link-wrap">
+          <div class="main-nav-icon icon rotate">
+            &#xe62b;
+          </div>
+          <a class="main-nav-link" href="/about">关于</a>
+        </span>
+      
+        <span class="main-nav-link-wrap">
+          <div class="main-nav-icon icon rotate">
+            &#xe62b;
+          </div>
+          <a class="main-nav-link" href="/friend">友链</a>
+        </span>
+      
+    
+    <a id="main-nav-toggle" class="nav-icon"></a>
+  </nav>
+  <nav id="sub-nav">
+    
+      <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅" target="_blank"></a>
+    
+    
+      <a id="nav-search-btn" class="nav-icon popup-trigger" title="搜索"></a>
+    
+    
+  </nav>
+</div>
+<header id="header">
+  
+    <picture>
+      
+    </picture>
+    
+      <img fetchpriority="high" src="/images/banner.webp" alt="mariadb安装历程">
+    
+  
+  <div id="header-outer">
+    <div id="header-title">
+      
+        
+        
+          <a href="/" id="logo">
+            <h1 data-aos="slide-up">mariadb安装历程</h1>
+          </a>
+        
+      
+      
+        
+        <h2 id="subtitle-wrap" data-aos="slide-down">
+          
+        </h2>
+      
+    </div>
+  </div>
+</header>
+
+        <div id="content"  class="sidebar-right" >
+          <aside id="sidebar">
+  
+  
+  <div class="sidebar-wrapper wrap-sticky">
+    <div class="sidebar-wrap" data-aos="fade-up">
+      
+        <div class="sidebar-toc-sidebar"><div class="sidebar-toc">
+  <h3 class="toc-title">文章目录</h3>
+  <div class="sidebar-toc-wrapper toc-div-class" >
+      
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#package-version"><span class="toc-number">1.</span> <span class="toc-text"> package version</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#mariadb%E9%83%A8%E7%BD%B2"><span class="toc-number">2.</span> <span class="toc-text"> mariadb部署</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFmariadb"><span class="toc-number">2.1.</span> <span class="toc-text"> 什么是mariadb</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mariadb%E5%AE%89%E8%A3%85"><span class="toc-number">2.2.</span> <span class="toc-text"> mariadb安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E4%BE%9D%E8%B5%96"><span class="toc-number">2.2.1.</span> <span class="toc-text"> 安装依赖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD%E6%BA%90%E4%BB%A3%E7%A0%81"><span class="toc-number">2.2.2.</span> <span class="toc-text"> 下载源代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8cmake%E6%9E%84%E5%BB%BA"><span class="toc-number">2.2.3.</span> <span class="toc-text"> 使用cmake构建：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mariadb%E9%A6%96%E6%AC%A1%E5%90%AF%E5%8A%A8"><span class="toc-number">2.2.4.</span> <span class="toc-text"> mariadb首次启动</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AEmariadb%E8%87%AA%E5%90%AF%E5%8A%A8"><span class="toc-number">2.3.</span> <span class="toc-text"> 设置mariadb自启动</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mariadb%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-number">2.4.</span> <span class="toc-text"> mariadb客户端的使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#mariadb%E8%87%AA%E5%B8%A6%E5%AE%A2%E6%88%B7%E7%AB%AF"><span class="toc-number">2.4.1.</span> <span class="toc-text"> mariadb自带客户端</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#c-c%E8%BF%9E%E6%8E%A5%E5%99%A8"><span class="toc-number">2.5.</span> <span class="toc-text"> C &amp; C++连接器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#python%E8%BF%9E%E6%8E%A5%E5%99%A8"><span class="toc-number">2.6.</span> <span class="toc-text"> Python连接器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E4%BE%9D%E8%B5%96-2"><span class="toc-number">2.6.1.</span> <span class="toc-text"> 安装依赖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85python%E8%BF%9E%E6%8E%A5%E5%99%A8"><span class="toc-number">2.6.2.</span> <span class="toc-text"> 安装python连接器</span></a></li></ol></li></ol></li></ol>
+      
+  </div>
+</div>
+</div>
+        <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img data-src="/avatar/avatar.jpg" data-sizes="auto" alt="Stalk" class="lazyload">
+  <div class="sidebar-author-name">Stalk</div>
+  <div class="sidebar-description">Stalk的个人学习笔记</div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div>
+    <div class="sidebar-state-number">7</div>
+  </div>
+  <div class="sidebar-state-category">
+    <div>分类</div>
+    <div class="sidebar-state-number">4</div>
+  </div>
+  <div class="sidebar-state-tag">
+    <div>标签</div>
+    <div class="sidebar-state-number">7</div>
+  </div>
+</div>
+<div class="sidebar-social">
+  
+    <div class="icon-email sidebar-social-icon">
+      <a href=mailto:stalk.work@outlook.com itemprop="url" target="_blank" aria-label="email" rel="noopener external nofollow noreferrer"></a>
+    </div>
+  
+    <div class="icon-github sidebar-social-icon">
+      <a href=https://github.com/stalk-evolto itemprop="url" target="_blank" aria-label="github" rel="noopener external nofollow noreferrer"></a>
+    </div>
+  
+</div>
+<div class="sidebar-menu">
+  
+    
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/" aria-label="首页"></a>
+        <div class="sidebar-menu-icon icon rotate">
+          &#xe62b;
+        </div>
+        <div class="sidebar-menu-link">首页</div>
+      </div>
+    
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/archives" aria-label="归档"></a>
+        <div class="sidebar-menu-icon icon rotate">
+          &#xe62b;
+        </div>
+        <div class="sidebar-menu-link">归档</div>
+      </div>
+    
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/about" aria-label="关于"></a>
+        <div class="sidebar-menu-icon icon rotate">
+          &#xe62b;
+        </div>
+        <div class="sidebar-menu-link">关于</div>
+      </div>
+    
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/friend" aria-label="友链"></a>
+        <div class="sidebar-menu-icon icon rotate">
+          &#xe62b;
+        </div>
+        <div class="sidebar-menu-link">友链</div>
+      </div>
+    
+  
+</div>
+</div>
+      
+      
+        <div class="sidebar-btn-wrapper" style="position:static">
+          <div class="sidebar-toc-btn current"></div>
+          <div class="sidebar-common-btn"></div>
+        </div>
+      
+    </div>
+  </div>
+
+  <div class="sidebar-widget">
+  
+  </div>
+</aside>
+
+          <section id="main"><article id="post-mariadb开源数据库安装历程" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner" data-aos="fade-up">
+    <div class="article-meta">
+      <div class="article-date">
+  <a href="/2024-11-05-mariadb%E5%BC%80%E6%BA%90%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%89%E8%A3%85%E5%8E%86%E7%A8%8B.html" class="article-date-link" data-aos="zoom-in">
+    <time datetime="2024-11-05T02:27:08.742Z" itemprop="datePublished">2024-11-05</time>
+    <time style="display: none;" id="post-update-time">2024-11-05</time>
+  </a>
+</div>
+
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Docs/" data-aos="zoom-in">Docs</a>
+  </div>
+
+
+    </div>
+    <div class="hr-line"></div>
+    
+
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <blockquote id="outdate-blockquote" style="display: none;"><p></p></blockquote>
+      
+      
+        <h1 id="package-version"><a class="markdownIt-Anchor" href="#package-version"></a> package version</h1>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">package</th>
+<th style="text-align:center">version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">ubuntu</td>
+<td style="text-align:center">24.10</td>
+</tr>
+<tr>
+<td style="text-align:center">mariadb</td>
+<td style="text-align:center">11.7.0</td>
+</tr>
+</tbody>
+</table>
+<h1 id="mariadb部署"><a class="markdownIt-Anchor" href="#mariadb部署"></a> mariadb部署</h1>
+<h2 id="什么是mariadb"><a class="markdownIt-Anchor" href="#什么是mariadb"></a> 什么是mariadb</h2>
+<p>引用维基百科的描述：</p>
+<hr />
+<p>MariaDB是MySQL关系数据库管理系统的一个分叉，由社区开发，有商业支持，旨在继续保持在GNU GPL下开源。MariaDB的开发是由MySQL的一些原始开发者领导的，他们担心甲骨文公司收购MySQL后会有一些隐患。</p>
+<hr />
+<p>mariadb官网网址: <a target="_blank" rel="noopener" href="https://mariadb.com">https://mariadb.com</a></p>
+<p>也就是说是一个开源的关系型数据库，那么什么是关系型数据库？<br />
+<s>好吧我也不太懂</s></p>
+<p>那么可以用来干什么呢？</p>
+<p>我现在有两组数据:<br />
+一组是储存一个直播间的主播的信息，一组储存的是直播间送礼物和发送弹幕信息。<br />
+不难发现：主播和直播间观众的联系是，主播有一个直播间，观众在这个直播间内。<s>至于观众是不是主播这层我还没考虑到</s></p>
+<ol>
+<li>我今天想删除某一个主播的信息，还要删除这个主播粉丝的在他直播间里发送的所有弹幕。但是一个主播有很多粉丝，每个粉丝会发送很多弹幕。一条一条查看删除的我：哦，我的老天，这是一个大工程。</li>
+<li>我的电脑不止我一个人使用，我不想让别人看到和使用我储存的这些信息。创建一个新用户？~~假设是女朋友查你电脑里有没有好康的，~~我需要只让这些数据在除我之外的人需要费点劲才能查看到这些数据，还要再费点劲才能知道他们之间的关系，别的一切都不要有太多的变化。</li>
+<li>我又比较懒，不想编写太多的程序实现这个功能。<br />
+那就装个现成的数据库吧!!!</li>
+</ol>
+<h2 id="mariadb安装"><a class="markdownIt-Anchor" href="#mariadb安装"></a> mariadb安装</h2>
+<p>详情可以查看官方文档：<a target="_blank" rel="noopener" href="https://mariadb.com/kb/en/getting-installing-and-upgrading-mariadb/">https://mariadb.com/kb/en/getting-installing-and-upgrading-mariadb/</a></p>
+<p>我选择的是源代码编译。</p>
+<h3 id="安装依赖"><a class="markdownIt-Anchor" href="#安装依赖"></a> 安装依赖</h3>
+<p>查看《ubuntu构建说明》：<a target="_blank" rel="noopener" href="https://mariadb.com/kb/en/building-mariadb-on-ubuntu/">https://mariadb.com/kb/en/building-mariadb-on-ubuntu/</a></p>
+<p>文档里安装的是10.3的构建依赖，我没有使用mariadb官方库，使用的ubuntu的库:<br />
+<s>毕竟去/etc/apt/sources.list.d路径下删不需要的源对我这种懒人来说有点心累。缺点是编译途中遇到没有安装的依赖就要自己安装了</s></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install software-properties-common devscripts equivs</span><br><span class="line">sudo apt-get build-dep mariadb</span><br></pre></td></tr></table></figure>
+<p>如果出现以下错误</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">E: 您必须在 sources.list 中指定代码源（deb-src）URI</span><br></pre></td></tr></table></figure>
+<p>说明你当前apt没有deb-src软件源<br />
+可以通过以下步骤添加：</p>
+<ol>
+<li>编辑apt源配置文件(两种选一种，看你电脑上是怎么设置的)</li>
+</ol>
+<ul>
+<li>/etc/apt/source.list文件</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/apt/source.list</span><br></pre></td></tr></table></figure>
+<p>可以看到以下内容</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">deb</span> <span class="string">http://archive.ubuntu.com/ubuntu</span> <span class="string">oracular</span> <span class="string">main</span> <span class="string">restricted</span> <span class="string">universe</span> <span class="string">multiverse</span></span><br><span class="line"></span><br><span class="line"><span class="string">deb</span> <span class="string">http://security.ubuntu.com/ubuntu</span> <span class="string">oracular</span> <span class="string">main</span> <span class="string">restricted</span> <span class="string">universe</span> <span class="string">multiverse</span></span><br></pre></td></tr></table></figure>
+<p>将这两行复制，并更改复制行的开头为deb-src,即：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">deb</span> <span class="string">http://archive.ubuntu.com/ubuntu</span> <span class="string">oracular</span> <span class="string">main</span> <span class="string">restricted</span> <span class="string">universe</span> <span class="string">multiverse</span></span><br><span class="line"><span class="string">deb-src</span> <span class="string">http://archive.ubuntu.com/ubuntu</span> <span class="string">oracular</span> <span class="string">main</span> <span class="string">restricted</span> <span class="string">universe</span> <span class="string">multiverse</span></span><br><span class="line"></span><br><span class="line"><span class="string">deb</span> <span class="string">http://security.ubuntu.com/ubuntu</span> <span class="string">oracular</span> <span class="string">main</span> <span class="string">restricted</span> <span class="string">universe</span> <span class="string">multiverse</span></span><br><span class="line"><span class="string">deb-src</span> <span class="string">http://security.ubuntu.com/ubuntu</span> <span class="string">oracular</span> <span class="string">main</span> <span class="string">restricted</span> <span class="string">universe</span> <span class="string">multiverse</span></span><br></pre></td></tr></table></figure>
+<p>保存退出后（按Esc后输入:wq回车),在终端运行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update</span><br></pre></td></tr></table></figure>
+<p>再执行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get build-dep mariadb</span><br></pre></td></tr></table></figure>
+<p>就不会报错了</p>
+<p>如果你的/etc/apt/source.list显示以下内容</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># Ubuntu sources have moved to /etc/apt/sources.list.d/ubuntu.sources</span><br></pre></td></tr></table></figure>
+<p>则按照提示修改/etc/apt/sources.list.d/ubuntu.sources文件</p>
+<ul>
+<li>/etc/apt/source.list.d/ubuntu.source文件（deb822风格）<br />
+修改该文件:</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/apt/source.list.d/ubuntu.source</span><br></pre></td></tr></table></figure>
+<p>可以看到以下内容:</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">Types:</span> <span class="string">deb</span></span><br><span class="line"><span class="attr">URIs:</span> <span class="string">http://archive.ubuntu.com/ubuntu/</span></span><br><span class="line"><span class="attr">Suites:</span> <span class="string">oracular</span> <span class="string">oracular-updates</span> <span class="string">oracular-backports</span> <span class="string">oracular-proposed</span></span><br><span class="line"><span class="attr">Components:</span> <span class="string">main</span> <span class="string">restricted</span> <span class="string">universe</span> <span class="string">multiverse</span></span><br><span class="line"><span class="attr">Signed-By:</span> <span class="string">/usr/share/keyrings/ubuntu-archive-keyring.gpg</span></span><br><span class="line"></span><br><span class="line"><span class="attr">Types:</span> <span class="string">deb</span></span><br><span class="line"><span class="attr">URIs:</span> <span class="string">http://security.ubuntu.com/ubuntu/</span></span><br><span class="line"><span class="attr">Suites:</span> <span class="string">oracular-security</span></span><br><span class="line"><span class="attr">Components:</span> <span class="string">main</span> <span class="string">restricted</span> <span class="string">universe</span> <span class="string">multiverse</span></span><br><span class="line"><span class="attr">Signed-By:</span> <span class="string">/usr/share/keyrings/ubuntu-archive-keyring.gpg</span></span><br></pre></td></tr></table></figure>
+<p>需要在Types键添加deb-src值，即：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">Types:</span> <span class="string">deb</span> <span class="string">deb-src</span></span><br><span class="line"><span class="attr">URIs:</span> <span class="string">http://archive.ubuntu.com/ubuntu/</span></span><br><span class="line"><span class="attr">Suites:</span> <span class="string">oracular</span> <span class="string">oracular-updates</span> <span class="string">oracular-backports</span> <span class="string">oracular-proposed</span></span><br><span class="line"><span class="attr">Components:</span> <span class="string">main</span> <span class="string">restricted</span> <span class="string">universe</span> <span class="string">multiverse</span></span><br><span class="line"><span class="attr">Signed-By:</span> <span class="string">/usr/share/keyrings/ubuntu-archive-keyring.gpg</span></span><br><span class="line"></span><br><span class="line"><span class="attr">Types:</span> <span class="string">deb</span> <span class="string">deb-src</span></span><br><span class="line"><span class="attr">URIs:</span> <span class="string">http://security.ubuntu.com/ubuntu/</span></span><br><span class="line"><span class="attr">Suites:</span> <span class="string">oracular-security</span></span><br><span class="line"><span class="attr">Components:</span> <span class="string">main</span> <span class="string">restricted</span> <span class="string">universe</span> <span class="string">multiverse</span></span><br><span class="line"><span class="attr">Signed-By:</span> <span class="string">/usr/share/keyrings/ubuntu-archive-keyring.gpg</span></span><br></pre></td></tr></table></figure>
+<p>保存并退出后(按Esc后输入:wq回车),运行:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update</span><br></pre></td></tr></table></figure>
+<p>也可解决此问题</p>
+<h3 id="下载源代码"><a class="markdownIt-Anchor" href="#下载源代码"></a> 下载源代码</h3>
+<p>查看《通用构建说明》: <a target="_blank" rel="noopener" href="https://mariadb.com/kb/en/generic-build-instructions/">https://mariadb.com/kb/en/generic-build-instructions/</a></p>
+<p>找一个好地方存放你mariadb源代码，我选的是/usr/local<br />
+使用git工具将源代码clone下来,放在这里的mariadb_source目录下，进入这个目录：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /usr/local</span><br><span class="line">sudo git <span class="built_in">clone</span> https://github.com/mariadb/server mariadb_source</span><br><span class="line"><span class="built_in">cd</span> mariadb_source</span><br></pre></td></tr></table></figure>
+<p>切换git的分支，我需要最新的，所以选择main分支。<br />
+详情请看《以慵懒的方式获取、构建和测试最新的mariadb》：<a target="_blank" rel="noopener" href="https://mariadb.com/kb/en/get-build-and-test-latest-mariadb-the-lazy-way/">https://mariadb.com/kb/en/get-build-and-test-latest-mariadb-the-lazy-way/</a><br />
+<s>很明显我不承认我是慵懒的人，我还看了《mariadb源代码》：</s> <a target="_blank" rel="noopener" href="https://mariadb.com/kb/en/getting-the-mariadb-source-code/">https://mariadb.com/kb/en/getting-the-mariadb-source-code/</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> mariadb_source</span><br><span class="line">sudo git checkout main</span><br></pre></td></tr></table></figure>
+<p>这个目录下就存放着最新的mariadb源代码了，这个地方用git管理很方便。为了便于管理代码，我们在别的地方存放构建的代码,我选择在上一级目录新建一个叫mariadb的目录存放构建的代码。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ..</span><br><span class="line">sudo <span class="built_in">mkdir</span> mariadb</span><br><span class="line"><span class="built_in">cd</span> mariadb</span><br></pre></td></tr></table></figure>
+<h3 id="使用cmake构建"><a class="markdownIt-Anchor" href="#使用cmake构建"></a> 使用cmake构建：</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo cmake ../mariadb_source</span><br><span class="line">sudo cmake --build .</span><br><span class="line">sudo cmake --install .</span><br></pre></td></tr></table></figure>
+<p>中间如果出现问题我没记录，多半是缺少依赖问题，搜一下就知道了。</p>
+<p>这样就构建好mariadb的服务器端啦，不过先不急着用，官网下还给了几个操作，虽然不知道什么用，但还是先照做吧。</p>
+<h3 id="mariadb首次启动"><a class="markdownIt-Anchor" href="#mariadb首次启动"></a> mariadb首次启动</h3>
+<p>创建一个叫mariadb/mysql的用户<s>以前叫mysql,现在文档叫mariadb了，不过实测两个都可以</s><br />
+创建一个叫mysql的组<br />
+将mariadb/mysql用户添加到mysql组里</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo adduser mysql</span><br><span class="line">sudo groupadd mysql</span><br><span class="line">sudo usermod -g mysql mysql</span><br></pre></td></tr></table></figure>
+<p>命令详情可以看<br />
+这个回答：<a target="_blank" rel="noopener" href="https://askubuntu.com/questions/165942/how-to-change-primary-group">https://askubuntu.com/questions/165942/how-to-change-primary-group</a><br />
+和ubuntu官网文档：</p>
+<ul>
+<li>adduser: <a target="_blank" rel="noopener" href="https://manpages.ubuntu.com/manpages/oracular/en/man8/adduser.8.html">https://manpages.ubuntu.com/manpages/oracular/en/man8/adduser.8.html</a></li>
+<li>groupadd: <a target="_blank" rel="noopener" href="https://manpages.ubuntu.com/manpages/oracular/en/man8/groupadd.8.html">https://manpages.ubuntu.com/manpages/oracular/en/man8/groupadd.8.html</a></li>
+<li>usermod: <a target="_blank" rel="noopener" href="https://manpages.ubuntu.com/manpages/oracular/en/man8/usermod.8.html">https://manpages.ubuntu.com/manpages/oracular/en/man8/usermod.8.html</a></li>
+</ul>
+<p>创建mariadb配置文件,官方有许多推荐位置，我放在/etc下</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/my.cnf</span><br></pre></td></tr></table></figure>
+<p>里面输入以下内容：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[mariadbd]</span><br><span class="line">datadir=/usr/local/mariadb/data/</span><br></pre></td></tr></table></figure>
+<p>详情请看：</p>
+<ul>
+<li>使用选项文件配置mariadb：<a target="_blank" rel="noopener" href="https://mariadb.com/kb/en/configuring-mariadb-with-option-files/">https://mariadb.com/kb/en/configuring-mariadb-with-option-files/</a></li>
+<li>服务器系统变量： <a target="_blank" rel="noopener" href="https://mariadb.com/kb/en/server-system-variables/">https://mariadb.com/kb/en/server-system-variables/</a></li>
+</ul>
+<p>修改mariadb目录所属的用户为mysql</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="built_in">chown</span> -R mysql /usr/local/mariadb</span><br></pre></td></tr></table></figure>
+<p>安装系统表</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /usr/local/mariadb</span><br><span class="line">./scripts/mariadb-install-db --user=mysql --srcdir=/usr/local/mariadb_source --builddir=/usr/local/mariadb --datadir=/usr/local/mariadb/data</span><br><span class="line">/usr/local/mariadb/bin/mariadbd-safe --user=mysql &amp;</span><br></pre></td></tr></table></figure>
+<p>然后就在上级目录下创建了一个mysql目录，进入这个目录</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ../mysql</span><br><span class="line"><span class="built_in">ls</span> -a</span><br></pre></td></tr></table></figure>
+<p>可以看到</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">ls</span> -a</span><br><span class="line">.    COPYING  include         man           README-wsrep  sql-bench</span><br><span class="line">..   CREDITS  INSTALL-BINARY  mariadb-test  scripts       support-files</span><br><span class="line">bin  docs     lib             README.md     share         THIRDPARTY</span><br></pre></td></tr></table></figure>
+<p>然后就可以设置环境变量了</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ~/.bashrc</span><br></pre></td></tr></table></figure>
+<ol>
+<li>先按&quot;G&quot;（大写的）跳转到文件末尾</li>
+<li>按&quot;i&quot;（小写的）切换到插入模式</li>
+<li>输入以下内容</li>
+</ol>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># mariadb系统表环境变量</span><br><span class="line">export mysql=/usr/local/mysql</span><br><span class="line">export PATH=$mysql/bin:<span class="string">&quot;$PATH&quot;</span></span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>按一下&quot;ESC&quot;（这个按键一般在键盘的左上角）切换到普通模式</li>
+<li>输入&quot;:wq&quot;后回车(键盘上的Enter按键)，即可保存退出</li>
+</ol>
+<p>对vim操作如有疑问可以查看<a target="_blank" rel="noopener" href="https://vimcdoc.sourceforge.net">vim官方文档中文翻译</a>，或者<a href="https://stalk-evolto.github.io/2024-04-07-vim%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0.html">我的工具书</a>。</p>
+<p>然后使刚刚设置的环境变量生效，输入（纯命令用户不要试）:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> ~/.bashrc</span><br></pre></td></tr></table></figure>
+<p>尝试启动一下mariadb服务器</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">su mysql</span><br><span class="line">mariadbd</span><br></pre></td></tr></table></figure>
+<p>如果成功启动了那说明安装没有问题。<br />
+关闭这个任务有点问题，我使用&quot;Ctrl+c&quot;无法终止，可以开启另一个终端，使用netstat查看mariadb进程</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo netstat -tulpn | grep mariadb</span><br></pre></td></tr></table></figure>
+<p>然后使用kill命令杀死这个进程即可</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kill -9 &#123;刚刚查询到的进程号&#125;</span><br></pre></td></tr></table></figure>
+<p>也可以用pgrep查询（一步到位）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">kill</span> -9 `pgrep mariadb`</span><br></pre></td></tr></table></figure>
+<p>这种启动方式有点问题，每次使用前还要特地去启动也不优雅。<br />
+所以我们设置让其自启动。</p>
+<h2 id="设置mariadb自启动"><a class="markdownIt-Anchor" href="#设置mariadb自启动"></a> 设置mariadb自启动</h2>
+<p>设置自启动的工具有许多，我这里用systemd。</p>
+<p>详细配置说明查看：</p>
+<ul>
+<li>mariadb的systemd页面： <a target="_blank" rel="noopener" href="https://mariadb.com/kb/en/systemd/#interacting-with-the-mariadb-server-process">https://mariadb.com/kb/en/systemd/#interacting-with-the-mariadb-server-process</a></li>
+<li>systemd的文档： <a target="_blank" rel="noopener" href="https://www.freedesktop.org/software/systemd/man/latest/systemctl.html">https://www.freedesktop.org/software/systemd/man/latest/systemctl.html</a></li>
+<li>systemd手册： <a target="_blank" rel="noopener" href="https://www.freedesktop.org/software/systemd/man/latest/systemd.service.html">https://www.freedesktop.org/software/systemd/man/latest/systemd.service.html</a></li>
+</ul>
+<p>在系统表mysql目录里边存放着一个systemd需要使用的文件，mysql目录下的support-files/systemd/mariadb.service，将其复制到systemd的管理服务的目录下（/etc/systemd/system)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /usr/local/mysql</span><br><span class="line">sudo <span class="built_in">cp</span> ./support-files/systemd/mariadb.service /etc/systemd/system</span><br></pre></td></tr></table></figure>
+<p>但是这个文件是不符合我们当前使用的环境的，我们需要对其做一些配置</p>
+<ol>
+<li>先在/etc/systemd/system目录下创建mariadb.service的配置文件目录mariadb.service.d</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="built_in">mkdir</span> /etc/systemd/system/mariadb.service.d</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>在这个目录下创建一个配置文件my_mariadb.conf（其实名字随便取，后缀名是.conf就行）</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /etc/systemd/system/mariadb.service.d</span><br><span class="line">sudo vim my_mariadb.conf</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>在这个配置文件里添加对mariadb.service文件的补充与修改<br />
+先按&quot;i&quot;（小写的）切换到输入模式<br />
+输入</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[Service]</span><br><span class="line"></span><br><span class="line">ReadWritePaths=</span><br><span class="line">ReadWritePaths=-/usr/local/mariadb/data</span><br><span class="line"></span><br><span class="line">Environment=&quot;MYSQLD_OPTS=--wsrep-new-cluster&quot;</span><br><span class="line"></span><br><span class="line">Restart=on-failure</span><br></pre></td></tr></table></figure>
+<p>然后按一下ESC（这按键一般在键盘的左上角）<br />
+然后输入&quot;:wq&quot;后回车(键盘的Enter键)，保存退出</p>
+<ol start="4">
+<li>使用systemd设置mariadbd自启动</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl <span class="built_in">enable</span> mariadb.service</span><br></pre></td></tr></table></figure>
+<p>然后就可以通过systemctl命令查看运行状态了<br />
+先启动一下mariadb.service</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl start maraidb.service</span><br></pre></td></tr></table></figure>
+<p>查看运行状态</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl status mariadb.service</span><br></pre></td></tr></table></figure>
+<p><img src="/images/mariadb_usr/mariadb_service_status.png" alt="mariadb_service_status" /><br />
+其中active为running,status为&quot;Taking your SQL requests now…&quot;，就表示启动成功了。<br />
+Loaded后面的两个enable表示自启动设置成功了。</p>
+<h2 id="mariadb客户端的使用"><a class="markdownIt-Anchor" href="#mariadb客户端的使用"></a> mariadb客户端的使用</h2>
+<h3 id="mariadb自带客户端"><a class="markdownIt-Anchor" href="#mariadb自带客户端"></a> mariadb自带客户端</h3>
+<p>详情请看：</p>
+<ul>
+<li>mariadb客户端: <a target="_blank" rel="noopener" href="https://mariadb.com/kb/en/mariadb-command-line-client/">https://mariadb.com/kb/en/mariadb-command-line-client/</a></li>
+<li>注册系统表默认创建的用户： <a target="_blank" rel="noopener" href="https://mariadb.com/kb/en/mariadb-install-db/#user-accounts-created-by-default">https://mariadb.com/kb/en/mariadb-install-db/#user-accounts-created-by-default</a></li>
+</ul>
+<p>在你创建系统表后，会有两个没有密码的用户，分别是mysql和root。<br />
+但是直接使用这两个账户登陆又会报错：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ mariadb --user=root</span><br><span class="line">ERROR 1698 (28000): Access denied <span class="keyword">for</span> user <span class="string">&#x27;root&#x27;</span>@<span class="string">&#x27;localhost&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>可以通过命令启动：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo mariadb</span><br></pre></td></tr></table></figure>
+<p>这命令使用root用户登陆mariadb客户端。因为mariadb使用嵌套字验证，可以通过linux的root用户无密码直接登陆。如果你有管理员用户的密码你也可以这样：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">su root</span><br><span class="line">mariadb --user=root</span><br></pre></td></tr></table></figure>
+<p>进入后设置以下root账户的密码为&quot;XH4VnT3_jt&quot;（你可以替换成你喜欢的密码）</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SET</span> PASSWORD <span class="operator">=</span> PASSWORD(<span class="string">&#x27;XH4VmT3_jt&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<p>在root账户下你可以做很多事情，比如设置用户mysql的密码为newpassword（你也可以设置为你喜欢的密码）：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SET</span> PASSWORD <span class="keyword">FOR</span> <span class="string">&#x27;mysql&#x27;</span>@<span class="string">&#x27;localhost&#x27;</span> <span class="operator">=</span> PASSWORD(<span class="string">&#x27;newpassword&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<p>其实账户信息都被存在mysql数据库下的user表里，可以通过sql语句查询：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> mysql.user;</span><br></pre></td></tr></table></figure>
+<p>不过这里的表里的密码是加密过的，没什么实用意义。</p>
+<p>更多sql语句可以查看官方文档： <a target="_blank" rel="noopener" href="https://mariadb.com/kb/en/sql-statements-structure/">https://mariadb.com/kb/en/sql-statements-structure/</a></p>
+<p>不过数据库光有这一个客户端是不够用的，比如我觉得自带的客户端不合我的胃口，想自己开发一个客户端。而且我们有各种数据来源，比如通过别的程序获取的数据。实现这些就需要使用官方提供的各种程序语言的连接器啦。</p>
+<h2 id="c-c连接器"><a class="markdownIt-Anchor" href="#c-c连接器"></a> C &amp; C++连接器</h2>
+<p>可以检查系统表的目录下的lib目录：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /usr/local/mysql/lib</span><br><span class="line"><span class="built_in">ls</span> -a</span><br></pre></td></tr></table></figure>
+<p>如果有：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">ls</span> -a</span><br><span class="line">.                   libmariadb.so       libmysqlclient_r.so  plugin</span><br><span class="line">..                  libmariadb.so.3     libmysqlclient.so</span><br><span class="line">libmariadb.a        libmysqlclient.a    libmysqlservices.a</span><br><span class="line">libmariadbclient.a  libmysqlclient_r.a  pkgconfig</span><br></pre></td></tr></table></figure>
+<p>那么你已经安装了C &amp; C++连接器。</p>
+<p>如果没有上述文件，甚至没有lib目录：<br />
+请参考官方文档自己编译一份：<a target="_blank" rel="noopener" href="https://mariadb.com/kb/en/building-connectorc-from-source/">https://mariadb.com/kb/en/building-connectorc-from-source/</a><br />
+<s>我没做这步，先不乱介绍了</s></p>
+<p>编译好后添加LD_LIBRARY_PATH环境变量：<br />
+这次设置环境变量有点不一样，因为要设置所有用户都能使用用到的环境变量，而LD_LIBRARY_PATH直接设置全局环境变量设置有一些问题，所以可以这样设置这个环境变量：</p>
+<ol>
+<li>在/etc/ld.so.conf.d目录下创建一个配置文件（我这里设置的是libmariadb.conf）</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /etc/ld.so.conf.d</span><br><span class="line">sudo vim libmariadb.conf</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>在里面加入C &amp; C++连接器编译出的库的位置:<br />
+先按&quot;i&quot;进入插入模式<br />
+输入以下内容：</li>
+</ol>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># mariadb lib and so</span><br><span class="line">/usr/local/mariadb/lib</span><br></pre></td></tr></table></figure>
+<p>按一下&quot;ESC&quot;回到普通模式<br />
+输入&quot;:wq&quot;回车</p>
+<blockquote>
+<p><strong>注：</strong> 这里的&quot;/usr/local/mariadb/lib&quot;你需要成设置你自己的libmariadb.so.3文件所在的路径</p>
+</blockquote>
+<ol start="3">
+<li>更新高速缓存使环境变量生效</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ldconfig -v</span><br></pre></td></tr></table></figure>
+<p>详情看:</p>
+<ul>
+<li>ubuntu官方文档： <a target="_blank" rel="noopener" href="https://help.ubuntu.com/community/EnvironmentVariables">https://help.ubuntu.com/community/EnvironmentVariables</a></li>
+<li>LD_LIBRARY_PATH未被从.profile或/etc/environment加载： <a target="_blank" rel="noopener" href="https://bugs.launchpad.net/ubuntu/+source/xorg/+bug/366728">https://bugs.launchpad.net/ubuntu/+source/xorg/+bug/366728</a></li>
+</ul>
+<blockquote>
+<p><strong>注:</strong> C &amp; C++连接器我暂时未使用，需要安装是因为是python连接器的依赖，使用方法暂时留空。</p>
+</blockquote>
+<h2 id="python连接器"><a class="markdownIt-Anchor" href="#python连接器"></a> Python连接器</h2>
+<p>推荐看官方文档：</p>
+<ul>
+<li>github仓库的文档（有参考文档）：<a target="_blank" rel="noopener" href="https://mariadb-corporation.github.io/mariadb-connector-python/index.html">https://mariadb-corporation.github.io/mariadb-connector-python/index.html</a></li>
+<li>mariadb官方教程（举例多，容易理解）： <a target="_blank" rel="noopener" href="https://mariadb.com/docs/server/connect/programming-languages/python/">https://mariadb.com/docs/server/connect/programming-languages/python/</a></li>
+</ul>
+<h3 id="安装依赖-2"><a class="markdownIt-Anchor" href="#安装依赖-2"></a> 安装依赖</h3>
+<p>首先电脑里应该有python<br />
+ubuntu没有python可以直接使用apt安装：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install python</span><br></pre></td></tr></table></figure>
+<p>查看一下安装的python的版本：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python --version</span><br></pre></td></tr></table></figure>
+<p>除此之外还需要有C编译器，这里安装GCC</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install gcc</span><br></pre></td></tr></table></figure>
+<p>还需要有python开发文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install python3-dev</span><br></pre></td></tr></table></figure>
+<p>还需要有openGL</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install openssl</span><br></pre></td></tr></table></figure>
+<p>安装MariaDB Connector/C（也就是C连接器）,可以参考上一节：<a href="#C-C-%E8%BF%9E%E6%8E%A5%E5%99%A8">C &amp; C++连接器</a></p>
+<h3 id="安装python连接器"><a class="markdownIt-Anchor" href="#安装python连接器"></a> 安装python连接器</h3>
+<p>在ubuntu中直接使用pip安装python的包会违背ubuntu安全策略： <a target="_blank" rel="noopener" href="https://askubuntu.com/questions/1465218/pip-error-on-ubuntu-externally-managed-environment-%C3%97-this-environment-is-extern">https://askubuntu.com/questions/1465218/pip-error-on-ubuntu-externally-managed-environment-×-this-environment-is-extern</a></p>
+<p>按照帖子中的解决方案，选择创建虚拟环境：</p>
+<ol>
+<li>安装python虚拟环境venv:</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install python3-venv</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>在名为<sub>/.venv/mariadb的目录中创建新的虚拟环境（其实放在哪都行，放在</sub>/.venv只是个人习惯）：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -m venv ~/.venv/mariadb</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>在当前终端中激活此虚拟环境：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> ~/.venv/mariadb/bin/activate</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>这时候就可以使用pip安装了</li>
+<li>(可选)不过在这之前我们查看一下这个虚拟环境的组成结构：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/.venv/mariadb</span><br><span class="line"><span class="built_in">ls</span> -a</span><br></pre></td></tr></table></figure>
+<p>可以看到：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">ls</span> -a</span><br><span class="line">.  ..  bin  include  lib  lib64  pyvenv.cfg  share</span><br></pre></td></tr></table></figure>
+<p>我所知的：</p>
+<ul>
+<li>bin 里面放着当前虚拟环境的python、pip的可执行文件</li>
+<li>include里面还是空的，我准备把mariadb的python连接器源码放这</li>
+<li>lib和lib64,里面放着当前虚拟环境的python安装的包</li>
+<li>share里面有东西，但是还不知道放的什么</li>
+</ul>
+<p>回到正题，我们先要获得python连接器的源码，我打算放到虚拟环境的include里：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/.venv/mariadb/include</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/mariadb-corporation/mariadb-connector-python.git</span><br></pre></td></tr></table></figure>
+<p>clone下来的源码在mariadb-connector-python下，进入构建：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> mariadb-connector-python</span><br><span class="line">python -m pip install .</span><br></pre></td></tr></table></figure>
+<p>你会发现报错了，权限不足，而你使用sudo,会报错违反ubuntu安全策略，所以只能使用管理员用户安装：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">su root</span><br><span class="line"><span class="built_in">source</span> ../../bin/activate</span><br><span class="line">python -m pip install .</span><br></pre></td></tr></table></figure>
+<p>测试一下安装情况：</p>
+<ol>
+<li>先退出管理员用户</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">exit</span></span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>如果没激活python虚拟环境，先激活一下</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> ~/.venv/mariadb/bin/activate</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>使用python尝试导入包</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -c <span class="string">&quot;import mariadb&quot;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>
+<p>如果MariaDB Connector/Python安装正确，则命令不返回任何输出。</p>
+</li>
+<li>
+<p>如果Python无法加载MariaDB Connector/Python，则命令会引发以下错误：</p>
+</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">&quot;&lt;string&gt;&quot;</span>, line 1, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">ModuleNotFoundError: No module named <span class="string">&#x27;mariadb&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>到此安装就完成了，使用方法参考官方文档：</p>
+<ul>
+<li>github仓库的文档（有参考文档）：<a target="_blank" rel="noopener" href="https://mariadb-corporation.github.io/mariadb-connector-python/index.html">https://mariadb-corporation.github.io/mariadb-connector-python/index.html</a></li>
+<li>mariadb官方教程（举例多，容易理解）： <a target="_blank" rel="noopener" href="https://mariadb.com/docs/server/connect/programming-languages/python/">https://mariadb.com/docs/server/connect/programming-languages/python/</a></li>
+</ul>
+<blockquote>
+<p><strong>编者的碎碎念:</strong> 我先睡一会觉，醒来再继续写…</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <blockquote class="article-copyright">
+    <p><strong>本文作者：</strong>Stalk @ Stalk's Blog</p>
+    
+    
+    <p><strong>本文发布时间：</strong>2024-11-05 10:27:08</p>
+    <p><strong>本文修改时间：</strong>2024-11-05 10:27:08</p>
+    <p><strong>本文版权：</strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener external nofollow noreferrer" target="_blank"><span class="icon-creative-commons"></span>BY-NC-SA</a> 许可协议。转载请注明出处！</p>
+    <span class="icon-creative-commons article-copyright-bg"></span>
+  </blockquote>
+      
+      
+        <div class="sponsor-wrapper">
+  <div class="sponsor-button-wrapper">
+    <div class="sponsor-icon rotate"></div>
+    <div class="sponsor-title">赞助</div>
+    <div class="sponsor-icon rotate"></div>
+  </div>
+  <div class="sponsor-tip">请作者喝杯咖啡吧！</div>
+  
+    <div class="sponsor-qr">
+      
+        <div class="sponsor-qr-image-wrapper">
+          <img src="/sponsor/alipay.jpg" alt=支付宝 width="200" />
+          <p class="sponsor-qr-name">支付宝</p>
+        </div>
+      
+        <div class="sponsor-qr-image-wrapper">
+          <img src="/sponsor/wechat.png" alt=微信 width="200" />
+          <p class="sponsor-qr-name">微信</p>
+        </div>
+      
+    </div>
+  
+</div>
+      
+      
+      
+        <a data-aos="zoom-in" href="/2024-11-05-mariadb%E5%BC%80%E6%BA%90%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%89%E8%A3%85%E5%8E%86%E7%A8%8B.html#comments" class="article-comment-link">
+          <span class="post-comments-count waline-comment-count" data-path="/2024-11-05-mariadb%E5%BC%80%E6%BA%90%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%89%E8%A3%85%E5%8E%86%E7%A8%8B.html" itemprop="commentCount"></span>
+          留言
+        </a>
+      
+      
+      
+      
+        <span data-aos="zoom-in" class="article-visitor-link">
+          <span class="waline-pageview-count" data-path="/2024-11-05-mariadb%E5%BC%80%E6%BA%90%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%89%E8%A3%85%E5%8E%86%E7%A8%8B.html">0</span>
+          <em class="post-meta-item-text">阅读量</em>
+        </span>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item" data-aos="zoom-in"><a class="article-tag-list-link" href="/tags/record/" rel="tag">record</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+  <nav id="article-nav" data-aos="fade-up">
+    
+      <div class="article-nav-link-wrap article-nav-link-left">
+        
+          
+          
+            <img data-src="/images/banner.webp" data-sizes="auto" alt="windows环境下搭建python开发环境" class="lazyload">
+          
+        
+        <a href="/2024-11-27-windows%E7%B3%BB%E7%BB%9F%E4%B8%8B%E6%90%AD%E5%BB%BApython%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83.html"></a>
+        <div class="article-nav-caption">前一篇</div>
+        <h3 class="article-nav-title">
+          
+            windows环境下搭建python开发环境
+          
+        </h3>
+      </div>
+    
+    
+    <div class="article-nav-link-wrap article-nav-link-right">
+      
+        
+        
+          <img data-src="/images/banner.webp" data-sizes="auto" alt="aiohttp库使用笔记" class="lazyload">
+        
+      
+      <a href="/2024-11-02-aiohttp%E5%BA%93%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0.html"></a>
+      <div class="article-nav-caption">后一篇</div>
+      <h3 class="article-nav-title">
+        
+          aiohttp库使用笔记
+        
+      </h3>
+    </div>
+    
+  </nav>
+
+
+</article>
+
+
+  <div id="comments" class="wcomment" data-aos="fade-up"></div>
+
+
+
+
+
+</section>
+        </div>
+        
+        
+        <footer id="footer">
+  <div style="width: 100%; overflow: hidden">
+    <div class="footer-line"></div>
+  </div>
+  <div id="footer-info">
+    
+    <div>
+      <span class="icon-copyright"></span>
+      2020-2025
+      <span class="footer-info-sep rotate"></span>
+      Stalk
+    </div>
+    
+      <div>
+        基于&nbsp;<a href="https://hexo.io/" rel="noopener external nofollow noreferrer" target="_blank">Hexo</a>&nbsp;
+        Theme.<a href="https://github.com/D-Sketon/hexo-theme-reimu" rel="noopener external nofollow noreferrer" target="_blank">Reimu</a>
+      </div>
+    
+    
+      <div>
+        <span class="icon-brush"></span>
+        25.5k
+        &nbsp;|&nbsp;
+        <span class="icon-coffee"></span>
+        01:35
+      </div>
+    
+    
+    
+    
+      <div>
+        <span class="icon-eye"></span>
+        <span id="busuanzi_container_site_pv">总访问量&nbsp;<span id="busuanzi_value_site_pv"></span></span>
+        &nbsp;|&nbsp;
+        <span class="icon-user"></span>
+        <span id="busuanzi_container_site_uv">总访客量&nbsp;<span id="busuanzi_value_site_uv"></span></span>
+      </div>
+    
+  </div>
+</footer>
+
+        
+          <div class="sidebar-top">
+            <div class="sidebar-top-taichi rotate"></div>
+            <div class="arrow-up"></div>
+          </div>
+        
+        <div id="mask" class="hide"></div>
+      </div>
+      <nav id="mobile-nav">
+  <div class="sidebar-wrap">
+    
+      <div class="sidebar-toc-sidebar"><div class="sidebar-toc">
+  <h3 class="toc-title">文章目录</h3>
+  <div class="sidebar-toc-wrapper toc-div-class" >
+      
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#package-version"><span class="toc-number">1.</span> <span class="toc-text"> package version</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#mariadb%E9%83%A8%E7%BD%B2"><span class="toc-number">2.</span> <span class="toc-text"> mariadb部署</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFmariadb"><span class="toc-number">2.1.</span> <span class="toc-text"> 什么是mariadb</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mariadb%E5%AE%89%E8%A3%85"><span class="toc-number">2.2.</span> <span class="toc-text"> mariadb安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E4%BE%9D%E8%B5%96"><span class="toc-number">2.2.1.</span> <span class="toc-text"> 安装依赖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD%E6%BA%90%E4%BB%A3%E7%A0%81"><span class="toc-number">2.2.2.</span> <span class="toc-text"> 下载源代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8cmake%E6%9E%84%E5%BB%BA"><span class="toc-number">2.2.3.</span> <span class="toc-text"> 使用cmake构建：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mariadb%E9%A6%96%E6%AC%A1%E5%90%AF%E5%8A%A8"><span class="toc-number">2.2.4.</span> <span class="toc-text"> mariadb首次启动</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AEmariadb%E8%87%AA%E5%90%AF%E5%8A%A8"><span class="toc-number">2.3.</span> <span class="toc-text"> 设置mariadb自启动</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mariadb%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-number">2.4.</span> <span class="toc-text"> mariadb客户端的使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#mariadb%E8%87%AA%E5%B8%A6%E5%AE%A2%E6%88%B7%E7%AB%AF"><span class="toc-number">2.4.1.</span> <span class="toc-text"> mariadb自带客户端</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#c-c%E8%BF%9E%E6%8E%A5%E5%99%A8"><span class="toc-number">2.5.</span> <span class="toc-text"> C &amp; C++连接器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#python%E8%BF%9E%E6%8E%A5%E5%99%A8"><span class="toc-number">2.6.</span> <span class="toc-text"> Python连接器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E4%BE%9D%E8%B5%96-2"><span class="toc-number">2.6.1.</span> <span class="toc-text"> 安装依赖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85python%E8%BF%9E%E6%8E%A5%E5%99%A8"><span class="toc-number">2.6.2.</span> <span class="toc-text"> 安装python连接器</span></a></li></ol></li></ol></li></ol>
+      
+  </div>
+</div>
+</div>
+      <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img data-src="/avatar/avatar.jpg" data-sizes="auto" alt="Stalk" class="lazyload">
+  <div class="sidebar-author-name">Stalk</div>
+  <div class="sidebar-description">Stalk的个人学习笔记</div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div>
+    <div class="sidebar-state-number">7</div>
+  </div>
+  <div class="sidebar-state-category">
+    <div>分类</div>
+    <div class="sidebar-state-number">4</div>
+  </div>
+  <div class="sidebar-state-tag">
+    <div>标签</div>
+    <div class="sidebar-state-number">7</div>
+  </div>
+</div>
+<div class="sidebar-social">
+  
+    <div class="icon-email sidebar-social-icon">
+      <a href=mailto:stalk.work@outlook.com itemprop="url" target="_blank" aria-label="email" rel="noopener external nofollow noreferrer"></a>
+    </div>
+  
+    <div class="icon-github sidebar-social-icon">
+      <a href=https://github.com/stalk-evolto itemprop="url" target="_blank" aria-label="github" rel="noopener external nofollow noreferrer"></a>
+    </div>
+  
+</div>
+<div class="sidebar-menu">
+  
+    
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/" aria-label="首页"></a>
+        <div class="sidebar-menu-icon icon rotate">
+          &#xe62b;
+        </div>
+        <div class="sidebar-menu-link">首页</div>
+      </div>
+    
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/archives" aria-label="归档"></a>
+        <div class="sidebar-menu-icon icon rotate">
+          &#xe62b;
+        </div>
+        <div class="sidebar-menu-link">归档</div>
+      </div>
+    
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/about" aria-label="关于"></a>
+        <div class="sidebar-menu-icon icon rotate">
+          &#xe62b;
+        </div>
+        <div class="sidebar-menu-link">关于</div>
+      </div>
+    
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/friend" aria-label="友链"></a>
+        <div class="sidebar-menu-icon icon rotate">
+          &#xe62b;
+        </div>
+        <div class="sidebar-menu-link">友链</div>
+      </div>
+    
+  
+</div>
+</div>
+    
+  </div>
+  
+    <div class="sidebar-btn-wrapper">
+      <div class="sidebar-toc-btn current"></div>
+      <div class="sidebar-common-btn"></div>
+    </div>
+  
+</nav>
+
+    </div>
+    
+      <div class="site-search">
+        <div class="reimu-popup popup">
+          <div class="reimu-search">
+            <div class="reimu-search-input-icon"></div>
+            <div class="reimu-search-input" id="reimu-search-input"></div>
+            <div class="popup-btn-close"></div>
+          </div>
+          <div class="reimu-results">
+            <div id="reimu-stats"></div>
+            <div id="reimu-hits"></div>
+            <div id="reimu-pagination" class="reimu-pagination"></div>
+          </div>
+          <img class="reimu-bg" src="/images/reimu.png"/>
+        </div>
+      </div>
+    
+    
+<script src="https://npm.webcache.cn/lazysizes@5.3.2/lazysizes.min.js" integrity="sha384-3gT&#x2F;vsepWkfz&#x2F;ff7PpWNUeMzeWoH3cDhm&#x2F;A8jM7ouoAK0&#x2F;fP&#x2F;9bcHHR5kHq2nf+e" crossorigin="anonymous"></script>
+
+
+<script src="https://npm.webcache.cn/clipboard@2.0.11/dist/clipboard.min.js" integrity="sha384-J08i8An&#x2F;QeARD9ExYpvphB8BsyOj3Gh2TSh1aLINKO3L0cMSH2dN3E22zFoXEi0Q" crossorigin="anonymous"></script>
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+  
+<script src="/js/aos.js"></script>
+
+  <script>
+    var aosInit = () => {
+      AOS.init({
+        duration: 1000,
+        easing: "ease",
+        once: true,
+        offset: 50,
+      });
+    };
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', aosInit);
+    } else {
+      aosInit();
+    }
+  </script>
+
+
+
+<script src="/js/pjax_script.js" data-pjax></script>
+
+
+
+
+
+  <script>
+    var ALGOLIA_CONFIG = {
+      logo: "/images/algolia_logo.svg",
+      algolia: {
+        applicationID: "BN7RV40HPM",
+        apiKey: "756b480abba71960272bb3ff4ccbe338",
+        indexName: "stalk_blog",
+        hits: {
+          "per_page": parseInt("10")
+        },
+        labels: {
+          "input_placeholder": "搜索.....",
+          "hits_empty": "未发现与 「${query}」相关内容",
+          "hits_stats": "找到${hits}条结果（用时 ${time} ms）"
+        }
+      }
+    };
+  </script>
+  
+<script src="https://npm.webcache.cn/algoliasearch@4.17.1/dist/algoliasearch-lite.umd.js" integrity="sha384-xvLS0jfKuoREs7pqkRI&#x2F;OI8GcqohO5S+jQz7ZBtQXnsXmD+9jDOOY4cL6dCPzlrk" crossorigin="anonymous" defer></script>
+
+  
+<script src="https://npm.webcache.cn/instantsearch.js@4.56.1/dist/instantsearch.production.min.js" integrity="sha384-hHJCflT4KBLQyHfKO9vpstIcFKn&#x2F;Y+KHTORelMMEn7mOp2AVPp+7fr03dLgZiV3J" crossorigin="anonymous" defer></script>
+
+  
+<script src="/js/algolia_search.js" defer></script>
+
+
+
+
+
+
+
+
+
+
+  
+<script src="https://npm.webcache.cn/live2d-widgets@0.9.0/autoload.js" integrity="sha384-poTN7wN&#x2F;SqNhQqo3jdFeX20ikddWeFGkUkDEzsKjgH&#x2F;ez8aQLn81oI0Cw6q5xNyB" crossorigin="anonymous"></script>
+
+
+
+
+
+<div id="lazy-script">
+  <div>
+    
+    
+      
+        
+<script src="/js/insert_highlight.js" data-pjax></script>
+
+      
+    
+    
+      <script type="module" data-pjax>
+        const PhotoSwipeLightbox = (await safeImport("https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe-lightbox.esm.min.js", "sha384-DiL6M/gG+wmTxmCRZyD1zee6lIhawn5TGvED0FOh7fXcN9B0aZ9dexSF/N6lrZi/")).default;
+        
+        const pswp = () => {
+          if (_$$('.article-entry a.article-gallery-item').length > 0) {
+            new PhotoSwipeLightbox({
+              gallery: '.article-entry',
+              children: 'a.article-gallery-item',
+              pswpModule: () => safeImport("https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8+oTJ7m3DfYEWX1fu1scuS4+s")
+            }).init();
+          }
+          if(_$$('.article-gallery a.article-gallery-item').length > 0) {
+            new PhotoSwipeLightbox({
+              gallery: '.article-gallery',
+              children: 'a.article-gallery-item',
+              pswpModule: () => safeImport("https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8+oTJ7m3DfYEWX1fu1scuS4+s")
+            }).init();
+          }
+          window.lightboxStatus = 'done';
+          window.removeEventListener('lightbox:ready', pswp);
+        }
+        if(window.lightboxStatus === 'ready') {
+          pswp()
+        } else {
+          window.addEventListener('lightbox:ready', pswp);
+        }
+      </script>
+      
+
+
+  <script data-pjax type="module">
+    const { init } = await safeImport("https://npm.webcache.cn/@waline/client@2.15.8/dist/waline.mjs", "sha384-9sbqJjrfGjbkI6/PI4nU/MvBfEmkkPC4YK9I4zBeMIf1CVCZdCMH/KinBEAZII/5")
+    if(_$('.wcomment')) {
+      window.walineInstance = init({
+        el: '.wcomment',
+        serverURL: 'https://stalkblogwaline.vercel.app',
+        lang: 'zh-CN',
+        locale: {},
+        emoji: ["https://unpkg.com/@waline/emojis@1.2.0/weibo","https://unpkg.com/@waline/emojis@1.2.0/alus","https://unpkg.com/@waline/emojis@1.2.0/bilibili","https://unpkg.com/@waline/emojis@1.2.0/qq","https://unpkg.com/@waline/emojis@1.2.0/tieba","https://unpkg.com/@waline/emojis@1.2.0/tw-emoji"],
+        meta: ["nick","mail","link"],
+        requiredMeta: ["nick","mail"],
+        wordLimit: JSON.parse('0'),
+        comment: true,
+        pageSize: JSON.parse('10'),
+        dark: 'html[data-theme="dark"]',
+        pageview: JSON.parse('true'),
+    });
+    }
+  </script>
+
+
+
+
+
+
+
+    
+  </div>
+</div>
+
+
+  <script>
+    console.log(String.raw`%c 
+ ______     ______     __     __    __     __  __    
+/\  == \   /\  ___\   /\ \   /\ "-./  \   /\ \/\ \   
+\ \  __<   \ \  __\   \ \ \  \ \ \-./\ \  \ \ \_\ \  
+ \ \_\ \_\  \ \_____\  \ \_\  \ \_\ \ \_\  \ \_____\ 
+  \/_/ /_/   \/_____/   \/_/   \/_/  \/_/   \/_____/ 
+                                                  
+`,'color: #ff5252;')
+    console.log('%c Theme.Reimu v' + '1.2.0' + ' %c https://github.com/D-Sketon/hexo-theme-reimu ', 'color: white; background: #ff5252; padding:5px 0;', 'padding:4px;border:1px solid #ff5252;')
+  </script>
+  
+
+<script data-pjax>
+  var updateTime = _$('#post-update-time')?.innerHTML;
+
+  if (updateTime) {
+    const update = new Date(updateTime);
+    const now = new Date();
+    const diff = now - update;
+    const days = diff / 86400000;
+    const { daysAgo, message: template } = window.REIMU_CONFIG.outdate;
+    if (days >= daysAgo) {
+      const message = template.replace(/{time}/, updateTime);
+      const blockquote = _$('#outdate-blockquote');
+      if (blockquote) {
+        blockquote.querySelector('p').innerText = message;
+        blockquote.style.display = 'block';
+      }
+    }
+  }
+</script>
+
+
+  
+<script src="https://npm.webcache.cn/busuanzi@2.3.0/bsz.pure.mini.js" integrity="sha384-0M75wtSkhjIInv4coYlaJU83+OypaRCIq2SukQVQX04eGTCBXJDuWAbJet56id+S" crossorigin="anonymous" async></script>
+
+
+
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.getRegistrations().then((registrations) => {
+      for (let registration of registrations) {
+        registration.unregister();
+      }
+    });
+  }
+</script>
+
+
+
+  
+
+
+
+
+
+
+  </body>
+  </html>
+

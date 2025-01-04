@@ -1,0 +1,1026 @@
+
+  <!DOCTYPE html>
+  <html lang="zh-CN"  >
+  <head>
+  <meta charset="utf-8">
+  
+
+  
+
+  
+
+  <script>window.REIMU_CONFIG = {};window.REIMU_CONFIG.icon_font = '4552607_tq6stt6tcg';window.REIMU_CONFIG.clipboard_tips = {"success":"复制成功(*^▽^*)","fail":"复制失败 (ﾟ⊿ﾟ)ﾂ","copyright":{"enable":false,"count":50,"content":"本文版权：本博客所有文章除特别声明外，均采用 BY-NC-SA 许可协议。转载请注明出处！"}};window.REIMU_CONFIG.outdate = {"enable":true,"daysAgo":180,"message":"本文最后更新于 {time}，请注意文中内容可能已经发生变化。"};window.REIMU_CONFIG.code_block = {"expand":true};</script>
+  
+  <title>
+    Linux让命令在后台运行 |
+    
+    Stalk&#39;s Blog
+  </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin><link rel="preload" as="style" href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7CNoto%20Serif%20SC:400,400italic,700,700italic&display=swap"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7CNoto%20Serif%20SC:400,400italic,700,700italic&display=swap" media="print" onload="this.media&#x3D;&#39;all&#39;">
+  
+    <link rel="preload" href="//at.alicdn.com/t/c/font_4552607_tq6stt6tcg.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+  
+  
+    
+<link rel="stylesheet" href="/css/loader.css">
+
+  
+  
+    <meta name="description" content="前言 平时我们使用shell命令的时候，如果命令执行时间较长，我们就要等待命令执行完毕才能执行下一条命令。时间长了，你可能会怀念GUI操作的最小化某个任务，这样我们可以在几个任务间切换，不需要经历长时间的等待。 那么，在shell里面能不能实现类似最小化的操作呢？ Linux天生是为了多任务多用户协同操作的系统，这当然是可以的。我准备在Ubuntu下实验Linux让命令在后台运行的方法。  pa">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux让命令在后台运行">
+<meta property="og:url" content="https://stalk-evolto.github.io/2025-01-03-Linux%E8%AE%A9%E5%91%BD%E4%BB%A4%E5%9C%A8%E5%90%8E%E5%8F%B0%E8%BF%90%E8%A1%8C.html">
+<meta property="og:site_name" content="Stalk&#39;s Blog">
+<meta property="og:description" content="前言 平时我们使用shell命令的时候，如果命令执行时间较长，我们就要等待命令执行完毕才能执行下一条命令。时间长了，你可能会怀念GUI操作的最小化某个任务，这样我们可以在几个任务间切换，不需要经历长时间的等待。 那么，在shell里面能不能实现类似最小化的操作呢？ Linux天生是为了多任务多用户协同操作的系统，这当然是可以的。我准备在Ubuntu下实验Linux让命令在后台运行的方法。  pa">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-01-02T22:09:21.000Z">
+<meta property="article:modified_time" content="2025-01-04T04:58:06.199Z">
+<meta property="article:author" content="Stalk">
+<meta property="article:tag" content="notes">
+<meta name="twitter:card" content="summary">
+  
+  
+    <link rel="alternate" href="/atom.xml" title="Stalk's Blog" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/images/favicon.ico">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  <link rel="preload" href="https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  
+    
+      
+        
+<link rel="stylesheet" href="https://npm.webcache.cn/katex@0.16.11/dist/katex.min.css">
+
+      
+    
+  
+  
+    
+      
+<link rel="stylesheet" href="https://npm.webcache.cn/@waline/client@2.15.8/dist/waline.css">
+
+    
+  
+  
+  
+    
+<script src="https://npm.webcache.cn/pace-js@1.2.4/pace.min.js" integrity="sha384-k6YtvFUEIuEFBdrLKJ3YAUbBki333tj1CSUisai5Cswsg9wcLNaPzsTHDswp4Az8" crossorigin="anonymous"></script>
+
+  
+  
+    
+<link rel="stylesheet" href="https://npm.webcache.cn/@reimujs/aos@0.1.0/dist/aos.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+  <body>
+    
+  <div id='loader'>
+    <div class="loading-left-bg loading-bg"></div>
+    <div class="loading-right-bg loading-bg"></div>
+    <div class="spinner-box">
+      <div class="loading-taichi">
+        
+          <svg width="150" height="150" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="https://www.w3.org/2000/svg" shape-rendering="geometricPrecision">
+            <path d="M303.5 432A80 80 0 0 1 291.5 592A80 80 0 0 1 303.5 432z" fill="var(--red-1, #ff5252)" />
+            <path d="M512 65A447 447 0 0 1 512 959L512 929A417 417 0 0 0 512 95A417 417 0 0 0 512 929L512 959A447 447 0 0 1 512 65z 
+           M512 95A417 417 0 0 1 929 512A208.5 208.5 0 0 1 720.5 720.5L720.5 592A80 80 0 0 0 720.5 432A80 80 0 0 0 720.5 592L720.5 720.5A208.5 208.5 0 0 1 512 512A208.5 208.5 0 0 0 303.5 303.5A208.5 208.5 0 0 0 95 512A417 417 0 0 1 512 95z" fill="var(--red-1, #ff5252)" />
+          </svg>
+        
+      </div>
+      <div class="loading-word">少女祈祷中...</div>
+    </div>
+  </div>
+  </div>
+  <script>
+    var time = null;
+    var startLoading = () => {
+      time = Date.now();
+      document.getElementById('loader').classList.remove("loading");
+    }
+    var endLoading = () => {
+      if (!time) {
+        document.body.style.overflow = 'auto';
+        document.getElementById('loader').classList.add("loading");
+      } else {
+        if (Date.now() - time > 500) {
+          time = null;
+          document.body.style.overflow = 'auto';
+          document.getElementById('loader').classList.add("loading");
+        } else {
+          setTimeout(endLoading, 500 - (Date.now() - time));
+          time = null;
+        }
+      }
+    }
+    window.addEventListener('DOMContentLoaded', endLoading);
+    document.getElementById('loader').addEventListener('click', endLoading);
+  </script>
+
+<div id="copy-tooltip" style="pointer-events: none; opacity: 0; transition: all 0.2s ease; position: fixed;top: 50%;left: 50%;z-index: 999;transform: translate(-50%, -50%);color: white;background: rgba(0, 0, 0, 0.5);padding: 10px 15px;border-radius: 10px;">
+</div>
+
+
+    <div id="container">
+      <div id="wrap">
+        <div id="header-nav">
+  <nav id="main-nav">
+    
+      
+        <span class="main-nav-link-wrap">
+          <div class="main-nav-icon icon rotate">
+            &#xe62b;
+          </div>
+          <a class="main-nav-link" href="/">首页</a>
+        </span>
+      
+        <span class="main-nav-link-wrap">
+          <div class="main-nav-icon icon rotate">
+            &#xe62b;
+          </div>
+          <a class="main-nav-link" href="/archives">归档</a>
+        </span>
+      
+        <span class="main-nav-link-wrap">
+          <div class="main-nav-icon icon rotate">
+            &#xe62b;
+          </div>
+          <a class="main-nav-link" href="/about">关于</a>
+        </span>
+      
+        <span class="main-nav-link-wrap">
+          <div class="main-nav-icon icon rotate">
+            &#xe62b;
+          </div>
+          <a class="main-nav-link" href="/friend">友链</a>
+        </span>
+      
+    
+    <a id="main-nav-toggle" class="nav-icon"></a>
+  </nav>
+  <nav id="sub-nav">
+    
+      <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅" target="_blank"></a>
+    
+    
+      <a id="nav-search-btn" class="nav-icon popup-trigger" title="搜索"></a>
+    
+    
+  </nav>
+</div>
+<header id="header">
+  
+    <picture>
+      
+    </picture>
+    
+      <img fetchpriority="high" src="/images/banner.webp" alt="Linux让命令在后台运行">
+    
+  
+  <div id="header-outer">
+    <div id="header-title">
+      
+        
+        
+          <a href="/" id="logo">
+            <h1 data-aos="slide-up">Linux让命令在后台运行</h1>
+          </a>
+        
+      
+      
+        
+        <h2 id="subtitle-wrap" data-aos="slide-down">
+          
+        </h2>
+      
+    </div>
+  </div>
+</header>
+
+        <div id="content"  class="sidebar-right" >
+          <aside id="sidebar">
+  
+  
+  <div class="sidebar-wrapper wrap-sticky">
+    <div class="sidebar-wrap" data-aos="fade-up">
+      
+        <div class="sidebar-toc-sidebar"><div class="sidebar-toc">
+  <h3 class="toc-title">文章目录</h3>
+  <div class="sidebar-toc-wrapper toc-div-class" >
+      
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text"> 前言</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#package-version"><span class="toc-number">1.1.</span> <span class="toc-text"> package version</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9C%A8%E5%90%8E%E5%8F%B0%E8%BF%90%E8%A1%8C%E4%BB%BB%E5%8A%A1%E6%88%96%E8%BF%9B%E7%A8%8B"><span class="toc-number">2.</span> <span class="toc-text"> 在后台运行任务或进程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BE%93%E5%87%BA%E9%87%8D%E5%AE%9A%E5%90%91"><span class="toc-number">2.1.</span> <span class="toc-text"> 输出重定向</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E4%BB%BB%E5%8A%A1%E6%88%96%E5%BF%BD%E7%95%A5sighub"><span class="toc-number">2.2.</span> <span class="toc-text"> 删除任务或忽略SIGHUB</span></a></li></ol></li></ol>
+      
+  </div>
+</div>
+</div>
+        <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img data-src="/avatar/avatar.jpg" data-sizes="auto" alt="Stalk" class="lazyload">
+  <div class="sidebar-author-name">Stalk</div>
+  <div class="sidebar-description">Stalk的个人学习笔记</div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div>
+    <div class="sidebar-state-number">7</div>
+  </div>
+  <div class="sidebar-state-category">
+    <div>分类</div>
+    <div class="sidebar-state-number">4</div>
+  </div>
+  <div class="sidebar-state-tag">
+    <div>标签</div>
+    <div class="sidebar-state-number">7</div>
+  </div>
+</div>
+<div class="sidebar-social">
+  
+    <div class="icon-email sidebar-social-icon">
+      <a href=mailto:stalk.work@outlook.com itemprop="url" target="_blank" aria-label="email" rel="noopener external nofollow noreferrer"></a>
+    </div>
+  
+    <div class="icon-github sidebar-social-icon">
+      <a href=https://github.com/stalk-evolto itemprop="url" target="_blank" aria-label="github" rel="noopener external nofollow noreferrer"></a>
+    </div>
+  
+</div>
+<div class="sidebar-menu">
+  
+    
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/" aria-label="首页"></a>
+        <div class="sidebar-menu-icon icon rotate">
+          &#xe62b;
+        </div>
+        <div class="sidebar-menu-link">首页</div>
+      </div>
+    
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/archives" aria-label="归档"></a>
+        <div class="sidebar-menu-icon icon rotate">
+          &#xe62b;
+        </div>
+        <div class="sidebar-menu-link">归档</div>
+      </div>
+    
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/about" aria-label="关于"></a>
+        <div class="sidebar-menu-icon icon rotate">
+          &#xe62b;
+        </div>
+        <div class="sidebar-menu-link">关于</div>
+      </div>
+    
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/friend" aria-label="友链"></a>
+        <div class="sidebar-menu-icon icon rotate">
+          &#xe62b;
+        </div>
+        <div class="sidebar-menu-link">友链</div>
+      </div>
+    
+  
+</div>
+</div>
+      
+      
+        <div class="sidebar-btn-wrapper" style="position:static">
+          <div class="sidebar-toc-btn current"></div>
+          <div class="sidebar-common-btn"></div>
+        </div>
+      
+    </div>
+  </div>
+
+  <div class="sidebar-widget">
+  
+  </div>
+</aside>
+
+          <section id="main"><article id="post-Linux让命令在后台运行" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner" data-aos="fade-up">
+    <div class="article-meta">
+      <div class="article-date">
+  <a href="/2025-01-03-Linux%E8%AE%A9%E5%91%BD%E4%BB%A4%E5%9C%A8%E5%90%8E%E5%8F%B0%E8%BF%90%E8%A1%8C.html" class="article-date-link" data-aos="zoom-in">
+    <time datetime="2025-01-02T22:09:21.000Z" itemprop="datePublished">2025-01-03</time>
+    <time style="display: none;" id="post-update-time">2025-01-04</time>
+  </a>
+</div>
+
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Docs/" data-aos="zoom-in">Docs</a>
+  </div>
+
+
+    </div>
+    <div class="hr-line"></div>
+    
+
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <blockquote id="outdate-blockquote" style="display: none;"><p></p></blockquote>
+      
+      
+        <h1 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h1>
+<p>平时我们使用shell命令的时候，如果命令执行时间较长，我们就要等待命令执行完毕才能执行下一条命令。时间长了，你可能会怀念GUI操作的最小化某个任务，这样我们可以在几个任务间切换，不需要经历长时间的等待。<br />
+那么，在shell里面能不能实现类似最小化的操作呢？<br />
+Linux天生是为了多任务多用户协同操作的系统，这当然是可以的。我准备在Ubuntu下实验Linux让命令在后台运行的方法。</p>
+<h2 id="package-version"><a class="markdownIt-Anchor" href="#package-version"></a> package version</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">package</th>
+<th style="text-align:left">version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">ubuntu</td>
+<td style="text-align:left">25.04</td>
+</tr>
+</tbody>
+</table>
+<h1 id="在后台运行任务或进程"><a class="markdownIt-Anchor" href="#在后台运行任务或进程"></a> 在后台运行任务或进程</h1>
+<p>举个例子，我现在要运行<strong>pidgin</strong>程序：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ pidgin</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>终端到这就阻塞住了，我需要<strong>关掉pidgin的GUI</strong>，终端才能输入下一条命令。</p>
+<p>这时可以在终端中输入<code>Ctrl-z</code>组合键（<strong>Ctrl</strong>和<strong>z</strong>按键）暂停<strong>pidgin</strong>。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ pidgin</span><br><span class="line">^Z</span><br><span class="line">[1]+  已停止               pidgin</span><br><span class="line">$</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>注：</strong> <code>Ctrl-z</code>实际上是向<strong>pidgin</strong>发送了<code>SIGTSTP</code>信号，更多信号可以到<strong>POSIX Signal</strong>的WIKI页面了解。</p>
+<ul>
+<li>Signal_(IPC) WIKI: <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Signal_(IPC)">https://en.wikipedia.org/wiki/Signal_(IPC)</a><br />
+我们可以使用<code>kill</code>命令向任何进程或任务传递<strong>POSIX信号</strong>。</li>
+</ul>
+</blockquote>
+<p>这时候<strong>pidgin</strong>作业被停止并放到后台了，我们可以通过<code>jobs</code>命令查看放到后台的作业：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">jobs</span></span><br><span class="line">[1]+  已停止               pidgin</span><br><span class="line">$</span><br></pre></td></tr></table></figure>
+<p>但是放到后台的<strong>pidgin</strong>作业状态是已停止，我们可以用<code>bg</code>命令(background)让终端知道这个任务<strong>放到后台运行</strong>。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">bg</span> %1</span><br><span class="line">[1]- pidgin &amp;</span><br><span class="line">$</span><br></pre></td></tr></table></figure>
+<p>这时候**任务[1]**就在后台运行了。可以用<code>jobs</code>查看一下:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">jobs</span></span><br><span class="line">[1]+  运行中               pidgin &amp;</span><br><span class="line">$</span><br></pre></td></tr></table></figure>
+<p>这时这个任务就在后台运行了，我们可以使用<code>fg</code>命令(foreground)让任务放到前台。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">fg</span> %1</span><br><span class="line">pidgin</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>这时，终端又变回刚开始的阻塞状态啦。</p>
+<p>当然，你也可以在执行命令的时候在命令末尾添加一个<code>&amp;</code>，这可以省略上面很多操作:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ pidgin &amp;</span><br><span class="line">[1] 42644</span><br><span class="line">$ <span class="built_in">jobs</span></span><br><span class="line">[1]+  运行中               pidgin &amp;</span><br><span class="line">$</span><br></pre></td></tr></table></figure>
+<p>但是这两种方式让任务在后台运行有一些共同的问题:</p>
+<ul>
+<li>任务的输出还会在终端出现。<s>冷不丁终端冒出来一句话还是挺讨厌的</s></li>
+<li>关闭终端时会向作业发送<code>SIGHUP</code>信号挂断作业</li>
+</ul>
+<h2 id="输出重定向"><a class="markdownIt-Anchor" href="#输出重定向"></a> 输出重定向</h2>
+<p>我们先来解决第一个问题，首先我们要了解重定向(<code>&gt;</code>)与追加重定向(<code>&gt;&gt;</code>)：<br />
+以<code>ls</code>命令为例，我想让它的输出写入文件<code>list.txt</code>里，我可以这样做:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">ls</span> &gt; list.txt</span><br><span class="line">$</span><br></pre></td></tr></table></figure>
+<p>这样在当前位置就会出现一个<code>list.txt</code>的文件，里面记录着<code>ls</code>的输出。</p>
+<p>如果<code>list.txt</code>文件记录着别的文本，使用<code>&gt;</code>重定向会先清空原有的文本再记录。</p>
+<p>要想不丢失原有的记录可以使用追加重定向<code>&gt;&gt;</code>，它不会清空原有的文本，而是从原有文本末尾开始新的记录。</p>
+<p>说到这，应该可以猜到我们可以这样解决第一个问题：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ pidgin &gt; file.log &amp;</span><br></pre></td></tr></table></figure>
+<p>把<strong>pidgin</strong>的输出重定向到<code>file.log</code>里。但是在使用过程中，你会发现终端时不时会冒出<strong>pidgin</strong>的报错信息。这时为什么呢?</p>
+<p>这就要了解一下，Linux的<strong>文件描述符</strong>:<br />
+每个Unix进程（也许守护进程除外）应该具有三个标准 POSIX 文件描述符，对应于三个标准流：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">整数值</th>
+<th style="text-align:left">姓名</th>
+<th style="text-align:left">&lt; unistd.h &gt;符号常量</th>
+<th style="text-align:left">&lt; stdio.h &gt;文件流</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:left">标准输入</td>
+<td style="text-align:left">STDIN_FILENO</td>
+<td style="text-align:left">标准输入</td>
+</tr>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:left">标准输出</td>
+<td style="text-align:left">STDOUT_FILENO</td>
+<td style="text-align:left">标准输出</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:left">标准错误</td>
+<td style="text-align:left">STDERR_FILENO</td>
+<td style="text-align:left">标准错误</td>
+</tr>
+</tbody>
+</table>
+<p>这三个文件描述符可以在<code>/proc/&#123;PID&#125;/fd</code>目录下找到，<code>&#123;PID&#125;</code>是任务的进程号。例如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ pidgin &amp;</span><br><span class="line">[1] 36175</span><br><span class="line">$ ps -e | grep pidgin</span><br><span class="line">  36175 pts/1    00:00:00 pidgin</span><br><span class="line">$</span><br></pre></td></tr></table></figure>
+<p>可以看到<strong>pidgin</strong>的进程号为<strong>36175</strong>，所以我们可以在<code>/proc/36175/fd</code>目录下找到<strong>pidgin的文件描述符</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">ls</span> /proc/36175/fd</span><br><span class="line">0   11  14  17  2   22  25  28  30  33  36  39  41  44  47  5   7</span><br><span class="line">1   12  15  18  20  23  26  29  31  34  37  4   42  45  48  50  8</span><br><span class="line">10  13  16  19  21  24  27  3   32  35  38  40  43  46  49  6   9</span><br><span class="line">$</span><br></pre></td></tr></table></figure>
+<p>别的目前还不知道代表什么，但是我们知道：</p>
+<ul>
+<li><code>0</code>代表<strong>pidgin</strong>的标准输入<code>stdin</code></li>
+<li><code>1</code>代表<strong>pidgin</strong>的标准输出<code>stdout</code></li>
+<li><code>2</code>代表<strong>pidgin</strong>的标准错误<code>stderr</code></li>
+</ul>
+<blockquote>
+<p><strong>注：</strong> 更多文件描述符信息，参阅WIKI:</p>
+<ul>
+<li>File descriptor: <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/File_descriptor">https://en.wikipedia.org/wiki/File_descriptor</a></li>
+</ul>
+</blockquote>
+<p>哦，原来程序的输出和报错是两个东西。那我们可以把标准错误追加到标准输出里：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ pidgin &gt; file.log 2&gt;&amp;1 &amp;</span><br><span class="line">[1] 36175</span><br><span class="line">$</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>你可能对这条命令很疑惑，我看一些回答稍微理解了一点，但是还不能很好的表述其中的道理。详情请参阅：</p>
+<ul>
+<li>bash manual Redirections: <a target="_blank" rel="noopener" href="https://www.gnu.org/software/bash/manual/bash.html#Redirections">https://www.gnu.org/software/bash/manual/bash.html#Redirections</a></li>
+<li>Shell redirection i/o order: <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/17975232/shell-redirection-i-o-order">https://stackoverflow.com/questions/17975232/shell-redirection-i-o-order</a></li>
+</ul>
+</blockquote>
+<p>那我不想记录任务的输出，只想让它安静的运行怎么办？<br />
+可以先了解一个linux的伪设备：</p>
+<ul>
+<li><code>/dev/null</code> 接受并丢弃写入其中的所有输入；读取时提供文件结束指示。</li>
+</ul>
+<p><code>/dev/null</code>就像一个无底洞，任何写入都会被丢弃，所以可以这样：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ pidgin &gt; /dev/null 2&gt;&amp;1 &amp;</span><br><span class="line">[1] 36175</span><br><span class="line">$</span><br></pre></td></tr></table></figure>
+<p>就满足要求啦。</p>
+<blockquote>
+<p><strong>注：</strong> 更多伪设备信息请参考<strong>Device file</strong>的WIKI页面：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Device_file#Pseudo-devices">https://en.wikipedia.org/wiki/Device_file#Pseudo-devices</a></li>
+</ul>
+</blockquote>
+<h2 id="删除任务或忽略sighub"><a class="markdownIt-Anchor" href="#删除任务或忽略sighub"></a> 删除任务或忽略<code>SIGHUB</code></h2>
+<p>对于第二个问题，关闭终端的时候会向终端的任务列表发送<code>SIGHUB</code>信号，使得任务断联自动终止。<br />
+显然有两种解决办法：</p>
+<ul>
+<li>将任务从终端的任务列表中删除。</li>
+<li>让任务忽略<code>SIGHUB</code>信号。</li>
+</ul>
+<ol>
+<li>我们可以使用<code>disown</code>将任务从当前终端的任务列表中删除。例如</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ pidgin &gt; /dev/null 2&gt;&amp;1 &amp;</span><br><span class="line">[1] 36175</span><br><span class="line">$ <span class="built_in">jobs</span></span><br><span class="line">[1]+  运行中               pidgin &gt; /dev/null 2&gt;&amp;1 &amp;</span><br><span class="line">$ <span class="built_in">disown</span> %1</span><br><span class="line">$ <span class="built_in">jobs</span></span><br><span class="line">$</span><br></pre></td></tr></table></figure>
+<p>可以看到在用<code>disown</code>删除任务后，再运行<code>jobs</code>就看不到这个任务了。<br />
+要想终止这个任务，就只能用进程号了。例如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ ps -e | grep pidgin</span><br><span class="line">  36175 pts/1    00:00:00 pidgin</span><br><span class="line">$ <span class="built_in">kill</span> -TERM 36175</span><br><span class="line">$</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>我们还可以用<code>nohub</code>来告诉终端这个任务忽略<code>SIGHUB</code>信号，例如</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ nohub pidgin &gt; /dev/null 2&gt;&amp;1 &amp;</span><br><span class="line">[1] 36175</span><br></pre></td></tr></table></figure>
+<p>也能达到上述效果。</p>
+<p>当然，让应用在后台运行的方式肯定不止这一种啦。使用<code>systemd</code>和<code>sysVinit</code>也是不错的方式。有时间再细说吧！！<br />
+<s>我要暂时退出vim去享受我的人生啦</s></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <blockquote class="article-copyright">
+    <p><strong>本文作者：</strong>Stalk @ Stalk's Blog</p>
+    
+    
+    <p><strong>本文发布时间：</strong>2025-01-03 06:09:21</p>
+    <p><strong>本文修改时间：</strong>2025-01-04 12:58:06</p>
+    <p><strong>本文版权：</strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener external nofollow noreferrer" target="_blank"><span class="icon-creative-commons"></span>BY-NC-SA</a> 许可协议。转载请注明出处！</p>
+    <span class="icon-creative-commons article-copyright-bg"></span>
+  </blockquote>
+      
+      
+        <div class="sponsor-wrapper">
+  <div class="sponsor-button-wrapper">
+    <div class="sponsor-icon rotate"></div>
+    <div class="sponsor-title">赞助</div>
+    <div class="sponsor-icon rotate"></div>
+  </div>
+  <div class="sponsor-tip">请作者喝杯咖啡吧！</div>
+  
+    <div class="sponsor-qr">
+      
+        <div class="sponsor-qr-image-wrapper">
+          <img src="/sponsor/alipay.jpg" alt=支付宝 width="200" />
+          <p class="sponsor-qr-name">支付宝</p>
+        </div>
+      
+        <div class="sponsor-qr-image-wrapper">
+          <img src="/sponsor/wechat.png" alt=微信 width="200" />
+          <p class="sponsor-qr-name">微信</p>
+        </div>
+      
+    </div>
+  
+</div>
+      
+      
+      
+        <a data-aos="zoom-in" href="/2025-01-03-Linux%E8%AE%A9%E5%91%BD%E4%BB%A4%E5%9C%A8%E5%90%8E%E5%8F%B0%E8%BF%90%E8%A1%8C.html#comments" class="article-comment-link">
+          <span class="post-comments-count waline-comment-count" data-path="/2025-01-03-Linux%E8%AE%A9%E5%91%BD%E4%BB%A4%E5%9C%A8%E5%90%8E%E5%8F%B0%E8%BF%90%E8%A1%8C.html" itemprop="commentCount"></span>
+          留言
+        </a>
+      
+      
+      
+      
+        <span data-aos="zoom-in" class="article-visitor-link">
+          <span class="waline-pageview-count" data-path="/2025-01-03-Linux%E8%AE%A9%E5%91%BD%E4%BB%A4%E5%9C%A8%E5%90%8E%E5%8F%B0%E8%BF%90%E8%A1%8C.html">0</span>
+          <em class="post-meta-item-text">阅读量</em>
+        </span>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item" data-aos="zoom-in"><a class="article-tag-list-link" href="/tags/notes/" rel="tag">notes</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+  <nav id="article-nav" data-aos="fade-up">
+    
+    
+    <div class="article-nav-link-wrap article-nav-link-right">
+      
+        
+        
+          <img data-src="/images/banner.webp" data-sizes="auto" alt="ubuntu启动项被玩坏的急救措施" class="lazyload">
+        
+      
+      <a href="/2024-12-09-ubuntu%E5%90%AF%E5%8A%A8%E9%A1%B9%E8%A2%AB%E7%8E%A9%E5%9D%8F%E7%9A%84%E6%80%A5%E6%95%91%E6%8E%AA%E6%96%BD.html"></a>
+      <div class="article-nav-caption">后一篇</div>
+      <h3 class="article-nav-title">
+        
+          ubuntu启动项被玩坏的急救措施
+        
+      </h3>
+    </div>
+    
+  </nav>
+
+
+</article>
+
+
+  <div id="comments" class="wcomment" data-aos="fade-up"></div>
+
+
+
+
+
+</section>
+        </div>
+        
+        
+        <footer id="footer">
+  <div style="width: 100%; overflow: hidden">
+    <div class="footer-line"></div>
+  </div>
+  <div id="footer-info">
+    
+    <div>
+      <span class="icon-copyright"></span>
+      2020-2025
+      <span class="footer-info-sep rotate"></span>
+      Stalk
+    </div>
+    
+      <div>
+        基于&nbsp;<a href="https://hexo.io/" rel="noopener external nofollow noreferrer" target="_blank">Hexo</a>&nbsp;
+        Theme.<a href="https://github.com/D-Sketon/hexo-theme-reimu" rel="noopener external nofollow noreferrer" target="_blank">Reimu</a>
+      </div>
+    
+    
+      <div>
+        <span class="icon-brush"></span>
+        25.5k
+        &nbsp;|&nbsp;
+        <span class="icon-coffee"></span>
+        01:35
+      </div>
+    
+    
+    
+    
+      <div>
+        <span class="icon-eye"></span>
+        <span id="busuanzi_container_site_pv">总访问量&nbsp;<span id="busuanzi_value_site_pv"></span></span>
+        &nbsp;|&nbsp;
+        <span class="icon-user"></span>
+        <span id="busuanzi_container_site_uv">总访客量&nbsp;<span id="busuanzi_value_site_uv"></span></span>
+      </div>
+    
+  </div>
+</footer>
+
+        
+          <div class="sidebar-top">
+            <div class="sidebar-top-taichi rotate"></div>
+            <div class="arrow-up"></div>
+          </div>
+        
+        <div id="mask" class="hide"></div>
+      </div>
+      <nav id="mobile-nav">
+  <div class="sidebar-wrap">
+    
+      <div class="sidebar-toc-sidebar"><div class="sidebar-toc">
+  <h3 class="toc-title">文章目录</h3>
+  <div class="sidebar-toc-wrapper toc-div-class" >
+      
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text"> 前言</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#package-version"><span class="toc-number">1.1.</span> <span class="toc-text"> package version</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9C%A8%E5%90%8E%E5%8F%B0%E8%BF%90%E8%A1%8C%E4%BB%BB%E5%8A%A1%E6%88%96%E8%BF%9B%E7%A8%8B"><span class="toc-number">2.</span> <span class="toc-text"> 在后台运行任务或进程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BE%93%E5%87%BA%E9%87%8D%E5%AE%9A%E5%90%91"><span class="toc-number">2.1.</span> <span class="toc-text"> 输出重定向</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E4%BB%BB%E5%8A%A1%E6%88%96%E5%BF%BD%E7%95%A5sighub"><span class="toc-number">2.2.</span> <span class="toc-text"> 删除任务或忽略SIGHUB</span></a></li></ol></li></ol>
+      
+  </div>
+</div>
+</div>
+      <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img data-src="/avatar/avatar.jpg" data-sizes="auto" alt="Stalk" class="lazyload">
+  <div class="sidebar-author-name">Stalk</div>
+  <div class="sidebar-description">Stalk的个人学习笔记</div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div>
+    <div class="sidebar-state-number">7</div>
+  </div>
+  <div class="sidebar-state-category">
+    <div>分类</div>
+    <div class="sidebar-state-number">4</div>
+  </div>
+  <div class="sidebar-state-tag">
+    <div>标签</div>
+    <div class="sidebar-state-number">7</div>
+  </div>
+</div>
+<div class="sidebar-social">
+  
+    <div class="icon-email sidebar-social-icon">
+      <a href=mailto:stalk.work@outlook.com itemprop="url" target="_blank" aria-label="email" rel="noopener external nofollow noreferrer"></a>
+    </div>
+  
+    <div class="icon-github sidebar-social-icon">
+      <a href=https://github.com/stalk-evolto itemprop="url" target="_blank" aria-label="github" rel="noopener external nofollow noreferrer"></a>
+    </div>
+  
+</div>
+<div class="sidebar-menu">
+  
+    
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/" aria-label="首页"></a>
+        <div class="sidebar-menu-icon icon rotate">
+          &#xe62b;
+        </div>
+        <div class="sidebar-menu-link">首页</div>
+      </div>
+    
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/archives" aria-label="归档"></a>
+        <div class="sidebar-menu-icon icon rotate">
+          &#xe62b;
+        </div>
+        <div class="sidebar-menu-link">归档</div>
+      </div>
+    
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/about" aria-label="关于"></a>
+        <div class="sidebar-menu-icon icon rotate">
+          &#xe62b;
+        </div>
+        <div class="sidebar-menu-link">关于</div>
+      </div>
+    
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/friend" aria-label="友链"></a>
+        <div class="sidebar-menu-icon icon rotate">
+          &#xe62b;
+        </div>
+        <div class="sidebar-menu-link">友链</div>
+      </div>
+    
+  
+</div>
+</div>
+    
+  </div>
+  
+    <div class="sidebar-btn-wrapper">
+      <div class="sidebar-toc-btn current"></div>
+      <div class="sidebar-common-btn"></div>
+    </div>
+  
+</nav>
+
+    </div>
+    
+      <div class="site-search">
+        <div class="reimu-popup popup">
+          <div class="reimu-search">
+            <div class="reimu-search-input-icon"></div>
+            <div class="reimu-search-input" id="reimu-search-input"></div>
+            <div class="popup-btn-close"></div>
+          </div>
+          <div class="reimu-results">
+            <div id="reimu-stats"></div>
+            <div id="reimu-hits"></div>
+            <div id="reimu-pagination" class="reimu-pagination"></div>
+          </div>
+          <img class="reimu-bg" src="/images/reimu.png"/>
+        </div>
+      </div>
+    
+    
+<script src="https://npm.webcache.cn/lazysizes@5.3.2/lazysizes.min.js" integrity="sha384-3gT&#x2F;vsepWkfz&#x2F;ff7PpWNUeMzeWoH3cDhm&#x2F;A8jM7ouoAK0&#x2F;fP&#x2F;9bcHHR5kHq2nf+e" crossorigin="anonymous"></script>
+
+
+<script src="https://npm.webcache.cn/clipboard@2.0.11/dist/clipboard.min.js" integrity="sha384-J08i8An&#x2F;QeARD9ExYpvphB8BsyOj3Gh2TSh1aLINKO3L0cMSH2dN3E22zFoXEi0Q" crossorigin="anonymous"></script>
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+  
+<script src="/js/aos.js"></script>
+
+  <script>
+    var aosInit = () => {
+      AOS.init({
+        duration: 1000,
+        easing: "ease",
+        once: true,
+        offset: 50,
+      });
+    };
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', aosInit);
+    } else {
+      aosInit();
+    }
+  </script>
+
+
+
+<script src="/js/pjax_script.js" data-pjax></script>
+
+
+
+
+
+  <script>
+    var ALGOLIA_CONFIG = {
+      logo: "/images/algolia_logo.svg",
+      algolia: {
+        applicationID: "BN7RV40HPM",
+        apiKey: "756b480abba71960272bb3ff4ccbe338",
+        indexName: "stalk_blog",
+        hits: {
+          "per_page": parseInt("10")
+        },
+        labels: {
+          "input_placeholder": "搜索.....",
+          "hits_empty": "未发现与 「${query}」相关内容",
+          "hits_stats": "找到${hits}条结果（用时 ${time} ms）"
+        }
+      }
+    };
+  </script>
+  
+<script src="https://npm.webcache.cn/algoliasearch@4.17.1/dist/algoliasearch-lite.umd.js" integrity="sha384-xvLS0jfKuoREs7pqkRI&#x2F;OI8GcqohO5S+jQz7ZBtQXnsXmD+9jDOOY4cL6dCPzlrk" crossorigin="anonymous" defer></script>
+
+  
+<script src="https://npm.webcache.cn/instantsearch.js@4.56.1/dist/instantsearch.production.min.js" integrity="sha384-hHJCflT4KBLQyHfKO9vpstIcFKn&#x2F;Y+KHTORelMMEn7mOp2AVPp+7fr03dLgZiV3J" crossorigin="anonymous" defer></script>
+
+  
+<script src="/js/algolia_search.js" defer></script>
+
+
+
+
+
+
+
+
+
+
+  
+<script src="https://npm.webcache.cn/live2d-widgets@0.9.0/autoload.js" integrity="sha384-poTN7wN&#x2F;SqNhQqo3jdFeX20ikddWeFGkUkDEzsKjgH&#x2F;ez8aQLn81oI0Cw6q5xNyB" crossorigin="anonymous"></script>
+
+
+
+
+
+<div id="lazy-script">
+  <div>
+    
+      
+<script src="https://npm.webcache.cn/mermaid@9.4.3/dist/mermaid.min.js" integrity="sha384-aG3Gai4tbCHF0iXo48HwLoOZyut7mBl50oMC9GD1m75xyHfJDv6w8hD&#x2F;kZRD47aJ" crossorigin="anonymous" data-pjax></script>
+
+      <script data-pjax>
+        if (window.mermaid) {
+          // https://github.com/mermaid-js/mermaid/issues/1945
+          const elementCode = '.mermaid'
+          const saveOriginalData = () => {
+            return new Promise((resolve, reject) => {
+              try {
+                let els = _$$(elementCode),
+                    count = els.length;
+                els.forEach(element => {
+                  if (element.getAttribute('data-original-code') == null){
+                    element.setAttribute('data-original-code', element.innerHTML)
+                  }
+                  count--
+                  if(count == 0){
+                    resolve()
+                  }
+                });
+              } catch (error) {
+              reject(error) 
+              }
+            })
+          }
+          const resetProcessed = () => {
+            return new Promise((resolve, reject) => {
+              try {
+                let els = _$$(elementCode),
+                    count = els.length;
+                els.forEach(element => {
+                  if(element.getAttribute('data-original-code') != null){
+                    element.removeAttribute('data-processed')
+                    element.innerHTML = element.getAttribute('data-original-code')
+                  }
+                  count--
+                  if(count == 0){
+                    resolve()
+                  }
+                });
+              } catch (error) {
+              reject(error) 
+              }
+            })
+          } 
+          const loadMermaid = (theme) => {
+            window.mermaid.initialize({theme})
+            window.mermaid.init({theme}, _$$(elementCode))
+          }
+          document.body.addEventListener('dark-theme-set', () => {
+            saveOriginalData()
+            .then(resetProcessed())
+            .then(loadMermaid('dark'))
+            .catch(console.error)
+          })
+          document.body.addEventListener('light-theme-set', () => {
+            saveOriginalData()
+            .then(resetProcessed())
+            .then(loadMermaid('default'))
+            .catch(console.error)
+          })
+          if(localStorage.getItem('dark_mode') == 'true') {
+            saveOriginalData()
+            .then(resetProcessed())
+            .then(loadMermaid('dark'))
+            .catch(console.error)
+          } else {
+            saveOriginalData()
+            .then(resetProcessed())
+            .then(loadMermaid('default'))
+            .catch(console.error)
+          }
+        }
+      </script>
+    
+    
+      
+        
+<script src="/js/insert_highlight.js" data-pjax></script>
+
+      
+    
+    
+      <script type="module" data-pjax>
+        const PhotoSwipeLightbox = (await safeImport("https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe-lightbox.esm.min.js", "sha384-DiL6M/gG+wmTxmCRZyD1zee6lIhawn5TGvED0FOh7fXcN9B0aZ9dexSF/N6lrZi/")).default;
+        
+        const pswp = () => {
+          if (_$$('.article-entry a.article-gallery-item').length > 0) {
+            new PhotoSwipeLightbox({
+              gallery: '.article-entry',
+              children: 'a.article-gallery-item',
+              pswpModule: () => safeImport("https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8+oTJ7m3DfYEWX1fu1scuS4+s")
+            }).init();
+          }
+          if(_$$('.article-gallery a.article-gallery-item').length > 0) {
+            new PhotoSwipeLightbox({
+              gallery: '.article-gallery',
+              children: 'a.article-gallery-item',
+              pswpModule: () => safeImport("https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8+oTJ7m3DfYEWX1fu1scuS4+s")
+            }).init();
+          }
+          window.lightboxStatus = 'done';
+          window.removeEventListener('lightbox:ready', pswp);
+        }
+        if(window.lightboxStatus === 'ready') {
+          pswp()
+        } else {
+          window.addEventListener('lightbox:ready', pswp);
+        }
+      </script>
+      
+
+
+  <script data-pjax type="module">
+    const { init } = await safeImport("https://npm.webcache.cn/@waline/client@2.15.8/dist/waline.mjs", "sha384-9sbqJjrfGjbkI6/PI4nU/MvBfEmkkPC4YK9I4zBeMIf1CVCZdCMH/KinBEAZII/5")
+    if(_$('.wcomment')) {
+      window.walineInstance = init({
+        el: '.wcomment',
+        serverURL: 'https://stalkblogwaline.vercel.app',
+        lang: 'zh-CN',
+        locale: {},
+        emoji: ["https://unpkg.com/@waline/emojis@1.2.0/weibo","https://unpkg.com/@waline/emojis@1.2.0/alus","https://unpkg.com/@waline/emojis@1.2.0/bilibili","https://unpkg.com/@waline/emojis@1.2.0/qq","https://unpkg.com/@waline/emojis@1.2.0/tieba","https://unpkg.com/@waline/emojis@1.2.0/tw-emoji"],
+        meta: ["nick","mail","link"],
+        requiredMeta: ["nick","mail"],
+        wordLimit: JSON.parse('0'),
+        comment: true,
+        pageSize: JSON.parse('10'),
+        dark: 'html[data-theme="dark"]',
+        pageview: JSON.parse('true'),
+    });
+    }
+  </script>
+
+
+
+
+
+
+
+    
+  </div>
+</div>
+
+
+  <script>
+    console.log(String.raw`%c 
+ ______     ______     __     __    __     __  __    
+/\  == \   /\  ___\   /\ \   /\ "-./  \   /\ \/\ \   
+\ \  __<   \ \  __\   \ \ \  \ \ \-./\ \  \ \ \_\ \  
+ \ \_\ \_\  \ \_____\  \ \_\  \ \_\ \ \_\  \ \_____\ 
+  \/_/ /_/   \/_____/   \/_/   \/_/  \/_/   \/_____/ 
+                                                  
+`,'color: #ff5252;')
+    console.log('%c Theme.Reimu v' + '1.2.0' + ' %c https://github.com/D-Sketon/hexo-theme-reimu ', 'color: white; background: #ff5252; padding:5px 0;', 'padding:4px;border:1px solid #ff5252;')
+  </script>
+  
+
+<script data-pjax>
+  var updateTime = _$('#post-update-time')?.innerHTML;
+
+  if (updateTime) {
+    const update = new Date(updateTime);
+    const now = new Date();
+    const diff = now - update;
+    const days = diff / 86400000;
+    const { daysAgo, message: template } = window.REIMU_CONFIG.outdate;
+    if (days >= daysAgo) {
+      const message = template.replace(/{time}/, updateTime);
+      const blockquote = _$('#outdate-blockquote');
+      if (blockquote) {
+        blockquote.querySelector('p').innerText = message;
+        blockquote.style.display = 'block';
+      }
+    }
+  }
+</script>
+
+
+  
+<script src="https://npm.webcache.cn/busuanzi@2.3.0/bsz.pure.mini.js" integrity="sha384-0M75wtSkhjIInv4coYlaJU83+OypaRCIq2SukQVQX04eGTCBXJDuWAbJet56id+S" crossorigin="anonymous" async></script>
+
+
+
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.getRegistrations().then((registrations) => {
+      for (let registration of registrations) {
+        registration.unregister();
+      }
+    });
+  }
+</script>
+
+
+
+  
+
+
+
+
+
+
+  </body>
+  </html>
+
